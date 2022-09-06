@@ -5,7 +5,7 @@ postproc=cat
 
 # Aquila defaults
 port=13032
-example_host=node10.aquila.org
+example_host=node1.aquilanetwork.org
 
 # called-as name
 name="${0##*/}"
@@ -48,7 +48,7 @@ done
 if [ "${name}" = "uncia" ]; then
 	port=${testnet:+61392}
 	port=${port:-13032}
-	example_host=node10.aquila.org
+	example_host=node1.aquilanetwork.org
 fi
 
 if [ -z "$*" ]; then
