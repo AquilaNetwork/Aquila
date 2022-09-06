@@ -71,8 +71,8 @@ public class Network {
      */
     private static final long HANDSHAKE_TIMEOUT = 60 * 1000L; // ms
 
-    private static final byte[] MAINNET_MESSAGE_MAGIC = new byte[]{0x51, 0x4f, 0x52, 0x54}; // QORT
-    private static final byte[] TESTNET_MESSAGE_MAGIC = new byte[]{0x71, 0x6f, 0x72, 0x54}; // qorT
+    private static final byte[] MAINNET_MESSAGE_MAGIC = new byte[]{0x51, 0x4f, 0x52, 0x54}; // UNCIA
+    private static final byte[] TESTNET_MESSAGE_MAGIC = new byte[]{0x71, 0x6f, 0x72, 0x54}; // uncia
 
     private static final String[] INITIAL_PEERS = new String[]{
             "node1.aquila.org", "node2.aquila.org", "node3.aquila.org", "node4.aquila.org", "node5.aquila.org",
