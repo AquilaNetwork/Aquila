@@ -17,7 +17,7 @@ if (@ARGV < 1) {
 	print STDERR "-d: debug, -p: process (broadcast) transaction, -s: sign, -t: testnet\n";
 	print STDERR "example: $proc PAYMENT P22kW91AJfDNBj32nVii292hhfo5AgvUYPz5W12ExsjE AxxQZiK7LZBjmpGjRz1FAZSx9MJDCoaHqz 0.1\n";
 	print STDERR "example: $proc JOIN_GROUP X92h3hf9k20kBj32nVnoh3XT14o5AgvUYPz5W12ExsjE 3\n";
-	print STDERR "example: BASE_URL=node10.aquila.org $proc JOIN_GROUP CB2DW91AJfd47432nVnoh3XT14o5AgvUYPz5W12ExsjE 3\n";
+	print STDERR "example: BASE_URL=node1.aquilanetwork.org $proc JOIN_GROUP CB2DW91AJfd47432nVnoh3XT14o5AgvUYPz5W12ExsjE 3\n";
 	print STDERR "example: $proc -p sign C4ifh827ffDNBj32nVnoh3XT14o5AgvUYPz5W12ExsjE 111jivxUwerRw...Fjtu\n";
 	print STDERR "for help: $proc all\n";
 	print STDERR "for help: $proc REGISTER_NAME\n";
@@ -142,7 +142,7 @@ our %TRANSACTION_TYPES = (
 	# Cross-chain trading
 	build_trade => {
 		url => 'crosschain/build',
-		required => [qw(initialQortAmount finalQortAmount fundingQortAmount secretHash bitcoinAmount)],
+		required => [qw(initialUnciaAmount finalUnciaAmount fundingUnciaAmount secretHash bitcoinAmount)],
 		optional => [qw(tradeTimeout)],
 		key_name => 'creatorPublicKey',
 		defaults => { tradeTimeout => 10800 },
