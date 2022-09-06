@@ -12,14 +12,14 @@ import org.aquila.utils.Amounts;
 public class Asset {
 
 	/**
-	 * QORT coins are just another asset but with fixed assetId of zero.
+	 * UNCIA coins are just another asset but with fixed assetId of zero.
 	 */
-	public static final long QORT = 0L;
+	public static final long UNCIA = 0L;
 
 	/** Hard-coded asset representing legacy QORA held in old QORA1 blockchain. */
 	public static final long LEGACY_QORA = 1L;
-	/** Hard-coded asset representing QORT gained from holding legacy QORA. */
-	public static final long QORT_FROM_QORA = 2L;
+	/** Hard-coded asset representing UNCIA gained from holding legacy QORA. */
+	public static final long UNCIA_FROM_QORA = 2L;
 
 	// Other useful constants
 
