@@ -1,4 +1,4 @@
-package org.qortal.api.resource;
+package org.aquila.api.resource;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -17,26 +17,26 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
-import org.qortal.api.ApiError;
-import org.qortal.api.ApiErrors;
-import org.qortal.api.ApiExceptionFactory;
-import org.qortal.api.Security;
-import org.qortal.crypto.Crypto;
-import org.qortal.data.chat.ActiveChats;
-import org.qortal.data.chat.ChatMessage;
-import org.qortal.data.transaction.ChatTransactionData;
-import org.qortal.data.transaction.TransactionData;
-import org.qortal.repository.DataException;
-import org.qortal.repository.Repository;
-import org.qortal.repository.RepositoryManager;
-import org.qortal.transaction.ChatTransaction;
-import org.qortal.transaction.Transaction;
-import org.qortal.transaction.Transaction.TransactionType;
-import org.qortal.transaction.Transaction.ValidationResult;
-import org.qortal.transform.TransformationException;
-import org.qortal.transform.transaction.ChatTransactionTransformer;
-import org.qortal.transform.transaction.TransactionTransformer;
-import org.qortal.utils.Base58;
+import org.aquila.api.ApiError;
+import org.aquila.api.ApiErrors;
+import org.aquila.api.ApiExceptionFactory;
+import org.aquila.api.Security;
+import org.aquila.crypto.Crypto;
+import org.aquila.data.chat.ActiveChats;
+import org.aquila.data.chat.ChatMessage;
+import org.aquila.data.transaction.ChatTransactionData;
+import org.aquila.data.transaction.TransactionData;
+import org.aquila.repository.DataException;
+import org.aquila.repository.Repository;
+import org.aquila.repository.RepositoryManager;
+import org.aquila.transaction.ChatTransaction;
+import org.aquila.transaction.Transaction;
+import org.aquila.transaction.Transaction.TransactionType;
+import org.aquila.transaction.Transaction.ValidationResult;
+import org.aquila.transform.TransformationException;
+import org.aquila.transform.transaction.ChatTransactionTransformer;
+import org.aquila.transform.transaction.TransactionTransformer;
+import org.aquila.utils.Base58;
 
 import com.google.common.primitives.Bytes;
 

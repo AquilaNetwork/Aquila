@@ -251,7 +251,7 @@ public class AddressesResource {
 	@Path("/balance/{address}")
 	@Operation(
 		summary = "Returns account balance",
-		description = "Returns account's QORT balance, or of other specified asset",
+		description = "Returns account's Uncia balance, or of other specified asset",
 		responses = {
 			@ApiResponse(
 				description = "the balance",
@@ -269,7 +269,7 @@ public class AddressesResource {
 			Account account = new Account(repository, address);
 
 			if (assetId == null)
-				assetId = Asset.QORT;
+				assetId = Asset.UNCIA;
 			else if (!repository.getAssetRepository().assetExists(assetId))
 				throw ApiExceptionFactory.INSTANCE.createException(request, ApiError.INVALID_ASSET_ID);
 

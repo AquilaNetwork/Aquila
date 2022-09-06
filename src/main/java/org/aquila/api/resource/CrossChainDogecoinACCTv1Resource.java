@@ -46,7 +46,7 @@ public class CrossChainDogecoinACCTv1Resource {
 	@Operation(
 		summary = "Signs and broadcasts a 'redeem' MESSAGE transaction that sends secrets to AT, releasing funds to partner",
 		description = "Specify address of cross-chain AT that needs to be messaged, Alice's trade private key, the 32-byte secret,<br>"
-			+ "and an address for receiving QORT from AT. All of these can be found in Alice's trade bot data.<br>"
+			+ "and an address for receiving UNCIA from AT. All of these can be found in Alice's trade bot data.<br>"
 			+ "AT needs to be in 'trade' mode. Messages sent to an AT in any other mode will be ignored, but still cost fees to send!<br>"
 			+ "You need to use the private key that the AT considers the trade 'partner' otherwise the MESSAGE transaction will be invalid.",
 		requestBody = @RequestBody(

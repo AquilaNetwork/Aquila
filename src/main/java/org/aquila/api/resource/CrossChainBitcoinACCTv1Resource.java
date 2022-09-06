@@ -1,4 +1,4 @@
-package org.qortal.api.resource;
+package org.aquila.api.resource;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -18,40 +18,40 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
-import org.qortal.account.PublicKeyAccount;
-import org.qortal.api.ApiError;
-import org.qortal.api.ApiErrors;
-import org.qortal.api.ApiExceptionFactory;
-import org.qortal.api.Security;
-import org.qortal.api.model.CrossChainBuildRequest;
-import org.qortal.api.model.CrossChainDualSecretRequest;
-import org.qortal.api.model.CrossChainTradeRequest;
-import org.qortal.asset.Asset;
-import org.qortal.crosschain.BitcoinACCTv1;
-import org.qortal.crosschain.Bitcoiny;
-import org.qortal.crosschain.AcctMode;
-import org.qortal.crypto.Crypto;
-import org.qortal.data.at.ATData;
-import org.qortal.data.crosschain.CrossChainTradeData;
-import org.qortal.data.transaction.BaseTransactionData;
-import org.qortal.data.transaction.DeployAtTransactionData;
-import org.qortal.data.transaction.MessageTransactionData;
-import org.qortal.data.transaction.TransactionData;
-import org.qortal.group.Group;
-import org.qortal.repository.DataException;
-import org.qortal.repository.Repository;
-import org.qortal.repository.RepositoryManager;
-import org.qortal.transaction.DeployAtTransaction;
-import org.qortal.transaction.MessageTransaction;
-import org.qortal.transaction.Transaction;
-import org.qortal.transaction.Transaction.TransactionType;
-import org.qortal.transaction.Transaction.ValidationResult;
-import org.qortal.transform.TransformationException;
-import org.qortal.transform.Transformer;
-import org.qortal.transform.transaction.DeployAtTransactionTransformer;
-import org.qortal.transform.transaction.MessageTransactionTransformer;
-import org.qortal.utils.Base58;
-import org.qortal.utils.NTP;
+import org.aquila.account.PublicKeyAccount;
+import org.aquila.api.ApiError;
+import org.aquila.api.ApiErrors;
+import org.aquila.api.ApiExceptionFactory;
+import org.aquila.api.Security;
+import org.aquila.api.model.CrossChainBuildRequest;
+import org.aquila.api.model.CrossChainDualSecretRequest;
+import org.aquila.api.model.CrossChainTradeRequest;
+import org.aquila.asset.Asset;
+import org.aquila.crosschain.BitcoinACCTv1;
+import org.aquila.crosschain.Bitcoiny;
+import org.aquila.crosschain.AcctMode;
+import org.aquila.crypto.Crypto;
+import org.aquila.data.at.ATData;
+import org.aquila.data.crosschain.CrossChainTradeData;
+import org.aquila.data.transaction.BaseTransactionData;
+import org.aquila.data.transaction.DeployAtTransactionData;
+import org.aquila.data.transaction.MessageTransactionData;
+import org.aquila.data.transaction.TransactionData;
+import org.aquila.group.Group;
+import org.aquila.repository.DataException;
+import org.aquila.repository.Repository;
+import org.aquila.repository.RepositoryManager;
+import org.aquila.transaction.DeployAtTransaction;
+import org.aquila.transaction.MessageTransaction;
+import org.aquila.transaction.Transaction;
+import org.aquila.transaction.Transaction.TransactionType;
+import org.aquila.transaction.Transaction.ValidationResult;
+import org.aquila.transform.TransformationException;
+import org.aquila.transform.Transformer;
+import org.aquila.transform.transaction.DeployAtTransactionTransformer;
+import org.aquila.transform.transaction.MessageTransactionTransformer;
+import org.aquila.utils.Base58;
+import org.aquila.utils.NTP;
 
 @Path("/crosschain/BitcoinACCTv1")
 @Tag(name = "Cross-Chain (BitcoinACCTv1)")
@@ -99,14 +99,14 @@ public class CrossChainBitcoinACCTv1Resource {
 			if (tradeRequest.tradeTimeout < 10 || tradeRequest.tradeTimeout > 50000)
 				throw ApiExceptionFactory.INSTANCE.createException(request, ApiError.INVALID_DATA);
 
-		if (tradeRequest.qortAmount <= 0)
+		if (tradeRequest.unciaAmount <= 0)
 			throw ApiExceptionFactory.INSTANCE.createException(request, ApiError.INVALID_DATA);
 
-		if (tradeRequest.fundingQortAmount <= 0)
+		if (tradeRequest.fundingUnciaAmount <= 0)
 			throw ApiExceptionFactory.INSTANCE.createException(request, ApiError.INVALID_DATA);
 
 		// funding amount must exceed initial + final
-		if (tradeRequest.fundingQortAmount <= tradeRequest.qortAmount)
+		if (tradeRequest.fundingUnciaAmount <= tradeRequest.unciaAmount)
 			throw ApiExceptionFactory.INSTANCE.createException(request, ApiError.INVALID_DATA);
 
 		if (tradeRequest.bitcoinAmount <= 0)
@@ -115,8 +115,8 @@ public class CrossChainBitcoinACCTv1Resource {
 		try (final Repository repository = RepositoryManager.getRepository()) {
 			PublicKeyAccount creatorAccount = new PublicKeyAccount(repository, creatorPublicKey);
 
-			byte[] creationBytes = BitcoinACCTv1.buildQortalAT(creatorAccount.getAddress(), tradeRequest.bitcoinPublicKeyHash, tradeRequest.hashOfSecretB,
-					tradeRequest.qortAmount, tradeRequest.bitcoinAmount, tradeRequest.tradeTimeout);
+			byte[] creationBytes = BitcoinACCTv1.buildAquilaAT(creatorAccount.getAddress(), tradeRequest.bitcoinPublicKeyHash, tradeRequest.hashOfSecretB,
+					tradeRequest.unciaAmount, tradeRequest.bitcoinAmount, tradeRequest.tradeTimeout);
 
 			long txTimestamp = NTP.getTime();
 			byte[] lastReference = creatorAccount.getLastReference();
@@ -124,13 +124,13 @@ public class CrossChainBitcoinACCTv1Resource {
 				throw ApiExceptionFactory.INSTANCE.createException(request, ApiError.INVALID_REFERENCE);
 
 			long fee = 0;
-			String name = "QORT-BTC cross-chain trade";
-			String description = "Qortal-Bitcoin cross-chain trade";
+			String name = "UNCIA-BTC cross-chain trade";
+			String description = "Aquila-Bitcoin cross-chain trade";
 			String atType = "ACCT";
-			String tags = "QORT-BTC ACCT";
+			String tags = "UNCIA-BTC ACCT";
 
 			BaseTransactionData baseTransactionData = new BaseTransactionData(txTimestamp, Group.NO_GROUP, lastReference, creatorAccount.getPublicKey(), fee, null);
-			TransactionData deployAtTransactionData = new DeployAtTransactionData(baseTransactionData, name, description, atType, tags, creationBytes, tradeRequest.fundingQortAmount, Asset.QORT);
+			TransactionData deployAtTransactionData = new DeployAtTransactionData(baseTransactionData, name, description, atType, tags, creationBytes, tradeRequest.fundingUnciaAmount, Asset.UNCIA);
 
 			Transaction deployAtTransaction = new DeployAtTransaction(repository, deployAtTransactionData);
 
@@ -200,7 +200,7 @@ public class CrossChainBitcoinACCTv1Resource {
 				throw ApiExceptionFactory.INSTANCE.createException(request, ApiError.INVALID_CRITERIA);
 
 			// Does supplied public key match trade public key?
-			if (!Crypto.toAddress(tradePublicKey).equals(crossChainTradeData.qortalCreatorTradeAddress))
+			if (!Crypto.toAddress(tradePublicKey).equals(crossChainTradeData.aquilaCreatorTradeAddress))
 				throw ApiExceptionFactory.INSTANCE.createException(request, ApiError.INVALID_PUBLIC_KEY);
 
 			TransactionData transactionData = repository.getTransactionRepository().fromSignature(tradeRequest.messageTransactionSignature);
@@ -238,7 +238,7 @@ public class CrossChainBitcoinACCTv1Resource {
 	@Path("/redeemmessage")
 	@Operation(
 		summary = "Builds raw, unsigned 'redeem' MESSAGE transaction that sends secrets to AT, releasing funds to partner",
-		description = "Specify address of cross-chain AT that needs to be messaged, both 32-byte secrets and an address for receiving QORT from AT.<br>"
+		description = "Specify address of cross-chain AT that needs to be messaged, both 32-byte secrets and an address for receiving UNCIA from AT.<br>"
 			+ "AT needs to be in 'trade' mode. Messages sent to an AT in any other mode will be ignored, but still cost fees to send!<br>"
 			+ "You need to sign output with account the AT considers the trade 'partner' otherwise the MESSAGE transaction will be invalid.",
 		requestBody = @RequestBody(
@@ -292,7 +292,7 @@ public class CrossChainBitcoinACCTv1Resource {
 			String partnerAddress = Crypto.toAddress(partnerPublicKey);
 
 			// MESSAGE must come from address that AT considers trade partner
-			if (!crossChainTradeData.qortalPartnerAddress.equals(partnerAddress))
+			if (!crossChainTradeData.aquilaPartnerAddress.equals(partnerAddress))
 				throw ApiExceptionFactory.INSTANCE.createException(request, ApiError.INVALID_ADDRESS);
 
 			// Good to make MESSAGE

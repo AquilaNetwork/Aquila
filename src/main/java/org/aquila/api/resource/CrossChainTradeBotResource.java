@@ -135,7 +135,7 @@ public class CrossChainTradeBotResource {
 		if (tradeBotCreateRequest.foreignAmount < foreignBlockchain.getMinimumOrderAmount())
 			throw ApiExceptionFactory.INSTANCE.createException(request, ApiError.ORDER_SIZE_TOO_SMALL);
 
-		if (tradeBotCreateRequest.qortAmount <= 0 || tradeBotCreateRequest.fundingQortAmount <= 0)
+		if (tradeBotCreateRequest.unciaAmount <= 0 || tradeBotCreateRequest.fundingUnciaAmount <= 0)
 			throw ApiExceptionFactory.INSTANCE.createException(request, ApiError.ORDER_SIZE_TOO_SMALL);
 
 		final Long minLatestBlockTimestamp = NTP.getTime() - (60 * 60 * 1000L);
@@ -146,7 +146,7 @@ public class CrossChainTradeBotResource {
 			// Do some simple checking first
 			Account creator = new PublicKeyAccount(repository, tradeBotCreateRequest.creatorPublicKey);
 
-			if (creator.getConfirmedBalance(Asset.QORT) < tradeBotCreateRequest.fundingQortAmount)
+			if (creator.getConfirmedBalance(Asset.UNCIA) < tradeBotCreateRequest.fundingUnciaAmount)
 				throw ApiExceptionFactory.INSTANCE.createException(request, ApiError.INSUFFICIENT_BALANCE);
 
 			byte[] unsignedBytes = TradeBot.getInstance().createTrade(repository, tradeBotCreateRequest);
