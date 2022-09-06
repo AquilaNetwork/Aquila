@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 // All properties to be converted to JSON via JAXB
 @XmlAccessorType(XmlAccessType.FIELD)
-public class QortFromQoraData {
+public class UnciaFromQoraData {
 
 	// Properties
 
@@ -15,7 +15,7 @@ public class QortFromQoraData {
 
 	// Not always present
 	@XmlJavaTypeAdapter(value = org.aquila.api.AmountTypeAdapter.class)
-	private Long finalQortFromQora;
+	private Long finalUnciaFromQora;
 
 	// Not always present
 	private Integer finalBlockHeight;
@@ -23,12 +23,12 @@ public class QortFromQoraData {
 	// Constructors
 
 	// necessary for JAXB
-	protected QortFromQoraData() {
+	protected UnciaFromQoraData() {
 	}
 
-	public QortFromQoraData(String address, Long finalQortFromQora, Integer finalBlockHeight) {
+	public UnciaFromQoraData(String address, Long finalUnciaFromQora, Integer finalBlockHeight) {
 		this.address = address;
-		this.finalQortFromQora = finalQortFromQora;
+		this.finalUnciaFromQora = finalUnciaFromQora;
 		this.finalBlockHeight = finalBlockHeight;
 	}
 
@@ -38,12 +38,12 @@ public class QortFromQoraData {
 		return this.address;
 	}
 
-	public Long getFinalQortFromQora() {
-		return this.finalQortFromQora;
+	public Long getFinalUnciaFromQora() {
+		return this.finalUnciaFromQora;
 	}
 
-	public void setFinalQortFromQora(Long finalQortFromQora) {
-		this.finalQortFromQora = finalQortFromQora;
+	public void setFinalUnciaFromQora(Long finalUnciaFromQora) {
+		this.finalUnciaFromQora = finalUnciaFromQora;
 	}
 
 	public Integer getFinalBlockHeight() {

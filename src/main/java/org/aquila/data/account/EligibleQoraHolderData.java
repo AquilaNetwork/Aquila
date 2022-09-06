@@ -7,19 +7,19 @@ public class EligibleQoraHolderData {
 	private String address;
 
 	private long qoraBalance;
-	private long qortFromQoraBalance;
+	private long unciaFromQoraBalance;
 
-	private Long finalQortFromQora;
+	private Long finalUnciaFromQora;
 	private Integer finalBlockHeight;
 
 	// Constructors
 
-	public EligibleQoraHolderData(String address, long qoraBalance, long qortFromQoraBalance, Long finalQortFromQora,
+	public EligibleQoraHolderData(String address, long qoraBalance, long unciaFromQoraBalance, Long finalUnciaFromQora,
 			Integer finalBlockHeight) {
 		this.address = address;
 		this.qoraBalance = qoraBalance;
-		this.qortFromQoraBalance = qortFromQoraBalance;
-		this.finalQortFromQora = finalQortFromQora;
+		this.unciaFromQoraBalance = unciaFromQoraBalance;
+		this.finalUnciaFromQora = finalUnciaFromQora;
 		this.finalBlockHeight = finalBlockHeight;
 	}
 
@@ -33,12 +33,12 @@ public class EligibleQoraHolderData {
 		return this.qoraBalance;
 	}
 
-	public long getQortFromQoraBalance() {
-		return this.qortFromQoraBalance;
+	public long getUnciaFromQoraBalance() {
+		return this.unciaFromQoraBalance;
 	}
 
-	public Long getFinalQortFromQora() {
-		return this.finalQortFromQora;
+	public Long getFinalUnciaFromQora() {
+		return this.finalUnciaFromQora;
 	}
 
 	public Integer getFinalBlockHeight() {
