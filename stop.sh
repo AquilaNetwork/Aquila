@@ -22,9 +22,9 @@ read pid 2>/dev/null <run.pid
 is_pid_valid=$?
 
 # Swap out the API port if the --testnet (or -t) argument is specified
-api_port=12391
+api_port=13032
 if [[ "$@" = *"--testnet"* ]] || [[  "$@" = *"-t"* ]]; then
-  api_port=62391
+  api_port=61392
 fi
 
 # Attempt to locate the process ID if we don't have one
