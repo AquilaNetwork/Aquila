@@ -113,7 +113,7 @@ public class RavencoinACCTv3TradeBot implements AcctTradeBot {
 	}
 
 	/**
-	 * Creates a new trade-bot entry from the "Bob" viewpoint, i.e. OFFERing QORT in exchange for RVN.
+	 * Creates a new trade-bot entry from the "Bob" viewpoint, i.e. OFFERing UNCIA in exchange for RVN.
 	 * <p>
 	 * Generates:
 	 * <ul>
@@ -128,7 +128,7 @@ public class RavencoinACCTv3TradeBot implements AcctTradeBot {
 	 * <ul>
 	 * 	<li>'native'/Aquila 'trade' address - used as a MESSAGE contact</li>
 	 * 	<li>'foreign'/Ravencoin public key hash - used by Alice's P2SH scripts to allow redeem</li>
-	 * 	<li>QORT amount on offer by Bob</li>
+	 * 	<li>UNCIA amount on offer by Bob</li>
 	 * 	<li>RVN amount expected in return by Bob (from Alice)</li>
 	 * 	<li>trading timeout, in case things go wrong and everyone needs to refund</li>
 	 * </ul>
@@ -172,15 +172,15 @@ public class RavencoinACCTv3TradeBot implements AcctTradeBot {
 		byte[] signature = null;
 		BaseTransactionData baseTransactionData = new BaseTransactionData(timestamp, Group.NO_GROUP, reference, creator.getPublicKey(), fee, signature);
 
-		String name = "QORT/RVN ACCT";
-		String description = "QORT/RVN cross-chain trade";
+		String name = "UNCIA/RVN ACCT";
+		String description = "UNCIA/RVN cross-chain trade";
 		String aTType = "ACCT";
-		String tags = "ACCT QORT RVN";
-		byte[] creationBytes = RavencoinACCTv3.buildAquilaAT(tradeNativeAddress, tradeForeignPublicKeyHash, tradeBotCreateRequest.qortAmount,
+		String tags = "ACCT UNCIA RVN";
+		byte[] creationBytes = RavencoinACCTv3.buildAquilaAT(tradeNativeAddress, tradeForeignPublicKeyHash, tradeBotCreateRequest.unciaAmount,
 				tradeBotCreateRequest.foreignAmount, tradeBotCreateRequest.tradeTimeout);
-		long amount = tradeBotCreateRequest.fundingQortAmount;
+		long amount = tradeBotCreateRequest.fundingUnciaAmount;
 
-		DeployAtTransactionData deployAtTransactionData = new DeployAtTransactionData(baseTransactionData, name, description, aTType, tags, creationBytes, amount, Asset.QORT);
+		DeployAtTransactionData deployAtTransactionData = new DeployAtTransactionData(baseTransactionData, name, description, aTType, tags, creationBytes, amount, Asset.UNCIA);
 
 		DeployAtTransaction deployAtTransaction = new DeployAtTransaction(repository, deployAtTransactionData);
 		fee = deployAtTransaction.calcRecommendedFee();
@@ -191,7 +191,7 @@ public class RavencoinACCTv3TradeBot implements AcctTradeBot {
 
 		TradeBotData tradeBotData =  new TradeBotData(tradePrivateKey, RavencoinACCTv3.NAME,
 				State.BOB_WAITING_FOR_AT_CONFIRM.name(), State.BOB_WAITING_FOR_AT_CONFIRM.value,
-				creator.getAddress(), atAddress, timestamp, tradeBotCreateRequest.qortAmount,
+				creator.getAddress(), atAddress, timestamp, tradeBotCreateRequest.unciaAmount,
 				tradeNativePublicKey, tradeNativePublicKeyHash, tradeNativeAddress,
 				null, null,
 				SupportedBlockchain.RAVENCOIN.name(),
@@ -268,7 +268,7 @@ public class RavencoinACCTv3TradeBot implements AcctTradeBot {
 
 		TradeBotData tradeBotData =  new TradeBotData(tradePrivateKey, RavencoinACCTv3.NAME,
 				State.ALICE_WAITING_FOR_AT_LOCK.name(), State.ALICE_WAITING_FOR_AT_LOCK.value,
-				receivingAddress, crossChainTradeData.aquilaAtAddress, now, crossChainTradeData.qortAmount,
+				receivingAddress, crossChainTradeData.aquilaAtAddress, now, crossChainTradeData.unciaAmount,
 				tradeNativePublicKey, tradeNativePublicKeyHash, tradeNativeAddress,
 				secretA, hashOfSecretA,
 				SupportedBlockchain.RAVENCOIN.name(),
@@ -456,7 +456,7 @@ public class RavencoinACCTv3TradeBot implements AcctTradeBot {
 	/**
 	 * Trade-bot is waiting for MESSAGE from Alice's trade-bot, containing Alice's trade info.
 	 * <p>
-	 * It's possible Bob has cancelling his trade offer, receiving an automatic QORT refund,
+	 * It's possible Bob has cancelling his trade offer, receiving an automatic UNCIA refund,
 	 * in which case trade-bot is done with this specific trade and finalizes on refunded state.
 	 * <p>
 	 * Assuming trade is still on offer, trade-bot checks the contents of MESSAGE from Alice's trade-bot.
@@ -577,7 +577,7 @@ public class RavencoinACCTv3TradeBot implements AcctTradeBot {
 	 * <p>
 	 * Assuming Bob's AT is locked to Alice, trade-bot checks AT's state data to make sure it is correct.
 	 * <p>
-	 * If all is well, trade-bot then redeems AT using Alice's secret-A, releasing Bob's QORT to Alice.
+	 * If all is well, trade-bot then redeems AT using Alice's secret-A, releasing Bob's UNCIA to Alice.
 	 * <p>
 	 * In revealing a valid secret-A, Bob can then redeem the RVN funds from P2SH-A.
 	 * <p>
@@ -689,7 +689,7 @@ public class RavencoinACCTv3TradeBot implements AcctTradeBot {
 	/**
 	 * Trade-bot is waiting for Alice to redeem Bob's AT, thus revealing secret-A which is required to spend the RVN funds from P2SH-A.
 	 * <p>
-	 * It's possible that Bob's AT has reached its trading timeout and automatically refunded QORT back to Bob. In which case,
+	 * It's possible that Bob's AT has reached its trading timeout and automatically refunded UNCIA back to Bob. In which case,
 	 * trade-bot is done with this specific trade and finalizes in refunded state.
 	 * <p>
 	 * Assuming trade-bot can extract a valid secret-A from Alice's MESSAGE then trade-bot uses that to redeem the RVN funds from P2SH-A
@@ -702,14 +702,14 @@ public class RavencoinACCTv3TradeBot implements AcctTradeBot {
 	 */
 	private void handleBobWaitingForAtRedeem(Repository repository, TradeBotData tradeBotData,
 			ATData atData, CrossChainTradeData crossChainTradeData) throws DataException, ForeignBlockchainException {
-		// AT should be 'finished' once Alice has redeemed QORT funds
+		// AT should be 'finished' once Alice has redeemed UNCIA funds
 		if (!atData.getIsFinished())
 			// Not finished yet
 			return;
 
 		// If AT is REFUNDED or CANCELLED then something has gone wrong
 		if (crossChainTradeData.mode == AcctMode.REFUNDED || crossChainTradeData.mode == AcctMode.CANCELLED) {
-			// Alice hasn't redeemed the QORT, so there is no point in trying to redeem the RVN
+			// Alice hasn't redeemed the UNCIA, so there is no point in trying to redeem the RVN
 			TradeBot.updateTradeBotState(repository, tradeBotData, State.BOB_REFUNDED,
 					() -> String.format("AT %s has auto-refunded - trade aborted", tradeBotData.getAtAddress()));
 

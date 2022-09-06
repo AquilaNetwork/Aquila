@@ -131,7 +131,7 @@ public class BitcoinACCTv1TradeBot implements AcctTradeBot {
 	}
 
 	/**
-	 * Creates a new trade-bot entry from the "Bob" viewpoint, i.e. OFFERing QORT in exchange for BTC.
+	 * Creates a new trade-bot entry from the "Bob" viewpoint, i.e. OFFERing UNCIA in exchange for BTC.
 	 * <p>
 	 * Generates:
 	 * <ul>
@@ -149,7 +149,7 @@ public class BitcoinACCTv1TradeBot implements AcctTradeBot {
 	 * 	<li>'native'/Aquila 'trade' address - used as a MESSAGE contact</li>
 	 * 	<li>'foreign'/Bitcoin public key hash - used by Alice's P2SH scripts to allow redeem</li>
 	 * 	<li>HASH160 of secret-B - used by AT and P2SH to validate a potential secret-B</li>
-	 * 	<li>QORT amount on offer by Bob</li>
+	 * 	<li>UNCIA amount on offer by Bob</li>
 	 * 	<li>BTC amount expected in return by Bob (from Alice)</li>
 	 * 	<li>trading timeout, in case things go wrong and everyone needs to refund</li>
 	 * </ul>
@@ -195,15 +195,15 @@ public class BitcoinACCTv1TradeBot implements AcctTradeBot {
 		byte[] signature = null;
 		BaseTransactionData baseTransactionData = new BaseTransactionData(timestamp, Group.NO_GROUP, reference, creator.getPublicKey(), fee, signature);
 
-		String name = "QORT/BTC ACCT";
-		String description = "QORT/BTC cross-chain trade";
+		String name = "UNCIA/BTC ACCT";
+		String description = "UNCIA/BTC cross-chain trade";
 		String aTType = "ACCT";
-		String tags = "ACCT QORT BTC";
-		byte[] creationBytes = BitcoinACCTv1.buildAquilaAT(tradeNativeAddress, tradeForeignPublicKeyHash, hashOfSecretB, tradeBotCreateRequest.qortAmount,
+		String tags = "ACCT UNCIA BTC";
+		byte[] creationBytes = BitcoinACCTv1.buildAquilaAT(tradeNativeAddress, tradeForeignPublicKeyHash, hashOfSecretB, tradeBotCreateRequest.unciaAmount,
 				tradeBotCreateRequest.foreignAmount, tradeBotCreateRequest.tradeTimeout);
-		long amount = tradeBotCreateRequest.fundingQortAmount;
+		long amount = tradeBotCreateRequest.fundingUnciaAmount;
 
-		DeployAtTransactionData deployAtTransactionData = new DeployAtTransactionData(baseTransactionData, name, description, aTType, tags, creationBytes, amount, Asset.QORT);
+		DeployAtTransactionData deployAtTransactionData = new DeployAtTransactionData(baseTransactionData, name, description, aTType, tags, creationBytes, amount, Asset.UNCIA);
 
 		DeployAtTransaction deployAtTransaction = new DeployAtTransaction(repository, deployAtTransactionData);
 		fee = deployAtTransaction.calcRecommendedFee();
@@ -214,7 +214,7 @@ public class BitcoinACCTv1TradeBot implements AcctTradeBot {
 
 		TradeBotData tradeBotData =  new TradeBotData(tradePrivateKey, BitcoinACCTv1.NAME,
 				State.BOB_WAITING_FOR_AT_CONFIRM.name(), State.BOB_WAITING_FOR_AT_CONFIRM.value,
-				creator.getAddress(), atAddress, timestamp, tradeBotCreateRequest.qortAmount,
+				creator.getAddress(), atAddress, timestamp, tradeBotCreateRequest.unciaAmount,
 				tradeNativePublicKey, tradeNativePublicKeyHash, tradeNativeAddress,
 				secretB, hashOfSecretB,
 				SupportedBlockchain.BITCOIN.name(),
@@ -288,7 +288,7 @@ public class BitcoinACCTv1TradeBot implements AcctTradeBot {
 
 		TradeBotData tradeBotData =  new TradeBotData(tradePrivateKey, BitcoinACCTv1.NAME,
 				State.ALICE_WAITING_FOR_P2SH_A.name(), State.ALICE_WAITING_FOR_P2SH_A.value,
-				receivingAddress, crossChainTradeData.aquilaAtAddress, now, crossChainTradeData.qortAmount,
+				receivingAddress, crossChainTradeData.aquilaAtAddress, now, crossChainTradeData.unciaAmount,
 				tradeNativePublicKey, tradeNativePublicKeyHash, tradeNativeAddress,
 				secretA, hashOfSecretA,
 				SupportedBlockchain.BITCOIN.name(),
@@ -567,7 +567,7 @@ public class BitcoinACCTv1TradeBot implements AcctTradeBot {
 	/**
 	 * Trade-bot is waiting for MESSAGE from Alice's trade-bot, containing Alice's trade info.
 	 * <p>
-	 * It's possible Bob has cancelling his trade offer, receiving an automatic QORT refund,
+	 * It's possible Bob has cancelling his trade offer, receiving an automatic UNCIA refund,
 	 * in which case trade-bot is done with this specific trade and finalizes on refunded state.
 	 * <p>
 	 * Assuming trade is still on offer, trade-bot checks the contents of MESSAGE from Alice's trade-bot.
@@ -844,7 +844,7 @@ public class BitcoinACCTv1TradeBot implements AcctTradeBot {
 	/**
 	 * Trade-bot is waiting for P2SH-B to funded.
 	 * <p>
-	 * It's possible than Bob's AT has reached it's trading timeout and automatically refunded QORT back to Bob.
+	 * It's possible than Bob's AT has reached it's trading timeout and automatically refunded UNCIA back to Bob.
 	 * In which case, trade-bot is done with this specific trade and finalizes on refunded state.
 	 * <p>
 	 * Assuming P2SH-B is funded, trade-bot 'redeems' this P2SH using secret-B, thus revealing it to Alice.
@@ -926,7 +926,7 @@ public class BitcoinACCTv1TradeBot implements AcctTradeBot {
 	 * If trade-bot can extract a valid secret-B from the spend of P2SH-B, then it creates a
 	 * zero-fee, PoW MESSAGE to send to Bob's AT, including both secret-B and also Alice's secret-A.
 	 * <p>
-	 * Both secrets are needed to release the QORT funds from Bob's AT to Alice's 'native'/Aquila
+	 * Both secrets are needed to release the UNCIA funds from Bob's AT to Alice's 'native'/Aquila
 	 * trade address.
 	 * <p>
 	 * In revealing a valid secret-A, Bob can then redeem the BTC funds from P2SH-A.
@@ -1007,7 +1007,7 @@ public class BitcoinACCTv1TradeBot implements AcctTradeBot {
 	/**
 	 * Trade-bot is waiting for Alice to redeem Bob's AT, thus revealing secret-A which is required to spend the BTC funds from P2SH-A.
 	 * <p>
-	 * It's possible that Bob's AT has reached its trading timeout and automatically refunded QORT back to Bob. In which case,
+	 * It's possible that Bob's AT has reached its trading timeout and automatically refunded UNCIA back to Bob. In which case,
 	 * trade-bot is done with this specific trade and finalizes in refunded state.
 	 * <p>
 	 * Assuming trade-bot can extract a valid secret-A from Alice's MESSAGE then trade-bot uses that to redeem the BTC funds from P2SH-A
@@ -1020,7 +1020,7 @@ public class BitcoinACCTv1TradeBot implements AcctTradeBot {
 	 */
 	private void handleBobWaitingForAtRedeem(Repository repository, TradeBotData tradeBotData,
 			ATData atData, CrossChainTradeData crossChainTradeData) throws DataException, ForeignBlockchainException {
-		// AT should be 'finished' once Alice has redeemed QORT funds
+		// AT should be 'finished' once Alice has redeemed UNCIA funds
 		if (!atData.getIsFinished())
 			// Not finished yet
 			return;
