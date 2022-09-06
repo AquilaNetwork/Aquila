@@ -36,9 +36,9 @@ public class CrossChainTradeData {
 	@Schema(description = "Suggested trade timeout (minutes)", example = "10080")
 	public int tradeTimeout;
 
-	@Schema(description = "AT's current QORT balance")
+	@Schema(description = "AT's current UNCIA balance")
 	@XmlJavaTypeAdapter(value = org.aquila.api.AmountTypeAdapter.class)
-	public long qortBalance;
+	public long unciaBalance;
 
 	@Schema(description = "HASH160 of 32-byte secret-A")
 	public byte[] hashOfSecretA;
@@ -48,7 +48,7 @@ public class CrossChainTradeData {
 
 	@Schema(description = "Final UPP payment that will be sent to Aquila trade partner")
 	@XmlJavaTypeAdapter(value = org.aquila.api.AmountTypeAdapter.class)
-	public long qortAmount;
+	public long unciaAmount;
 
 	@Schema(description = "Trade partner's Aquila address (trade begins when this is set)")
 	public String aquilaPartnerAddress;
