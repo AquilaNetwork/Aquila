@@ -40,25 +40,25 @@ The same method is used to obfuscate and de-obfuscate:
 
 ## Typical download locations
 The git SHA1 commit hash is used to replace `%s` in various download locations, e.g.:
-* https://github.com/Qortal/qortal/raw/%s/qortal.update
-* https://raw.githubusercontent.com@151.101.16.133/Qortal/qortal/%s/qortal.update
+* https://github.com/AquilaNetwork/Aquila/raw/%s/aquila.update
+* https://raw.githubusercontent.com@151.101.16.133/AquilaNetwork/Aquila/%s/aquila.update
 
-These locations are part of the org.qortal.settings.Settings class and can be overriden in settings.json like:
+These locations are part of the org.aquila.settings.Settings class and can be overriden in settings.json like:
 ```
   "autoUpdateRepos": [
-    "http://mirror.qortal.org/auto-updates/%s",
-    "https://server.host.name@1.2.3.4/Qortal/%s"
+    "http://mirror.aquilanetwork.org/auto-updates/%s",
+    "https://server.host.name@1.2.3.4/Aquila/%s"
   ]
 ```
 The latter entry is an example where the IP address is provided, bypassing name resolution, for situations where DNS is unreliable or unavailable.
 
 ## XOR tool
-To help with manual verification of auto-updates, there is a XOR tool included in the Qortal JAR.
+To help with manual verification of auto-updates, there is a XOR tool included in the Aquila JAR.
 It can be used thus:
 ```
-$ java -cp qortal.jar org.qortal.XorUpdate
+$ java -cp aquila.jar org.aquila.XorUpdate
 usage: XorUpdate <input-file> <output-file>
-$ java -cp qortal.jar org.qortal.XorUpdate qortal.jar qortal.update
+$ java -cp aquila.jar org.aquila.XorUpdate aquila.jar aquila.update
 $
 ```
 
