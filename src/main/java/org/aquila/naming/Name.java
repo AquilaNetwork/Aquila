@@ -206,7 +206,7 @@ public class Name {
 		if (modifyBalances) {
 			// Update seller's balance
 			Account seller = new Account(this.repository, this.nameData.getOwner());
-			seller.modifyAssetBalance(Asset.QORT, buyNameTransactionData.getAmount());
+			seller.modifyAssetBalance(Asset.UNCIA, buyNameTransactionData.getAmount());
 		}
 
 		// Set new owner
@@ -215,7 +215,7 @@ public class Name {
 
 		if (modifyBalances) {
 			// Update buyer's balance
-			buyer.modifyAssetBalance(Asset.QORT, -buyNameTransactionData.getAmount());
+			buyer.modifyAssetBalance(Asset.UNCIA, -buyNameTransactionData.getAmount());
 		}
 
 		// Set name-changing reference to this transaction
@@ -247,11 +247,11 @@ public class Name {
 
 		// Revert buyer's balance
 		Account buyer = new PublicKeyAccount(this.repository, buyNameTransactionData.getBuyerPublicKey());
-		buyer.modifyAssetBalance(Asset.QORT, buyNameTransactionData.getAmount());
+		buyer.modifyAssetBalance(Asset.UNCIA, buyNameTransactionData.getAmount());
 
 		// Revert seller's balance
 		Account seller = new Account(this.repository, buyNameTransactionData.getSeller());
-		seller.modifyAssetBalance(Asset.QORT, - buyNameTransactionData.getAmount());
+		seller.modifyAssetBalance(Asset.UNCIA, - buyNameTransactionData.getAmount());
 
 		// Clean previous name-changing reference from this transaction's data
 		// Caller is expected to save
