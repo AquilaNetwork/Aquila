@@ -16,7 +16,7 @@
 	You will need to calculate `rewardSharePublicKey` (and private key),
 	or make a new account on mainnet and use self-share key values
 - Add `ACCOUNT_LEVEL` transactions to set initial level of accounts as needed
-- Add `GENESIS` transactions to add QORT/LEGACY_QORA funds to accounts as needed
+- Add `GENESIS` transactions to add UNCIA/LEGACY_QORA funds to accounts as needed
 
 ## Testnet `settings.json`
 
@@ -68,9 +68,9 @@ This ensures that the testnet nodes only communicate with each other and not oth
 To do this, add the following setting to each testnet node, substituting the IP addresses:
 ```
 "fixedNetwork": [
-  "192.168.0.101:62392",
-  "192.168.0.102:62392",
-  "192.168.0.103:62392"
+  "192.168.0.101:61393",
+  "192.168.0.102:61393",
+  "192.168.0.103:61393"
 ]
 ```
 
@@ -88,8 +88,8 @@ Your options are:
 
 ## Tools
 
-- `qort` tool, but use `-t` option for default testnet API port (62391)
-- `qort` tool, but first set shell variable: `export BASE_URL=some-node-hostname-or-ip:port`
-- `qort` tool, but prepend with one-time shell variable: `BASE_URL=some-node-hostname-or-ip:port qort ......`
+- `uncia` tool, but use `-t` option for default testnet API port (62391)
+- `uncia` tool, but first set shell variable: `export BASE_URL=some-node-hostname-or-ip:port`
+- `uncia` tool, but prepend with one-time shell variable: `BASE_URL=some-node-hostname-or-ip:port uncia ......`
 - `peer-heights`, but use `-t` option, or `BASE_URL` shell variable as above
 
