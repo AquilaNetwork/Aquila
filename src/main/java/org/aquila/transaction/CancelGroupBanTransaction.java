@@ -77,7 +77,7 @@ public class CancelGroupBanTransaction extends Transaction {
 			return ValidationResult.BAN_UNKNOWN;
 
 		// Check admin has enough funds
-		if (admin.getConfirmedBalance(Asset.QORT) < this.groupUnbanTransactionData.getFee())
+		if (admin.getConfirmedBalance(Asset.UNCIA) < this.groupUnbanTransactionData.getFee())
 			return ValidationResult.NO_BALANCE;
 
 		return ValidationResult.OK;

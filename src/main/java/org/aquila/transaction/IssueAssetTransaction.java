@@ -77,7 +77,7 @@ public class IssueAssetTransaction extends Transaction {
 		Account issuer = getIssuer();
 
 		// Check issuer has enough funds
-		if (issuer.getConfirmedBalance(Asset.QORT) < this.issueAssetTransactionData.getFee())
+		if (issuer.getConfirmedBalance(Asset.UNCIA) < this.issueAssetTransactionData.getFee())
 			return ValidationResult.NO_BALANCE;
 
 		return ValidationResult.OK;

@@ -963,7 +963,7 @@ public abstract class Transaction {
 		Account creator = getCreator();
 
 		// Update transaction creator's balance
-		creator.modifyAssetBalance(Asset.QORT, - transactionData.getFee());
+		creator.modifyAssetBalance(Asset.UNCIA, - transactionData.getFee());
 
 		// Update transaction creator's reference (and possibly public key)
 		creator.setLastReference(transactionData.getSignature());
@@ -987,7 +987,7 @@ public abstract class Transaction {
 		Account creator = getCreator();
 
 		// Update transaction creator's balance
-		creator.modifyAssetBalance(Asset.QORT, transactionData.getFee());
+		creator.modifyAssetBalance(Asset.UNCIA, transactionData.getFee());
 
 		// Update transaction creator's reference (and possibly public key)
 		creator.setLastReference(transactionData.getReference());

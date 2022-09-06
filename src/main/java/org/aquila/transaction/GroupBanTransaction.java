@@ -81,7 +81,7 @@ public class GroupBanTransaction extends Transaction {
 			return ValidationResult.INVALID_GROUP_OWNER;
 
 		// Check admin has enough funds
-		if (admin.getConfirmedBalance(Asset.QORT) < this.groupBanTransactionData.getFee())
+		if (admin.getConfirmedBalance(Asset.UNCIA) < this.groupBanTransactionData.getFee())
 			return ValidationResult.NO_BALANCE;
 
 		return ValidationResult.OK;

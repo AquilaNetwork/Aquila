@@ -197,7 +197,7 @@ public class MessageTransaction extends Transaction {
 
 		// If message has no payment then we only need to do a simple balance check for fee
 		if (this.messageTransactionData.getAmount() == 0) {
-			if (getSender().getConfirmedBalance(Asset.QORT) < this.messageTransactionData.getFee())
+			if (getSender().getConfirmedBalance(Asset.UNCIA) < this.messageTransactionData.getFee())
 				return ValidationResult.NO_BALANCE;
 
 			return ValidationResult.OK;
@@ -272,7 +272,7 @@ public class MessageTransaction extends Transaction {
 			return;
 		}
 
-		// Wrap and delegate references processing to Payment class. Only update recipient's last reference if transferring QORT.
+		// Wrap and delegate references processing to Payment class. Only update recipient's last reference if transferring UNCIA.
 		new Payment(this.repository).processReferencesAndFees(this.messageTransactionData.getSenderPublicKey(),
 				getPaymentData(), this.messageTransactionData.getFee(), this.messageTransactionData.getSignature(),
 				false);
@@ -296,7 +296,7 @@ public class MessageTransaction extends Transaction {
 			return;
 		}
 
-		// Wrap and delegate references processing to Payment class. Only revert recipient's last reference if transferring QORT.
+		// Wrap and delegate references processing to Payment class. Only revert recipient's last reference if transferring UNCIA.
 		new Payment(this.repository).orphanReferencesAndFees(this.messageTransactionData.getSenderPublicKey(),
 				getPaymentData(), this.messageTransactionData.getFee(), this.messageTransactionData.getSignature(),
 				this.messageTransactionData.getReference(), false);

@@ -165,8 +165,8 @@ public class AtTransaction extends Transaction {
 			Account recipient = getRecipient();
 			long assetId = this.atTransactionData.getAssetId();
 
-			// For QORT amounts only: if recipient has no reference yet, then this is their starting reference
-			if (assetId == Asset.QORT && recipient.getLastReference() == null)
+			// For UNCIA amounts only: if recipient has no reference yet, then this is their starting reference
+			if (assetId == Asset.UNCIA && recipient.getLastReference() == null)
 				// In Qora1 last reference was set to 64-bytes of zero
 				// In Aquila we use AT-Transaction's signature, which makes more sense
 				recipient.setLastReference(this.atTransactionData.getSignature());
@@ -203,10 +203,10 @@ public class AtTransaction extends Transaction {
 			long assetId = this.atTransactionData.getAssetId();
 
 			/*
-			 * For QORT amounts only: If recipient's last reference is this transaction's signature, then they can't have made any transactions of their own
+			 * For UNCIA amounts only: If recipient's last reference is this transaction's signature, then they can't have made any transactions of their own
 			 * (which would have changed their last reference) thus this is their first reference so remove it.
 			 */
-			if (assetId == Asset.QORT && Arrays.equals(recipient.getLastReference(), this.atTransactionData.getSignature()))
+			if (assetId == Asset.UNCIA && Arrays.equals(recipient.getLastReference(), this.atTransactionData.getSignature()))
 				recipient.setLastReference(null);
 		}
 	}

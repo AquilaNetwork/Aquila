@@ -166,7 +166,7 @@ public class RewardShareTransaction extends Transaction {
 		// Fee checking needed if not setting up new self-share
 		if (!(isRecipientAlsoMinter && existingRewardShareData == null))
 			// Check creator has enough funds
-			if (creator.getConfirmedBalance(Asset.QORT) < this.rewardShareTransactionData.getFee())
+			if (creator.getConfirmedBalance(Asset.UNCIA) < this.rewardShareTransactionData.getFee())
 				return ValidationResult.NO_BALANCE;
 
 		return ValidationResult.OK;

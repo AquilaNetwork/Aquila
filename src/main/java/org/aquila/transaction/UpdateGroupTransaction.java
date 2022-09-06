@@ -85,7 +85,7 @@ public class UpdateGroupTransaction extends Transaction {
 		Account owner = getOwner();
 
 		// Check creator has enough funds
-		if (owner.getConfirmedBalance(Asset.QORT) < this.updateGroupTransactionData.getFee())
+		if (owner.getConfirmedBalance(Asset.UNCIA) < this.updateGroupTransactionData.getFee())
 			return ValidationResult.NO_BALANCE;
 
 		return ValidationResult.OK;

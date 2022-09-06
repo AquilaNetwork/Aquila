@@ -28,8 +28,8 @@ public class ChatTransaction extends Transaction {
 	// Other useful constants
 	public static final int MAX_DATA_SIZE = 256;
 	public static final int POW_BUFFER_SIZE = 8 * 1024 * 1024; // bytes
-	public static final int POW_DIFFICULTY_WITH_QORT = 8; // leading zero bits
-	public static final int POW_DIFFICULTY_NO_QORT = 12; // leading zero bits
+	public static final int POW_DIFFICULTY_WITH_UNCIA = 8; // leading zero bits
+	public static final int POW_DIFFICULTY_NO_UNCIA = 12; // leading zero bits
 
 	// Constructors
 
@@ -78,7 +78,7 @@ public class ChatTransaction extends Transaction {
 		// Clear nonce from transactionBytes
 		ChatTransactionTransformer.clearNonce(transactionBytes);
 
-		int difficulty = this.getSender().getConfirmedBalance(Asset.QORT) > 0 ? POW_DIFFICULTY_WITH_QORT : POW_DIFFICULTY_NO_QORT;
+		int difficulty = this.getSender().getConfirmedBalance(Asset.UNCIA) > 0 ? POW_DIFFICULTY_WITH_UNCIA : POW_DIFFICULTY_NO_UNCIA;
 
 		// Calculate nonce
 		this.chatTransactionData.setNonce(MemoryPoW.compute2(transactionBytes, POW_BUFFER_SIZE, difficulty));
@@ -204,7 +204,7 @@ public class ChatTransaction extends Transaction {
 
 		int difficulty;
 		try {
-			difficulty = this.getSender().getConfirmedBalance(Asset.QORT) > 0 ? POW_DIFFICULTY_WITH_QORT : POW_DIFFICULTY_NO_QORT;
+			difficulty = this.getSender().getConfirmedBalance(Asset.UNCIA) > 0 ? POW_DIFFICULTY_WITH_UNCIA : POW_DIFFICULTY_NO_UNCIA;
 		} catch (DataException e) {
 			return false;
 		}

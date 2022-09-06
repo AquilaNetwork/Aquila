@@ -77,7 +77,7 @@ public class CreateGroupTransaction extends Transaction {
 		Account creator = getCreator();
 
 		// Check creator has enough funds
-		if (creator.getConfirmedBalance(Asset.QORT) < this.createGroupTransactionData.getFee())
+		if (creator.getConfirmedBalance(Asset.UNCIA) < this.createGroupTransactionData.getFee())
 			return ValidationResult.NO_BALANCE;
 
 		return ValidationResult.OK;

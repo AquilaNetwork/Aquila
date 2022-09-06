@@ -74,7 +74,7 @@ public class RegisterNameTransaction extends Transaction {
 			return ValidationResult.INVALID_ADDRESS;
 
 		// Check registrant has enough funds
-		if (registrant.getConfirmedBalance(Asset.QORT) < this.registerNameTransactionData.getFee())
+		if (registrant.getConfirmedBalance(Asset.UNCIA) < this.registerNameTransactionData.getFee())
 			return ValidationResult.NO_BALANCE;
 
 		return ValidationResult.OK;

@@ -64,7 +64,7 @@ public class TransferPrivsTransaction extends Transaction {
 			return ValidationResult.ACCOUNT_ALREADY_EXISTS;
 
 		// Check sender has funds for fee
-		if (getSender().getConfirmedBalance(Asset.QORT) < this.transferPrivsTransactionData.getFee())
+		if (getSender().getConfirmedBalance(Asset.UNCIA) < this.transferPrivsTransactionData.getFee())
 			return ValidationResult.NO_BALANCE;
 
 		return ValidationResult.OK;

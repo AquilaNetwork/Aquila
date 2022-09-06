@@ -84,7 +84,7 @@ public class SellNameTransaction extends Transaction {
 			return ValidationResult.INVALID_AMOUNT;
 
 		// Check issuer has enough funds
-		if (owner.getConfirmedBalance(Asset.QORT) < this.sellNameTransactionData.getFee())
+		if (owner.getConfirmedBalance(Asset.UNCIA) < this.sellNameTransactionData.getFee())
 			return ValidationResult.NO_BALANCE;
 
 		return ValidationResult.OK;

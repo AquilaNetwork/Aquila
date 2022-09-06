@@ -91,7 +91,7 @@ public class CreatePollTransaction extends Transaction {
 		Account creator = getCreator();
 
 		// Check creator has enough funds
-		if (creator.getConfirmedBalance(Asset.QORT) < this.createPollTransactionData.getFee())
+		if (creator.getConfirmedBalance(Asset.UNCIA) < this.createPollTransactionData.getFee())
 			return ValidationResult.NO_BALANCE;
 
 		return ValidationResult.OK;

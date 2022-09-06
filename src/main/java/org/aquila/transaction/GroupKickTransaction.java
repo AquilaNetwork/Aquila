@@ -83,7 +83,7 @@ public class GroupKickTransaction extends Transaction {
 			return ValidationResult.INVALID_GROUP_OWNER;
 
 		// Check creator has enough funds
-		if (admin.getConfirmedBalance(Asset.QORT) < this.groupKickTransactionData.getFee())
+		if (admin.getConfirmedBalance(Asset.UNCIA) < this.groupKickTransactionData.getFee())
 			return ValidationResult.NO_BALANCE;
 
 		return ValidationResult.OK;
