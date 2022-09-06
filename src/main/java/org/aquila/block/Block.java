@@ -32,7 +32,7 @@ import org.aquila.crypto.Aquila25519Extras;
 import org.aquila.data.account.AccountBalanceData;
 import org.aquila.data.account.AccountData;
 import org.aquila.data.account.EligibleQoraHolderData;
-import org.aquila.data.account.QortFromQoraData;
+import org.aquila.data.account.UnciaFromQoraData;
 import org.aquila.data.account.RewardShareData;
 import org.aquila.data.at.ATData;
 import org.aquila.data.at.ATStateData;
@@ -1584,7 +1584,7 @@ public class Block {
 			Account atAccount = new Account(this.repository, atStateData.getATAddress());
 
 			// Subtract AT-generated fees from AT accounts
-			atAccount.modifyAssetBalance(Asset.QORT, - atStateData.getFees());
+			atAccount.modifyAssetBalance(Asset.UNCIA, - atStateData.getFees());
 
 			// Update AT info with latest state
 			ATData atData = atRepository.fromATAddress(atStateData.getATAddress());
@@ -1741,7 +1741,7 @@ public class Block {
 			Account atAccount = new Account(this.repository, atStateData.getATAddress());
 
 			// Return AT-generated fees to AT accounts
-			atAccount.modifyAssetBalance(Asset.QORT, atStateData.getFees());
+			atAccount.modifyAssetBalance(Asset.UNCIA, atStateData.getFees());
 
 			// Revert AT info to prior values
 			ATData atData = atRepository.fromATAddress(atStateData.getATAddress());
@@ -1846,7 +1846,7 @@ public class Block {
 
 		// Apply balance changes
 		List<AccountBalanceData> accountBalanceDeltas = balanceChanges.entrySet().stream()
-				.map(entry -> new AccountBalanceData(entry.getKey(), Asset.QORT, entry.getValue()))
+				.map(entry -> new AccountBalanceData(entry.getKey(), Asset.UNCIA, entry.getValue()))
 				.collect(Collectors.toList());
 		this.repository.getAccountRepository().modifyAssetBalances(accountBalanceDeltas);
 	}
@@ -1972,7 +1972,7 @@ public class Block {
 			totalShares += rewardCandidate.share;
 		}
 
-		// Fetch list of legacy QORA holders who haven't reached their cap of QORT reward.
+		// Fetch list of legacy QORA holders who haven't reached their cap of UNCIA reward.
 		List<EligibleQoraHolderData> qoraHolders = this.repository.getAccountRepository().getEligibleLegacyQoraHolders(isProcessingNotOrphaning ? null : this.blockData.getHeight());
 		final boolean haveQoraHolders = !qoraHolders.isEmpty();
 		final long qoraHoldersShare = BlockChain.getInstance().getQoraHoldersShare();
@@ -2058,8 +2058,8 @@ public class Block {
 	private static long distributeBlockRewardToQoraHolders(long qoraHoldersAmount, List<EligibleQoraHolderData> qoraHolders, Map<String, Long> balanceChanges, Block block) throws DataException {
 		final boolean isProcessingNotOrphaning = qoraHoldersAmount >= 0;
 
-		long qoraPerQortReward = BlockChain.getInstance().getQoraPerQortReward();
-		BigInteger qoraPerQortRewardBI = BigInteger.valueOf(qoraPerQortReward);
+		long qoraPerUnciaReward = BlockChain.getInstance().getQoraPerUnciaReward();
+		BigInteger qoraPerUnciaRewardBI = BigInteger.valueOf(qoraPerUnciaReward);
 
 		long totalQoraHeld = 0;
 		for (int i = 0; i < qoraHolders.size(); ++i)
@@ -2076,8 +2076,8 @@ public class Block {
 		BigInteger totalQoraHeldBI = BigInteger.valueOf(totalQoraHeld);
 
 		long sharedAmount = 0;
-		// For batched update of QORT_FROM_QORA balances
-		List<AccountBalanceData> newQortFromQoraBalances = new ArrayList<>();
+		// For batched update of UNCIA_FROM_QORA balances
+		List<AccountBalanceData> newUnciaFromQoraBalances = new ArrayList<>();
 
 		for (int h = 0; h < qoraHolders.size(); ++h) {
 			EligibleQoraHolderData qoraHolder = qoraHolders.get(h);
@@ -2096,22 +2096,22 @@ public class Block {
 			if (holderReward == 0)
 				continue;
 
-			long newQortFromQoraBalance = qoraHolder.getQortFromQoraBalance() + holderReward;
+			long newUnciaFromQoraBalance = qoraHolder.getUnciaFromQoraBalance() + holderReward;
 
 			// If processing, make sure we don't overpay
 			if (isProcessingNotOrphaning) {
-				long maxQortFromQora = Amounts.scaledDivide(qoraHolderBalanceBI, qoraPerQortRewardBI);
+				long maxUnciaFromQora = Amounts.scaledDivide(qoraHolderBalanceBI, qoraPerUnciaRewardBI);
 
-				if (newQortFromQoraBalance >= maxQortFromQora) {
-					// Reduce final QORT-from-QORA payment to match max
-					long adjustment = newQortFromQoraBalance - maxQortFromQora;
+				if (newUnciaFromQoraBalance >= maxUnciaFromQora) {
+					// Reduce final UNCIA-from-QORA payment to match max
+					long adjustment = newUnciaFromQoraBalance - maxUnciaFromQora;
 
 					holderReward -= adjustment;
-					newQortFromQoraBalance -= adjustment;
+					newUnciaFromQoraBalance -= adjustment;
 
-					// This is also the QORA holder's final QORT-from-QORA block
-					QortFromQoraData qortFromQoraData = new QortFromQoraData(qoraHolderAddress, holderReward, block.blockData.getHeight());
-					block.repository.getAccountRepository().save(qortFromQoraData);
+					// This is also the QORA holder's final UNCIA-from-QORA block
+					UnciaFromQoraData unciaFromQoraData = new UnciaFromQoraData(qoraHolderAddress, holderReward, block.blockData.getHeight());
+					block.repository.getAccountRepository().save(unciaFromQoraData);
 
 					long finalAdjustedHolderReward = holderReward;
 					LOGGER.trace(() -> String.format("QORA holder %s final share %s at height %d",
@@ -2120,15 +2120,15 @@ public class Block {
 			} else {
 				// Orphaning
 				if (qoraHolder.getFinalBlockHeight() != null) {
-					// Final QORT-from-QORA amount from repository was stored during processing, and hence positive.
-					// So we use + here as qortFromQora is negative during orphaning.
-					// More efficient than "holderReward - (0 - final-qort-from-qora)"
-					long adjustment = holderReward + qoraHolder.getFinalQortFromQora();
+					// Final UNCIA-from-QORA amount from repository was stored during processing, and hence positive.
+					// So we use + here as unciaFromQora is negative during orphaning.
+					// More efficient than "holderReward - (0 - final-uncia-from-qora)"
+					long adjustment = holderReward + qoraHolder.getFinalUnciaFromQora();
 
 					holderReward -= adjustment;
-					newQortFromQoraBalance -= adjustment;
+					newUnciaFromQoraBalance -= adjustment;
 
-					block.repository.getAccountRepository().deleteQortFromQoraInfo(qoraHolderAddress);
+					block.repository.getAccountRepository().deleteUnciaFromQoraInfo(qoraHolderAddress);
 
 					long finalAdjustedHolderReward = holderReward;
 					LOGGER.trace(() -> String.format("QORA holder %s final share %s was at height %d",
@@ -2138,14 +2138,14 @@ public class Block {
 
 			balanceChanges.merge(qoraHolderAddress, holderReward, Long::sum);
 
-			// Add to batched QORT_FROM_QORA balance update list
-			newQortFromQoraBalances.add(new AccountBalanceData(qoraHolderAddress, Asset.QORT_FROM_QORA, newQortFromQoraBalance));
+			// Add to batched UNCIA_FROM_QORA balance update list
+			newUnciaFromQoraBalances.add(new AccountBalanceData(qoraHolderAddress, Asset.UNCIA_FROM_QORA, newUnciaFromQoraBalance));
 
 			sharedAmount += holderReward;
 		}
 
-		// Perform batched update of QORT_FROM_QORA balances
-		block.repository.getAccountRepository().setAssetBalances(newQortFromQoraBalances);
+		// Perform batched update of UNCIA_FROM_QORA balances
+		block.repository.getAccountRepository().setAssetBalances(newUnciaFromQoraBalances);
 
 		return sharedAmount;
 	}

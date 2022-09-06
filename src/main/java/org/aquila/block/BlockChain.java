@@ -130,9 +130,9 @@ public class BlockChain {
 	@XmlJavaTypeAdapter(value = org.aquila.api.AmountTypeAdapter.class)
 	private Long qoraHoldersShare;
 
-	/** How many legacy QORA per 1 QORT of block reward. */
+	/** How many legacy QORA per 1 UNCIA of block reward. */
 	@XmlJavaTypeAdapter(value = org.aquila.api.AmountTypeAdapter.class)
-	private Long qoraPerQortReward;
+	private Long qoraPerUnciaReward;
 
 	/** Minimum number of accounts before a share bin is considered activated */
 	private int minAccountsToActivateShareBin;
@@ -386,8 +386,8 @@ public class BlockChain {
 		return this.qoraHoldersShare;
 	}
 
-	public long getQoraPerQortReward() {
-		return this.qoraPerQortReward;
+	public long getQoraPerUnciaReward() {
+		return this.qoraPerUnciaReward;
 	}
 
 	public int getMinAccountsToActivateShareBin() {
@@ -518,8 +518,8 @@ public class BlockChain {
 		if (this.qoraHoldersShare == null)
 			Settings.throwValidationError("No \"qoraHoldersShare\" entry found in blockchain config");
 
-		if (this.qoraPerQortReward == null)
-			Settings.throwValidationError("No \"qoraPerQortReward\" entry found in blockchain config");
+		if (this.qoraPerUnciaReward == null)
+			Settings.throwValidationError("No \"qoraPerUnciaReward\" entry found in blockchain config");
 
 		if (this.blocksNeededByLevel == null)
 			Settings.throwValidationError("No \"blocksNeededByLevel\" entry found in blockchain config");

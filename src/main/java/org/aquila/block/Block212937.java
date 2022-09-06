@@ -21,7 +21,7 @@ import org.aquila.repository.DataException;
  * Block 212937
  * <p>
  * Somehow a node minted a version of block 212937 that contained one transaction:
- * a PAYMENT transaction that attempted to spend more QORT than that account had as QORT balance.
+ * a PAYMENT transaction that attempted to spend more UNCIA than that account had as UNCIA balance.
  * <p>
  * This invalid transaction made block 212937 (rightly) invalid to several nodes,
  * which refused to use that block.
@@ -79,7 +79,7 @@ import org.aquila.repository.DataException;
    </pre></code>
  * <p>
  * Account <tt>QLdw5uabviLJgRGkRiydAFmAtZzxHfNXSs</tt> attempted to spend <tt>0.10888294</tt> (including fees)
- * when their QORT balance was really only <tt>0.10886665</tt>.
+ * when their UNCIA balance was really only <tt>0.10886665</tt>.
  * <p>
  * However, on the broken DB nodes, their balance
  * seemed to be <tt>0.10890293</tt> which was sufficient to make the transaction valid.
