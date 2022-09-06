@@ -70,7 +70,7 @@ import static org.ciyam.at.OpCode.calcOffset;
  * 					<li>Aquila receiving address of her chosing</li>
  * 				</ul>
  * 			</li>
- * 			<li>AT's QORT funds are sent to Aquila receiving address</li>
+ * 			<li>AT's UNCIA funds are sent to Aquila receiving address</li>
  * 		</ul>
  * </li>
  * <li>Bob checks AT, extracts secret-A
@@ -142,11 +142,11 @@ public class LitecoinACCTv2 implements ACCT {
 	 * 
 	 * @param creatorTradeAddress AT creator's trade Aquila address
 	 * @param litecoinPublicKeyHash 20-byte HASH160 of creator's trade Litecoin public key
-	 * @param qortAmount how much QORT to pay trade partner if they send correct 32-byte secrets to AT
+	 * @param unciaAmount how much UNCIA to pay trade partner if they send correct 32-byte secrets to AT
 	 * @param litecoinAmount how much LTC the AT creator is expecting to trade
 	 * @param tradeTimeout suggested timeout for entire trade
 	 */
-	public static byte[] buildAquilaAT(String creatorTradeAddress, byte[] litecoinPublicKeyHash, long qortAmount, long litecoinAmount, int tradeTimeout) {
+	public static byte[] buildAquilaAT(String creatorTradeAddress, byte[] litecoinPublicKeyHash, long unciaAmount, long litecoinAmount, int tradeTimeout) {
 		if (litecoinPublicKeyHash.length != 20)
 			throw new IllegalArgumentException("Litecoin public key hash should be 20 bytes");
 
@@ -163,7 +163,7 @@ public class LitecoinACCTv2 implements ACCT {
 		final int addrLitecoinPublicKeyHash = addrCounter;
 		addrCounter += 4;
 
-		final int addrQortAmount = addrCounter++;
+		final int addrUnciaAmount = addrCounter++;
 		final int addrLitecoinAmount = addrCounter++;
 		final int addrTradeTimeout = addrCounter++;
 
@@ -243,9 +243,9 @@ public class LitecoinACCTv2 implements ACCT {
 		assert dataByteBuffer.position() == addrLitecoinPublicKeyHash * MachineState.VALUE_SIZE : "addrLitecoinPublicKeyHash incorrect";
 		dataByteBuffer.put(Bytes.ensureCapacity(litecoinPublicKeyHash, 32, 0));
 
-		// Redeem Qort amount
-		assert dataByteBuffer.position() == addrQortAmount * MachineState.VALUE_SIZE : "addrQortAmount incorrect";
-		dataByteBuffer.putLong(qortAmount);
+		// Redeem Uncia amount
+		assert dataByteBuffer.position() == addrUnciaAmount * MachineState.VALUE_SIZE : "addrUnciaAmount incorrect";
+		dataByteBuffer.putLong(unciaAmount);
 
 		// Expected Litecoin amount
 		assert dataByteBuffer.position() == addrLitecoinAmount * MachineState.VALUE_SIZE : "addrLitecoinAmount incorrect";
@@ -523,7 +523,7 @@ public class LitecoinACCTv2 implements ACCT {
 				// Save B register into data segment starting at addrPartnerReceivingAddress (as pointed to by addrPartnerReceivingAddressPointer)
 				codeByteBuffer.put(OpCode.EXT_FUN_DAT.compile(FunctionCode.GET_B_IND, addrPartnerReceivingAddressPointer));
 				// Pay AT's balance to receiving address
-				codeByteBuffer.put(OpCode.EXT_FUN_DAT.compile(FunctionCode.PAY_TO_ADDRESS_IN_B, addrQortAmount));
+				codeByteBuffer.put(OpCode.EXT_FUN_DAT.compile(FunctionCode.PAY_TO_ADDRESS_IN_B, addrUnciaAmount));
 				// Set redeemed mode
 				codeByteBuffer.put(OpCode.SET_VAL.compile(addrMode, AcctMode.REDEEMED.value));
 				// We're finished forever (finishing auto-refunds remaining balance to AT creator)
@@ -539,7 +539,7 @@ public class LitecoinACCTv2 implements ACCT {
 				// We're finished forever (finishing auto-refunds remaining balance to AT creator)
 				codeByteBuffer.put(OpCode.FIN_IMD.compile());
 			} catch (CompilationException e) {
-				throw new IllegalStateException("Unable to compile LTC-QORT ACCT?", e);
+				throw new IllegalStateException("Unable to compile LTC-UNCIA ACCT?", e);
 			}
 		}
 
@@ -594,7 +594,7 @@ public class LitecoinACCTv2 implements ACCT {
 		tradeData.creationTimestamp = creationTimestamp;
 
 		Account atAccount = new Account(repository, atAddress);
-		tradeData.qortBalance = atAccount.getConfirmedBalance(Asset.QORT);
+		tradeData.unciaBalance = atAccount.getConfirmedBalance(Asset.UNCIA);
 
 		byte[] stateData = atStateData.getStateData();
 		ByteBuffer dataByteBuffer = ByteBuffer.wrap(stateData);
@@ -616,7 +616,7 @@ public class LitecoinACCTv2 implements ACCT {
 		tradeData.hashOfSecretB = null;
 
 		// Redeem payout
-		tradeData.qortAmount = dataByteBuffer.getLong();
+		tradeData.unciaAmount = dataByteBuffer.getLong();
 
 		// Expected LTC amount
 		tradeData.expectedForeignAmount = dataByteBuffer.getLong();

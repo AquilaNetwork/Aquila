@@ -72,7 +72,7 @@ import static org.ciyam.at.OpCode.calcOffset;
  * 					<li>Aquila receiving address of her chosing</li>
  * 				</ul>
  * 			</li>
- * 			<li>AT's QORT funds are sent to Aquila receiving address</li>
+ * 			<li>AT's UNCIA funds are sent to Aquila receiving address</li>
  * 		</ul>
  * </li>
  * <li>Bob checks AT, extracts secret-A
@@ -146,11 +146,11 @@ public class DigibyteACCTv3 implements ACCT {
 	 * 
 	 * @param creatorTradeAddress AT creator's trade Aquila address
 	 * @param digibytePublicKeyHash 20-byte HASH160 of creator's trade Digibyte public key
-	 * @param qortAmount how much QORT to pay trade partner if they send correct 32-byte secrets to AT
+	 * @param unciaAmount how much UNCIA to pay trade partner if they send correct 32-byte secrets to AT
 	 * @param digibyteAmount how much DGB the AT creator is expecting to trade
 	 * @param tradeTimeout suggested timeout for entire trade
 	 */
-	public static byte[] buildAquilaAT(String creatorTradeAddress, byte[] digibytePublicKeyHash, long qortAmount, long digibyteAmount, int tradeTimeout) {
+	public static byte[] buildAquilaAT(String creatorTradeAddress, byte[] digibytePublicKeyHash, long unciaAmount, long digibyteAmount, int tradeTimeout) {
 		if (digibytePublicKeyHash.length != 20)
 			throw new IllegalArgumentException("Digibyte public key hash should be 20 bytes");
 
@@ -167,7 +167,7 @@ public class DigibyteACCTv3 implements ACCT {
 		final int addrDigibytePublicKeyHash = addrCounter;
 		addrCounter += 4;
 
-		final int addrQortAmount = addrCounter++;
+		final int addrUnciaAmount = addrCounter++;
 		final int addrDigibyteAmount = addrCounter++;
 		final int addrTradeTimeout = addrCounter++;
 
@@ -247,9 +247,9 @@ public class DigibyteACCTv3 implements ACCT {
 		assert dataByteBuffer.position() == addrDigibytePublicKeyHash * MachineState.VALUE_SIZE : "addrDigibytePublicKeyHash incorrect";
 		dataByteBuffer.put(Bytes.ensureCapacity(digibytePublicKeyHash, 32, 0));
 
-		// Redeem Qort amount
-		assert dataByteBuffer.position() == addrQortAmount * MachineState.VALUE_SIZE : "addrQortAmount incorrect";
-		dataByteBuffer.putLong(qortAmount);
+		// Redeem Uncia amount
+		assert dataByteBuffer.position() == addrUnciaAmount * MachineState.VALUE_SIZE : "addrUnciaAmount incorrect";
+		dataByteBuffer.putLong(unciaAmount);
 
 		// Expected Digibyte amount
 		assert dataByteBuffer.position() == addrDigibyteAmount * MachineState.VALUE_SIZE : "addrDigibyteAmount incorrect";
@@ -527,7 +527,7 @@ public class DigibyteACCTv3 implements ACCT {
 				// Save B register into data segment starting at addrPartnerReceivingAddress (as pointed to by addrPartnerReceivingAddressPointer)
 				codeByteBuffer.put(OpCode.EXT_FUN_DAT.compile(FunctionCode.GET_B_IND, addrPartnerReceivingAddressPointer));
 				// Pay AT's balance to receiving address
-				codeByteBuffer.put(OpCode.EXT_FUN_DAT.compile(FunctionCode.PAY_TO_ADDRESS_IN_B, addrQortAmount));
+				codeByteBuffer.put(OpCode.EXT_FUN_DAT.compile(FunctionCode.PAY_TO_ADDRESS_IN_B, addrUnciaAmount));
 				// Set redeemed mode
 				codeByteBuffer.put(OpCode.SET_VAL.compile(addrMode, AcctMode.REDEEMED.value));
 				// We're finished forever (finishing auto-refunds remaining balance to AT creator)
@@ -543,7 +543,7 @@ public class DigibyteACCTv3 implements ACCT {
 				// We're finished forever (finishing auto-refunds remaining balance to AT creator)
 				codeByteBuffer.put(OpCode.FIN_IMD.compile());
 			} catch (CompilationException e) {
-				throw new IllegalStateException("Unable to compile DGB-QORT ACCT?", e);
+				throw new IllegalStateException("Unable to compile DGB-UNCIA ACCT?", e);
 			}
 		}
 
@@ -598,7 +598,7 @@ public class DigibyteACCTv3 implements ACCT {
 		tradeData.creationTimestamp = creationTimestamp;
 
 		Account atAccount = new Account(repository, atAddress);
-		tradeData.qortBalance = atAccount.getConfirmedBalance(Asset.QORT);
+		tradeData.unciaBalance = atAccount.getConfirmedBalance(Asset.UNCIA);
 
 		byte[] stateData = atStateData.getStateData();
 		ByteBuffer dataByteBuffer = ByteBuffer.wrap(stateData);
@@ -620,7 +620,7 @@ public class DigibyteACCTv3 implements ACCT {
 		tradeData.hashOfSecretB = null;
 
 		// Redeem payout
-		tradeData.qortAmount = dataByteBuffer.getLong();
+		tradeData.unciaAmount = dataByteBuffer.getLong();
 
 		// Expected DGB amount
 		tradeData.expectedForeignAmount = dataByteBuffer.getLong();
