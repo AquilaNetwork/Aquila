@@ -238,8 +238,8 @@ public class HSQLDBDatabaseUpdates {
 					// Use a separate table space as this table will be very large.
 					stmt.execute("SET TABLE AccountBalances NEW SPACE");
 
-					// Keeping track of QORT gained from holding legacy QORA
-					stmt.execute("CREATE TABLE AccountQortFromQoraInfo (account AquilaAddress, final_qort_from_qora AquilaAmount, final_block_height INT, "
+					// Keeping track of UNCIA gained from holding legacy QORA
+					stmt.execute("CREATE TABLE AccountUnciaFromQoraInfo (account AquilaAddress, final_uncia_from_qora AquilaAmount, final_block_height INT, "
 									+ "PRIMARY KEY (account), FOREIGN KEY (account) REFERENCES Accounts (account) ON DELETE CASCADE)");
 					break;
 
@@ -354,7 +354,7 @@ public class HSQLDBDatabaseUpdates {
 					break;
 
 				case 10:
-					// Assets (including QORT coin itself)
+					// Assets (including UNCIA coin itself)
 					stmt.execute("CREATE TABLE Assets (asset_id AssetID, owner AquilaAddress NOT NULL, "
 							+ "asset_name AssetName NOT NULL, description GenericDescription NOT NULL, "
 							+ "quantity BIGINT NOT NULL, is_divisible BOOLEAN NOT NULL, "
@@ -629,7 +629,7 @@ public class HSQLDBDatabaseUpdates {
 					// Trade bot
 					// See case 25 below for changes
 					stmt.execute("CREATE TABLE TradeBotStates (trade_private_key AquilaKeySeed NOT NULL, trade_state TINYINT NOT NULL, "
-							+ "creator_address AquilaAddress NOT NULL, at_address AquilaAddress, updated_when BIGINT NOT NULL, qort_amount AquilaAmount NOT NULL, "
+							+ "creator_address AquilaAddress NOT NULL, at_address AquilaAddress, updated_when BIGINT NOT NULL, uncia_amount AquilaAmount NOT NULL, "
 							+ "trade_native_public_key AquilaPublicKey NOT NULL, trade_native_public_key_hash VARBINARY(32) NOT NULL, "
 							+ "trade_native_address AquilaAddress NOT NULL, secret VARBINARY(32) NOT NULL, hash_of_secret VARBINARY(32) NOT NULL, "
 							+ "trade_foreign_public_key VARBINARY(33) NOT NULL, trade_foreign_public_key_hash VARBINARY(32) NOT NULL, "

@@ -13,7 +13,7 @@ import org.aquila.data.account.AccountBalanceData;
 import org.aquila.data.account.AccountData;
 import org.aquila.data.account.EligibleQoraHolderData;
 import org.aquila.data.account.MintingAccountData;
-import org.aquila.data.account.QortFromQoraData;
+import org.aquila.data.account.UnciaFromQoraData;
 import org.aquila.data.account.RewardShareData;
 import org.aquila.repository.AccountRepository;
 import org.aquila.repository.DataException;
@@ -1029,18 +1029,18 @@ public class HSQLDBAccountRepository implements AccountRepository {
 		}
 	}
 
-	// Managing QORT from legacy QORA
+	// Managing UNCIA from legacy QORA
 
 	@Override
 	public List<EligibleQoraHolderData> getEligibleLegacyQoraHolders(Integer blockHeight) throws DataException {
 		StringBuilder sql = new StringBuilder(1024);
 		List<Object> bindParams = new ArrayList<>();
 
-		sql.append("SELECT account, Qora.balance, QortFromQora.balance, final_qort_from_qora, final_block_height ");
+		sql.append("SELECT account, Qora.balance, UnciaFromQora.balance, final_uncia_from_qora, final_block_height ");
 		sql.append("FROM AccountBalances AS Qora ");
-		sql.append("LEFT OUTER JOIN AccountQortFromQoraInfo USING (account) ");
-		sql.append("LEFT OUTER JOIN AccountBalances AS QortFromQora ON QortFromQora.account = Qora.account AND QortFromQora.asset_id = ");
-		sql.append(Asset.QORT_FROM_QORA); // int is safe to use literally
+		sql.append("LEFT OUTER JOIN AccountUnciaFromQoraInfo USING (account) ");
+		sql.append("LEFT OUTER JOIN AccountBalances AS UnciaFromQora ON UnciaFromQora.account = Qora.account AND UnciaFromQora.asset_id = ");
+		sql.append(Asset.UNCIA_FROM_QORA); // int is safe to use literally
 		sql.append(" WHERE Qora.asset_id = ");
 		sql.append(Asset.LEGACY_QORA); // int is safe to use literally
 		sql.append(" AND (final_block_height IS NULL");
@@ -1061,17 +1061,17 @@ public class HSQLDBAccountRepository implements AccountRepository {
 			do {
 				String address = resultSet.getString(1);
 				long qoraBalance = resultSet.getLong(2);
-				long qortFromQoraBalance = resultSet.getLong(3);
+				long unciaFromQoraBalance = resultSet.getLong(3);
 
-				Long finalQortFromQora = resultSet.getLong(4);
-				if (finalQortFromQora == 0 && resultSet.wasNull())
-					finalQortFromQora = null;
+				Long finalUnciaFromQora = resultSet.getLong(4);
+				if (finalUnciaFromQora == 0 && resultSet.wasNull())
+					finalUnciaFromQora = null;
 
 				Integer finalBlockHeight = resultSet.getInt(5);
 				if (finalBlockHeight == 0 && resultSet.wasNull())
 					finalBlockHeight = null;
 
-				eligibleLegacyQoraHolders.add(new EligibleQoraHolderData(address, qoraBalance, qortFromQoraBalance, finalQortFromQora, finalBlockHeight));
+				eligibleLegacyQoraHolders.add(new EligibleQoraHolderData(address, qoraBalance, unciaFromQoraBalance, finalUnciaFromQora, finalBlockHeight));
 			} while (resultSet.next());
 
 			return eligibleLegacyQoraHolders;
@@ -1081,45 +1081,45 @@ public class HSQLDBAccountRepository implements AccountRepository {
 	}
 
 	@Override
-	public QortFromQoraData getQortFromQoraInfo(String address) throws DataException {
-		String sql = "SELECT final_qort_from_qora, final_block_height FROM AccountQortFromQoraInfo WHERE account = ?";
+	public UnciaFromQoraData getUnciaFromQoraInfo(String address) throws DataException {
+		String sql = "SELECT final_uncia_from_qora, final_block_height FROM AccountUnciaFromQoraInfo WHERE account = ?";
 
 		try (ResultSet resultSet = this.repository.checkedExecute(sql, address)) {
 			if (resultSet == null)
 				return null;
 
-			long finalQortFromQora = resultSet.getLong(1);
+			long finalUnciaFromQora = resultSet.getLong(1);
 			Integer finalBlockHeight = resultSet.getInt(2);
 			if (finalBlockHeight == 0 && resultSet.wasNull())
 				finalBlockHeight = null;
 
-			return new QortFromQoraData(address, finalQortFromQora, finalBlockHeight);
+			return new UnciaFromQoraData(address, finalUnciaFromQora, finalBlockHeight);
 		} catch (SQLException e) {
-			throw new DataException("Unable to fetch account qort-from-qora info from repository", e);
+			throw new DataException("Unable to fetch account uncia-from-qora info from repository", e);
 		}
 	}
 
 	@Override
-	public void save(QortFromQoraData qortFromQoraData) throws DataException {
-		HSQLDBSaver saveHelper = new HSQLDBSaver("AccountQortFromQoraInfo");
+	public void save(UnciaFromQoraData unciaFromQoraData) throws DataException {
+		HSQLDBSaver saveHelper = new HSQLDBSaver("AccountUnciaFromQoraInfo");
 
-		saveHelper.bind("account", qortFromQoraData.getAddress())
-		.bind("final_qort_from_qora", qortFromQoraData.getFinalQortFromQora())
-		.bind("final_block_height", qortFromQoraData.getFinalBlockHeight());
+		saveHelper.bind("account", unciaFromQoraData.getAddress())
+		.bind("final_uncia_from_qora", unciaFromQoraData.getFinalUnciaFromQora())
+		.bind("final_block_height", unciaFromQoraData.getFinalBlockHeight());
 
 		try {
 			saveHelper.execute(this.repository);
 		} catch (SQLException e) {
-			throw new DataException("Unable to save account qort-from-qora info into repository", e);
+			throw new DataException("Unable to save account uncia-from-qora info into repository", e);
 		}
 	}
 
 	@Override
-	public int deleteQortFromQoraInfo(String address) throws DataException {
+	public int deleteUnciaFromQoraInfo(String address) throws DataException {
 		try {
-			return this.repository.delete("AccountQortFromQoraInfo", "account = ?", address);
+			return this.repository.delete("AccountUnciaFromQoraInfo", "account = ?", address);
 		} catch (SQLException e) {
-			throw new DataException("Unable to delete qort-from-qora info from repository", e);
+			throw new DataException("Unable to delete uncia-from-qora info from repository", e);
 		}
 	}
 
