@@ -48,7 +48,7 @@ public class Payment {
 		// Total up payment amounts by assetId
 		Map<Long, Long> amountsByAssetId = new HashMap<>();
 		// Add transaction fee to start with
-		amountsByAssetId.put(Asset.QORT, fee);
+		amountsByAssetId.put(Asset.UNCIA, fee);
 
 		// Grab sender info
 		Account sender = new PublicKeyAccount(this.repository, senderPublicKey);
@@ -182,7 +182,7 @@ public class Payment {
 		Account sender = new PublicKeyAccount(this.repository, senderPublicKey);
 
 		// Update sender's balance due to fee
-		sender.modifyAssetBalance(Asset.QORT, - fee);
+		sender.modifyAssetBalance(Asset.UNCIA, - fee);
 
 		// Update sender's reference
 		sender.setLastReference(signature);
@@ -193,8 +193,8 @@ public class Payment {
 
 			long assetId = paymentData.getAssetId();
 
-			// For QORT amounts only: if recipient has no reference yet, then this is their starting reference
-			if ((alwaysInitializeRecipientReference || assetId == Asset.QORT) && recipient.getLastReference() == null)
+			// For UNCIA amounts only: if recipient has no reference yet, then this is their starting reference
+			if ((alwaysInitializeRecipientReference || assetId == Asset.UNCIA) && recipient.getLastReference() == null)
 				recipient.setLastReference(signature);
 		}
 	}
@@ -235,7 +235,7 @@ public class Payment {
 		Account sender = new PublicKeyAccount(this.repository, senderPublicKey);
 
 		// Update sender's balance due to fee
-		sender.modifyAssetBalance(Asset.QORT, fee);
+		sender.modifyAssetBalance(Asset.UNCIA, fee);
 
 		// Update sender's reference
 		sender.setLastReference(reference);
@@ -246,10 +246,10 @@ public class Payment {
 			long assetId = paymentData.getAssetId();
 
 			/*
-			 * For QORT amounts only: If recipient's last reference is this transaction's signature, then they can't have made any transactions of their own
+			 * For UNCIA amounts only: If recipient's last reference is this transaction's signature, then they can't have made any transactions of their own
 			 * (which would have changed their last reference) thus this is their first reference so remove it.
 			 */
-			if ((alwaysUninitializeRecipientReference || assetId == Asset.QORT) && Arrays.equals(recipient.getLastReference(), signature))
+			if ((alwaysUninitializeRecipientReference || assetId == Asset.UNCIA) && Arrays.equals(recipient.getLastReference(), signature))
 				recipient.setLastReference(null);
 		}
 	}
