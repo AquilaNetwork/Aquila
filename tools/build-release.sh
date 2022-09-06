@@ -2,7 +2,7 @@
 
 # Change this to where AdvancedInstaller outputs built EXE installers
 SCRIPT_DIR=$(dirname $(realpath "$0"))
-WINDOWS_INSTALLER_DIR="${SCRIPT_DIR}/../WindowsInstaller/Qortal-SetupFiles"
+WINDOWS_INSTALLER_DIR="${SCRIPT_DIR}/../WindowsInstaller/Aquila-SetupFiles"
 
 set -e
 shopt -s expand_aliases
