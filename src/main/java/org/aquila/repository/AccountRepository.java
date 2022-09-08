@@ -6,7 +6,7 @@ import org.aquila.data.account.AccountBalanceData;
 import org.aquila.data.account.AccountData;
 import org.aquila.data.account.EligibleQoraHolderData;
 import org.aquila.data.account.MintingAccountData;
-import org.aquila.data.account.QortFromQoraData;
+import org.aquila.data.account.UnciaFromQoraData;
 import org.aquila.data.account.RewardShareData;
 
 public interface AccountRepository {
