@@ -30,7 +30,7 @@ public class DeployAT {
 		if (error != null)
 			System.err.println(error);
 
-		System.err.println(String.format("usage: DeployAT <your Aquila PRIVATE key> <QORT amount> <AT funding amount> <LTC amount> <trade-timeout>"));
+		System.err.println(String.format("usage: DeployAT <your Aquila PRIVATE key> <UNCIA amount> <AT funding amount> <LTC amount> <trade-timeout>"));
 		System.err.println("A trading key-pair will be generated for you!");
 		System.err.println(String.format("example: DeployAT "
 				+ "7Eztjz2TsxwbrWUYEaSdLbASKQGTfK2rR7ViFc5gaiZw \\\n"
@@ -61,11 +61,11 @@ public class DeployAT {
 
 			redeemAmount = new BigDecimal(args[argIndex++]).setScale(8).unscaledValue().longValue();
 			if (redeemAmount <= 0)
-				usage("QORT amount must be positive");
+				usage("UNCIA amount must be positive");
 
 			fundingAmount = new BigDecimal(args[argIndex++]).setScale(8).unscaledValue().longValue();
 			if (fundingAmount <= redeemAmount)
-				usage("AT funding amount must be greater than QORT redeem amount");
+				usage("AT funding amount must be greater than UNCIA redeem amount");
 
 			expectedLitecoin = new BigDecimal(args[argIndex++]).setScale(8).unscaledValue().longValue();
 			if (expectedLitecoin <= 0)
@@ -89,7 +89,7 @@ public class DeployAT {
 		try (final Repository repository = RepositoryManager.getRepository()) {
 			PrivateKeyAccount creatorAccount = new PrivateKeyAccount(repository, creatorPrivateKey);
 			System.out.println(String.format("Creator Aquila address: %s", creatorAccount.getAddress()));
-			System.out.println(String.format("QORT redeem amount: %s", Amounts.prettyAmount(redeemAmount)));
+			System.out.println(String.format("UNCIA redeem amount: %s", Amounts.prettyAmount(redeemAmount)));
 			System.out.println(String.format("AT funding amount: %s", Amounts.prettyAmount(fundingAmount)));
 
 			// Generate trading key-pair
@@ -112,13 +112,13 @@ public class DeployAT {
 			}
 
 			Long fee = null;
-			String name = "QORT-LTC cross-chain trade";
+			String name = "UNCIA-LTC cross-chain trade";
 			String description = String.format("Aquila-Litecoin cross-chain trade");
 			String atType = "ACCT";
-			String tags = "QORT-LTC ACCT";
+			String tags = "UNCIA-LTC ACCT";
 
 			BaseTransactionData baseTransactionData = new BaseTransactionData(txTimestamp, Group.NO_GROUP, lastReference, creatorAccount.getPublicKey(), fee, null);
-			DeployAtTransactionData deployAtTransactionData = new DeployAtTransactionData(baseTransactionData, name, description, atType, tags, creationBytes, fundingAmount, Asset.QORT);
+			DeployAtTransactionData deployAtTransactionData = new DeployAtTransactionData(baseTransactionData, name, description, atType, tags, creationBytes, fundingAmount, Asset.UNCIA);
 
 			DeployAtTransaction deployAtTransaction = new DeployAtTransaction(repository, deployAtTransactionData);
 
