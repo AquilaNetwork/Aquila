@@ -252,7 +252,7 @@ public class HSQLDBAccountRepository implements AccountRepository {
 			if (resultSet == null)
 				return null;
 
-			return resultSet.getInt(1);
+			return resultSet.getBytes(1);
 		} catch (SQLException e) {
 			throw new DataException("Unable to fetch account's sponsor's public key count from repository", e);
 		}
