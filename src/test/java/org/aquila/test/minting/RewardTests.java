@@ -42,14 +42,14 @@ public class RewardTests extends Common {
 	@Test
 	public void testSimpleReward() throws DataException {
 		try (final Repository repository = RepositoryManager.getRepository()) {
-			Map<String, Map<Long, Long>> initialBalances = AccountUtils.getBalances(repository, Asset.QORT);
+			Map<String, Map<Long, Long>> initialBalances = AccountUtils.getBalances(repository, Asset.UNCIA);
 
 			Long blockReward = BlockUtils.getNextBlockReward(repository);
 
 			BlockUtils.mintBlock(repository);
 
-			long expectedBalance = initialBalances.get("alice").get(Asset.QORT) + blockReward;
-			AccountUtils.assertBalance(repository, "alice", Asset.QORT, expectedBalance);
+			long expectedBalance = initialBalances.get("alice").get(Asset.UNCIA) + blockReward;
+			AccountUtils.assertBalance(repository, "alice", Asset.UNCIA, expectedBalance);
 		}
 	}
 
@@ -58,12 +58,12 @@ public class RewardTests extends Common {
 		List<RewardByHeight> rewardsByHeight = BlockChain.getInstance().getBlockRewardsByHeight();
 
 		try (final Repository repository = RepositoryManager.getRepository()) {
-			Map<String, Map<Long, Long>> initialBalances = AccountUtils.getBalances(repository, Asset.QORT);
+			Map<String, Map<Long, Long>> initialBalances = AccountUtils.getBalances(repository, Asset.UNCIA);
 
 			int rewardIndex = rewardsByHeight.size() - 1;
 
 			RewardByHeight rewardInfo = rewardsByHeight.get(rewardIndex);
-			Long expectedBalance = initialBalances.get("alice").get(Asset.QORT);
+			Long expectedBalance = initialBalances.get("alice").get(Asset.UNCIA);
 
 			for (int height = rewardInfo.height; height > 1; --height) {
 				if (height < rewardInfo.height) {
@@ -76,7 +76,7 @@ public class RewardTests extends Common {
 				expectedBalance += rewardInfo.reward;
 			}
 
-			AccountUtils.assertBalance(repository, "alice", Asset.QORT, expectedBalance);
+			AccountUtils.assertBalance(repository, "alice", Asset.UNCIA, expectedBalance);
 		}
 	}
 
@@ -88,7 +88,7 @@ public class RewardTests extends Common {
 			byte[] rewardSharePrivateKey = AccountUtils.rewardShare(repository, "alice", "bob", share);
 			PrivateKeyAccount rewardShareAccount = new PrivateKeyAccount(repository, rewardSharePrivateKey);
 
-			Map<String, Map<Long, Long>> initialBalances = AccountUtils.getBalances(repository, Asset.QORT);
+			Map<String, Map<Long, Long>> initialBalances = AccountUtils.getBalances(repository, Asset.UNCIA);
 			Long blockReward = BlockUtils.getNextBlockReward(repository);
 
 			BlockMinter.mintTestingBlock(repository, rewardShareAccount);
@@ -96,10 +96,10 @@ public class RewardTests extends Common {
 			// We're expecting reward * 12.8% to Bob, the rest to Alice
 
 			long bobShare = (blockReward * share) / 100L / 100L;
-			AccountUtils.assertBalance(repository, "bob", Asset.QORT, initialBalances.get("bob").get(Asset.QORT) + bobShare);
+			AccountUtils.assertBalance(repository, "bob", Asset.UNCIA, initialBalances.get("bob").get(Asset.UNCIA) + bobShare);
 
 			long aliceShare = blockReward - bobShare;
-			AccountUtils.assertBalance(repository, "alice", Asset.QORT, initialBalances.get("alice").get(Asset.QORT) + aliceShare);
+			AccountUtils.assertBalance(repository, "alice", Asset.UNCIA, initialBalances.get("alice").get(Asset.UNCIA) + aliceShare);
 		}
 	}
 
@@ -111,11 +111,11 @@ public class RewardTests extends Common {
 		long qoraHoldersShare = BlockChain.getInstance().getQoraHoldersShare();
 		BigInteger qoraHoldersShareBI = BigInteger.valueOf(qoraHoldersShare);
 
-		long qoraPerQort = BlockChain.getInstance().getQoraPerQortReward();
-		BigInteger qoraPerQortBI = BigInteger.valueOf(qoraPerQort);
+		long qoraPerUncia = BlockChain.getInstance().getQoraPerUnciaReward();
+		BigInteger qoraPerUnciaBI = BigInteger.valueOf(qoraPerUncia);
 
 		try (final Repository repository = RepositoryManager.getRepository()) {
-			Map<String, Map<Long, Long>> initialBalances = AccountUtils.getBalances(repository, Asset.QORT, Asset.LEGACY_QORA, Asset.QORT_FROM_QORA);
+			Map<String, Map<Long, Long>> initialBalances = AccountUtils.getBalances(repository, Asset.UNCIA, Asset.LEGACY_QORA, Asset.UNCIA_FROM_QORA);
 
 			Long blockReward = BlockUtils.getNextBlockReward(repository);
 			BigInteger blockRewardBI = BigInteger.valueOf(blockReward);
@@ -132,19 +132,19 @@ public class RewardTests extends Common {
 			/*
 			 * Example:
 			 *
-			 * Block reward is 100 QORT, QORA-holders' share is 0.20 (20%) = 20 QORT
+			 * Block reward is 100 UNCIA, QORA-holders' share is 0.20 (20%) = 20 UNCIA
 			 *
 			 * We hold 100 QORA
 			 * Someone else holds 28 QORA
 			 * Total QORA held: 128 QORA
 			 *
-			 * Our portion of that is 100 QORA / 128 QORA * 20 QORT = 15.625 QORT
+			 * Our portion of that is 100 QORA / 128 QORA * 20 UNCIA = 15.625 UNCIA
 			 *
-			 * QORA holders earn at most 1 QORT per 250 QORA held.
+			 * QORA holders earn at most 1 UNCIA per 250 QORA held.
 			 *
-			 * So we can earn at most 100 QORA / 250 QORAperQORT = 0.4 QORT
+			 * So we can earn at most 100 QORA / 250 QORAperUNCIA = 0.4 UNCIA
 			 *
-			 * Thus our block earning should be capped to 0.4 QORT.
+			 * Thus our block earning should be capped to 0.4 UNCIA.
 			 */
 
 			// Expected reward
@@ -159,13 +159,13 @@ public class RewardTests extends Common {
 			assertTrue("Our QORA-related reward should be less than total QORA-holders share of block reward", ourQoraReward < qoraHoldersReward);
 			assertFalse("Our QORA-related reward should not be negative!", ourQoraReward < 0);
 
-			long ourQortFromQoraCap = Amounts.scaledDivide(ourQoraHeldBI, qoraPerQortBI);
-			assertTrue("Our QORT-from-QORA cap should be greater than zero", ourQortFromQoraCap > 0);
+			long ourUnciaFromQoraCap = Amounts.scaledDivide(ourQoraHeldBI, qoraPerUnciaBI);
+			assertTrue("Our UNCIA-from-QORA cap should be greater than zero", ourUnciaFromQoraCap > 0);
 
-			long expectedReward = Math.min(ourQoraReward, ourQortFromQoraCap);
-			AccountUtils.assertBalance(repository, "chloe", Asset.QORT, initialBalances.get("chloe").get(Asset.QORT) + expectedReward);
+			long expectedReward = Math.min(ourQoraReward, ourUnciaFromQoraCap);
+			AccountUtils.assertBalance(repository, "chloe", Asset.UNCIA, initialBalances.get("chloe").get(Asset.UNCIA) + expectedReward);
 
-			AccountUtils.assertBalance(repository, "chloe", Asset.QORT_FROM_QORA, initialBalances.get("chloe").get(Asset.QORT_FROM_QORA) + expectedReward);
+			AccountUtils.assertBalance(repository, "chloe", Asset.UNCIA_FROM_QORA, initialBalances.get("chloe").get(Asset.UNCIA_FROM_QORA) + expectedReward);
 		}
 	}
 
@@ -173,19 +173,19 @@ public class RewardTests extends Common {
 	public void testMaxLegacyQoraReward() throws DataException {
 		Common.useSettings("test-settings-v2-qora-holder.json");
 
-		long qoraPerQort = BlockChain.getInstance().getQoraPerQortReward();
+		long qoraPerUncia = BlockChain.getInstance().getQoraPerUnciaReward();
 
 		try (final Repository repository = RepositoryManager.getRepository()) {
-			Map<String, Map<Long, Long>> initialBalances = AccountUtils.getBalances(repository, Asset.QORT, Asset.LEGACY_QORA, Asset.QORT_FROM_QORA);
+			Map<String, Map<Long, Long>> initialBalances = AccountUtils.getBalances(repository, Asset.UNCIA, Asset.LEGACY_QORA, Asset.UNCIA_FROM_QORA);
 
 			// Mint lots of blocks
 			for (int i = 0; i < 100; ++i)
 				BlockUtils.mintBlock(repository);
 
 			// Expected balances to be limited by Dilbert's legacy QORA amount
-			long expectedBalance = Amounts.scaledDivide(initialBalances.get("dilbert").get(Asset.LEGACY_QORA), qoraPerQort);
-			AccountUtils.assertBalance(repository, "dilbert", Asset.QORT, initialBalances.get("dilbert").get(Asset.QORT) + expectedBalance);
-			AccountUtils.assertBalance(repository, "dilbert", Asset.QORT_FROM_QORA, initialBalances.get("dilbert").get(Asset.QORT_FROM_QORA) + expectedBalance);
+			long expectedBalance = Amounts.scaledDivide(initialBalances.get("dilbert").get(Asset.LEGACY_QORA), qoraPerUncia);
+			AccountUtils.assertBalance(repository, "dilbert", Asset.UNCIA, initialBalances.get("dilbert").get(Asset.UNCIA) + expectedBalance);
+			AccountUtils.assertBalance(repository, "dilbert", Asset.UNCIA_FROM_QORA, initialBalances.get("dilbert").get(Asset.UNCIA_FROM_QORA) + expectedBalance);
 		}
 	}
 
@@ -247,10 +247,10 @@ public class RewardTests extends Common {
 			long perFounderReward = blockReward / founderCount;
 
 			// Alice simple self-share so her reward is perFounderReward
-			AccountUtils.assertBalance(repository, "alice", Asset.QORT, perFounderReward);
+			AccountUtils.assertBalance(repository, "alice", Asset.UNCIA, perFounderReward);
 
 			// Bob not online so his reward is zero
-			AccountUtils.assertBalance(repository, "bob", Asset.QORT, 0L);
+			AccountUtils.assertBalance(repository, "bob", Asset.UNCIA, 0L);
 
 			// Chloe has two reward-shares, so her reward is divided by 2
 			int chloeSharesCount = 2;
@@ -266,7 +266,7 @@ public class RewardTests extends Common {
 			// The remaining 75% goes to Chloe
 			long rewardShareRemaining = chloePerShareReward - dilbertExpectedBalance;
 			chloeExpectedBalance += rewardShareRemaining;
-			AccountUtils.assertBalance(repository, "chloe", Asset.QORT, chloeExpectedBalance);
+			AccountUtils.assertBalance(repository, "chloe", Asset.UNCIA, chloeExpectedBalance);
 		}
 	}
 
@@ -280,7 +280,7 @@ public class RewardTests extends Common {
 			byte[] dilbertSelfSharePrivateKey = AccountUtils.rewardShare(repository, "dilbert", "dilbert", 0); // Block minted by Alice
 			PrivateKeyAccount dilbertSelfShareAccount = new PrivateKeyAccount(repository, dilbertSelfSharePrivateKey);
 
-			Map<String, Map<Long, Long>> initialBalances = AccountUtils.getBalances(repository, Asset.QORT, Asset.LEGACY_QORA, Asset.QORT_FROM_QORA);
+			Map<String, Map<Long, Long>> initialBalances = AccountUtils.getBalances(repository, Asset.UNCIA, Asset.LEGACY_QORA, Asset.UNCIA_FROM_QORA);
 
 			long blockReward = BlockUtils.getNextBlockReward(repository);
 
@@ -297,10 +297,10 @@ public class RewardTests extends Common {
 			final long qoraHoldersShare = BlockChain.getInstance().getQoraHoldersShare();
 			final long remainingShare = 1_00000000 - qoraHoldersShare;
 
-			long dilbertExpectedBalance = initialBalances.get("dilbert").get(Asset.QORT);
+			long dilbertExpectedBalance = initialBalances.get("dilbert").get(Asset.UNCIA);
 			dilbertExpectedBalance += Amounts.roundDownScaledMultiply(blockReward, remainingShare);
 
-			AccountUtils.assertBalance(repository, "dilbert", Asset.QORT, dilbertExpectedBalance);
+			AccountUtils.assertBalance(repository, "dilbert", Asset.UNCIA, dilbertExpectedBalance);
 
 			// After several blocks, the legacy QORA holder should be maxxed out
 			for (int i = 0; i < 10; ++i)
@@ -311,7 +311,7 @@ public class RewardTests extends Common {
 
 			BlockMinter.mintTestingBlock(repository, dilbertSelfShareAccount);
 
-			AccountUtils.assertBalance(repository, "dilbert", Asset.QORT, dilbertExpectedBalance + blockReward);
+			AccountUtils.assertBalance(repository, "dilbert", Asset.UNCIA, dilbertExpectedBalance + blockReward);
 		}
 	}
 
@@ -321,7 +321,7 @@ public class RewardTests extends Common {
 		Common.useSettings("test-settings-v2-leftover-reward.json");
 
 		try (final Repository repository = RepositoryManager.getRepository()) {
-			Map<String, Map<Long, Long>> initialBalances = AccountUtils.getBalances(repository, Asset.QORT, Asset.LEGACY_QORA, Asset.QORT_FROM_QORA);
+			Map<String, Map<Long, Long>> initialBalances = AccountUtils.getBalances(repository, Asset.UNCIA, Asset.LEGACY_QORA, Asset.UNCIA_FROM_QORA);
 
 			long blockReward = BlockUtils.getNextBlockReward(repository);
 
@@ -330,10 +330,10 @@ public class RewardTests extends Common {
 			// Chloe maxxes out her legacy QORA reward so some is leftover to reward to Alice.
 
 			TestAccount chloe = Common.getTestAccount(repository, "chloe");
-			final long chloeQortFromQora = chloe.getConfirmedBalance(Asset.QORT_FROM_QORA);
+			final long chloeUnciaFromQora = chloe.getConfirmedBalance(Asset.UNCIA_FROM_QORA);
 
-			long expectedBalance = initialBalances.get("alice").get(Asset.QORT) + blockReward - chloeQortFromQora;
-			AccountUtils.assertBalance(repository, "alice", Asset.QORT, expectedBalance);
+			long expectedBalance = initialBalances.get("alice").get(Asset.UNCIA) + blockReward - chloeUnciaFromQora;
+			AccountUtils.assertBalance(repository, "alice", Asset.UNCIA, expectedBalance);
 		}
 	}
 
@@ -384,11 +384,11 @@ public class RewardTests extends Common {
 			assertEquals(0, getFlags(repository, "dilbert"));
 
 			// Now that everyone is at level 1 or 2, we can capture initial balances
-			Map<String, Map<Long, Long>> initialBalances = AccountUtils.getBalances(repository, Asset.QORT, Asset.LEGACY_QORA, Asset.QORT_FROM_QORA);
-			final long aliceInitialBalance = initialBalances.get("alice").get(Asset.QORT);
-			final long bobInitialBalance = initialBalances.get("bob").get(Asset.QORT);
-			final long chloeInitialBalance = initialBalances.get("chloe").get(Asset.QORT);
-			final long dilbertInitialBalance = initialBalances.get("dilbert").get(Asset.QORT);
+			Map<String, Map<Long, Long>> initialBalances = AccountUtils.getBalances(repository, Asset.UNCIA, Asset.LEGACY_QORA, Asset.UNCIA_FROM_QORA);
+			final long aliceInitialBalance = initialBalances.get("alice").get(Asset.UNCIA);
+			final long bobInitialBalance = initialBalances.get("bob").get(Asset.UNCIA);
+			final long chloeInitialBalance = initialBalances.get("chloe").get(Asset.UNCIA);
+			final long dilbertInitialBalance = initialBalances.get("dilbert").get(Asset.UNCIA);
 
 			// Mint a block
 			final long blockReward = BlockUtils.getNextBlockReward(repository);
@@ -416,20 +416,20 @@ public class RewardTests extends Common {
 
 			// Validate the balances to ensure that the correct post-shareBinFix distribution is being applied
 			assertEquals(500000000, level1And2ShareAmount);
-			AccountUtils.assertBalance(repository, "alice", Asset.QORT, aliceInitialBalance+expectedFounderReward);
-			AccountUtils.assertBalance(repository, "bob", Asset.QORT, bobInitialBalance); // Bob not online so his balance remains the same
-			AccountUtils.assertBalance(repository, "chloe", Asset.QORT, chloeInitialBalance+expectedReward);
-			AccountUtils.assertBalance(repository, "dilbert", Asset.QORT, dilbertInitialBalance+expectedReward);
+			AccountUtils.assertBalance(repository, "alice", Asset.UNCIA, aliceInitialBalance+expectedFounderReward);
+			AccountUtils.assertBalance(repository, "bob", Asset.UNCIA, bobInitialBalance); // Bob not online so his balance remains the same
+			AccountUtils.assertBalance(repository, "chloe", Asset.UNCIA, chloeInitialBalance+expectedReward);
+			AccountUtils.assertBalance(repository, "dilbert", Asset.UNCIA, dilbertInitialBalance+expectedReward);
 
 			// Now orphan the latest block. This brings us to the threshold of the shareBinFix feature trigger.
 			BlockUtils.orphanBlocks(repository, 1);
 			assertEquals(5, (int) repository.getBlockRepository().getLastBlock().getHeight());
 
 			// Ensure the latest post-fix block rewards have been subtracted and they have returned to their initial values
-			AccountUtils.assertBalance(repository, "alice", Asset.QORT, aliceInitialBalance);
-			AccountUtils.assertBalance(repository, "bob", Asset.QORT, bobInitialBalance); // Bob not online so his balance remains the same
-			AccountUtils.assertBalance(repository, "chloe", Asset.QORT, chloeInitialBalance);
-			AccountUtils.assertBalance(repository, "dilbert", Asset.QORT, dilbertInitialBalance);
+			AccountUtils.assertBalance(repository, "alice", Asset.UNCIA, aliceInitialBalance);
+			AccountUtils.assertBalance(repository, "bob", Asset.UNCIA, bobInitialBalance); // Bob not online so his balance remains the same
+			AccountUtils.assertBalance(repository, "chloe", Asset.UNCIA, chloeInitialBalance);
+			AccountUtils.assertBalance(repository, "dilbert", Asset.UNCIA, dilbertInitialBalance);
 
 			// Orphan another block. This time, the block that was orphaned was prior to the shareBinFix feature trigger.
 			BlockUtils.orphanBlocks(repository, 1);
@@ -446,20 +446,20 @@ public class RewardTests extends Common {
 			// Validate the share amounts and balances
 			assertEquals(500000000, level1ShareAmountBeforeFix);
 			assertEquals(1000000000, level2And3ShareAmountBeforeFix);
-			AccountUtils.assertBalance(repository, "alice", Asset.QORT, aliceInitialBalance-expectedFounderRewardBeforeFix);
-			AccountUtils.assertBalance(repository, "bob", Asset.QORT, bobInitialBalance); // Bob not online so his balance remains the same
-			AccountUtils.assertBalance(repository, "chloe", Asset.QORT, chloeInitialBalance-level1ShareAmountBeforeFix);
-			AccountUtils.assertBalance(repository, "dilbert", Asset.QORT, dilbertInitialBalance-level2And3ShareAmountBeforeFix);
+			AccountUtils.assertBalance(repository, "alice", Asset.UNCIA, aliceInitialBalance-expectedFounderRewardBeforeFix);
+			AccountUtils.assertBalance(repository, "bob", Asset.UNCIA, bobInitialBalance); // Bob not online so his balance remains the same
+			AccountUtils.assertBalance(repository, "chloe", Asset.UNCIA, chloeInitialBalance-level1ShareAmountBeforeFix);
+			AccountUtils.assertBalance(repository, "dilbert", Asset.UNCIA, dilbertInitialBalance-level2And3ShareAmountBeforeFix);
 
 			// Orphan the latest block one last time
 			BlockUtils.orphanBlocks(repository, 1);
 			assertEquals(3, (int) repository.getBlockRepository().getLastBlock().getHeight());
 
 			// Validate balances
-			AccountUtils.assertBalance(repository, "alice", Asset.QORT, aliceInitialBalance-(expectedFounderRewardBeforeFix*2));
-			AccountUtils.assertBalance(repository, "bob", Asset.QORT, bobInitialBalance); // Bob not online so his balance remains the same
-			AccountUtils.assertBalance(repository, "chloe", Asset.QORT, chloeInitialBalance-(level1ShareAmountBeforeFix*2));
-			AccountUtils.assertBalance(repository, "dilbert", Asset.QORT, dilbertInitialBalance-(level2And3ShareAmountBeforeFix*2));
+			AccountUtils.assertBalance(repository, "alice", Asset.UNCIA, aliceInitialBalance-(expectedFounderRewardBeforeFix*2));
+			AccountUtils.assertBalance(repository, "bob", Asset.UNCIA, bobInitialBalance); // Bob not online so his balance remains the same
+			AccountUtils.assertBalance(repository, "chloe", Asset.UNCIA, chloeInitialBalance-(level1ShareAmountBeforeFix*2));
+			AccountUtils.assertBalance(repository, "dilbert", Asset.UNCIA, dilbertInitialBalance-(level2And3ShareAmountBeforeFix*2));
 
 		}
 	}
@@ -505,11 +505,11 @@ public class RewardTests extends Common {
 			assertEquals(4, (int) Common.getTestAccount(repository, "dilbert").getLevel());
 
 			// Now that everyone is at level 3 or 4, we can capture initial balances
-			Map<String, Map<Long, Long>> initialBalances = AccountUtils.getBalances(repository, Asset.QORT, Asset.LEGACY_QORA, Asset.QORT_FROM_QORA);
-			final long aliceInitialBalance = initialBalances.get("alice").get(Asset.QORT);
-			final long bobInitialBalance = initialBalances.get("bob").get(Asset.QORT);
-			final long chloeInitialBalance = initialBalances.get("chloe").get(Asset.QORT);
-			final long dilbertInitialBalance = initialBalances.get("dilbert").get(Asset.QORT);
+			Map<String, Map<Long, Long>> initialBalances = AccountUtils.getBalances(repository, Asset.UNCIA, Asset.LEGACY_QORA, Asset.UNCIA_FROM_QORA);
+			final long aliceInitialBalance = initialBalances.get("alice").get(Asset.UNCIA);
+			final long bobInitialBalance = initialBalances.get("bob").get(Asset.UNCIA);
+			final long chloeInitialBalance = initialBalances.get("chloe").get(Asset.UNCIA);
+			final long dilbertInitialBalance = initialBalances.get("dilbert").get(Asset.UNCIA);
 
 			// Mint a block
 			final long blockReward = BlockUtils.getNextBlockReward(repository);
@@ -535,10 +535,10 @@ public class RewardTests extends Common {
 			final long expectedFounderReward = blockReward - level3And4ShareAmount; // Alice should receive the remainder
 
 			// Validate the balances to ensure that the correct post-shareBinFix distribution is being applied
-			AccountUtils.assertBalance(repository, "alice", Asset.QORT, aliceInitialBalance+expectedFounderReward);
-			AccountUtils.assertBalance(repository, "bob", Asset.QORT, bobInitialBalance+expectedReward);
-			AccountUtils.assertBalance(repository, "chloe", Asset.QORT, chloeInitialBalance+expectedReward);
-			AccountUtils.assertBalance(repository, "dilbert", Asset.QORT, dilbertInitialBalance+expectedReward);
+			AccountUtils.assertBalance(repository, "alice", Asset.UNCIA, aliceInitialBalance+expectedFounderReward);
+			AccountUtils.assertBalance(repository, "bob", Asset.UNCIA, bobInitialBalance+expectedReward);
+			AccountUtils.assertBalance(repository, "chloe", Asset.UNCIA, chloeInitialBalance+expectedReward);
+			AccountUtils.assertBalance(repository, "dilbert", Asset.UNCIA, dilbertInitialBalance+expectedReward);
 
 		}
 	}
@@ -586,11 +586,11 @@ public class RewardTests extends Common {
 			assertEquals(6, (int) Common.getTestAccount(repository, "dilbert").getLevel());
 
 			// Now that everyone is at level 5 or 6 (except Bob who has only just started minting, so is at level 1), we can capture initial balances
-			Map<String, Map<Long, Long>> initialBalances = AccountUtils.getBalances(repository, Asset.QORT, Asset.LEGACY_QORA, Asset.QORT_FROM_QORA);
-			final long aliceInitialBalance = initialBalances.get("alice").get(Asset.QORT);
-			final long bobInitialBalance = initialBalances.get("bob").get(Asset.QORT);
-			final long chloeInitialBalance = initialBalances.get("chloe").get(Asset.QORT);
-			final long dilbertInitialBalance = initialBalances.get("dilbert").get(Asset.QORT);
+			Map<String, Map<Long, Long>> initialBalances = AccountUtils.getBalances(repository, Asset.UNCIA, Asset.LEGACY_QORA, Asset.UNCIA_FROM_QORA);
+			final long aliceInitialBalance = initialBalances.get("alice").get(Asset.UNCIA);
+			final long bobInitialBalance = initialBalances.get("bob").get(Asset.UNCIA);
+			final long chloeInitialBalance = initialBalances.get("chloe").get(Asset.UNCIA);
+			final long dilbertInitialBalance = initialBalances.get("dilbert").get(Asset.UNCIA);
 
 			// Mint a block
 			final long blockReward = BlockUtils.getNextBlockReward(repository);
@@ -620,10 +620,10 @@ public class RewardTests extends Common {
 			final long expectedFounderReward = blockReward - level1And2ShareAmount - level5And6ShareAmount; // Alice should receive the remainder
 
 			// Validate the balances to ensure that the correct post-shareBinFix distribution is being applied
-			AccountUtils.assertBalance(repository, "alice", Asset.QORT, aliceInitialBalance+expectedFounderReward);
-			AccountUtils.assertBalance(repository, "bob", Asset.QORT, bobInitialBalance+expectedLevel1And2Reward);
-			AccountUtils.assertBalance(repository, "chloe", Asset.QORT, chloeInitialBalance+expectedLevel5And6Reward);
-			AccountUtils.assertBalance(repository, "dilbert", Asset.QORT, dilbertInitialBalance+expectedLevel5And6Reward);
+			AccountUtils.assertBalance(repository, "alice", Asset.UNCIA, aliceInitialBalance+expectedFounderReward);
+			AccountUtils.assertBalance(repository, "bob", Asset.UNCIA, bobInitialBalance+expectedLevel1And2Reward);
+			AccountUtils.assertBalance(repository, "chloe", Asset.UNCIA, chloeInitialBalance+expectedLevel5And6Reward);
+			AccountUtils.assertBalance(repository, "dilbert", Asset.UNCIA, dilbertInitialBalance+expectedLevel5And6Reward);
 
 		}
 	}
@@ -666,11 +666,11 @@ public class RewardTests extends Common {
 			assertEquals(8, (int) Common.getTestAccount(repository, "dilbert").getLevel());
 
 			// Now that everyone is at level 7 or 8 (except Bob who has only just started minting, so is at level 1), we can capture initial balances
-			Map<String, Map<Long, Long>> initialBalances = AccountUtils.getBalances(repository, Asset.QORT, Asset.LEGACY_QORA, Asset.QORT_FROM_QORA);
-			final long aliceInitialBalance = initialBalances.get("alice").get(Asset.QORT);
-			final long bobInitialBalance = initialBalances.get("bob").get(Asset.QORT);
-			final long chloeInitialBalance = initialBalances.get("chloe").get(Asset.QORT);
-			final long dilbertInitialBalance = initialBalances.get("dilbert").get(Asset.QORT);
+			Map<String, Map<Long, Long>> initialBalances = AccountUtils.getBalances(repository, Asset.UNCIA, Asset.LEGACY_QORA, Asset.UNCIA_FROM_QORA);
+			final long aliceInitialBalance = initialBalances.get("alice").get(Asset.UNCIA);
+			final long bobInitialBalance = initialBalances.get("bob").get(Asset.UNCIA);
+			final long chloeInitialBalance = initialBalances.get("chloe").get(Asset.UNCIA);
+			final long dilbertInitialBalance = initialBalances.get("dilbert").get(Asset.UNCIA);
 
 			// Mint a block
 			final long blockReward = BlockUtils.getNextBlockReward(repository);
@@ -696,19 +696,19 @@ public class RewardTests extends Common {
 			final long expectedFounderReward = blockReward - level7And8ShareAmount; // Alice should receive the remainder
 
 			// Validate the balances to ensure that the correct post-shareBinFix distribution is being applied
-			AccountUtils.assertBalance(repository, "alice", Asset.QORT, aliceInitialBalance+expectedFounderReward);
-			AccountUtils.assertBalance(repository, "bob", Asset.QORT, bobInitialBalance); // Bob not online so his balance remains the same
-			AccountUtils.assertBalance(repository, "chloe", Asset.QORT, chloeInitialBalance+expectedLevel7And8Reward);
-			AccountUtils.assertBalance(repository, "dilbert", Asset.QORT, dilbertInitialBalance+expectedLevel7And8Reward);
+			AccountUtils.assertBalance(repository, "alice", Asset.UNCIA, aliceInitialBalance+expectedFounderReward);
+			AccountUtils.assertBalance(repository, "bob", Asset.UNCIA, bobInitialBalance); // Bob not online so his balance remains the same
+			AccountUtils.assertBalance(repository, "chloe", Asset.UNCIA, chloeInitialBalance+expectedLevel7And8Reward);
+			AccountUtils.assertBalance(repository, "dilbert", Asset.UNCIA, dilbertInitialBalance+expectedLevel7And8Reward);
 
 			// Orphan and ensure balances return to their previous values
 			BlockUtils.orphanBlocks(repository, 1);
 
 			// Validate the balances
-			AccountUtils.assertBalance(repository, "alice", Asset.QORT, aliceInitialBalance);
-			AccountUtils.assertBalance(repository, "bob", Asset.QORT, bobInitialBalance);
-			AccountUtils.assertBalance(repository, "chloe", Asset.QORT, chloeInitialBalance);
-			AccountUtils.assertBalance(repository, "dilbert", Asset.QORT, dilbertInitialBalance);
+			AccountUtils.assertBalance(repository, "alice", Asset.UNCIA, aliceInitialBalance);
+			AccountUtils.assertBalance(repository, "bob", Asset.UNCIA, bobInitialBalance);
+			AccountUtils.assertBalance(repository, "chloe", Asset.UNCIA, chloeInitialBalance);
+			AccountUtils.assertBalance(repository, "dilbert", Asset.UNCIA, dilbertInitialBalance);
 
 		}
 	}
@@ -756,11 +756,11 @@ public class RewardTests extends Common {
 			assertEquals(10, (int) Common.getTestAccount(repository, "dilbert").getLevel());
 
 			// Now that everyone is at level 7 or 8 (except Bob who has only just started minting, so is at level 1), we can capture initial balances
-			Map<String, Map<Long, Long>> initialBalances = AccountUtils.getBalances(repository, Asset.QORT, Asset.LEGACY_QORA, Asset.QORT_FROM_QORA);
-			final long aliceInitialBalance = initialBalances.get("alice").get(Asset.QORT);
-			final long bobInitialBalance = initialBalances.get("bob").get(Asset.QORT);
-			final long chloeInitialBalance = initialBalances.get("chloe").get(Asset.QORT);
-			final long dilbertInitialBalance = initialBalances.get("dilbert").get(Asset.QORT);
+			Map<String, Map<Long, Long>> initialBalances = AccountUtils.getBalances(repository, Asset.UNCIA, Asset.LEGACY_QORA, Asset.UNCIA_FROM_QORA);
+			final long aliceInitialBalance = initialBalances.get("alice").get(Asset.UNCIA);
+			final long bobInitialBalance = initialBalances.get("bob").get(Asset.UNCIA);
+			final long chloeInitialBalance = initialBalances.get("chloe").get(Asset.UNCIA);
+			final long dilbertInitialBalance = initialBalances.get("dilbert").get(Asset.UNCIA);
 
 			// Mint a block
 			final long blockReward = BlockUtils.getNextBlockReward(repository);
@@ -790,19 +790,19 @@ public class RewardTests extends Common {
 			final long expectedFounderReward = blockReward - level1And2ShareAmount - level9And10ShareAmount; // Alice should receive the remainder
 
 			// Validate the balances to ensure that the correct post-shareBinFix distribution is being applied
-			AccountUtils.assertBalance(repository, "alice", Asset.QORT, aliceInitialBalance+expectedFounderReward);
-			AccountUtils.assertBalance(repository, "bob", Asset.QORT, bobInitialBalance+expectedLevel1And2Reward);
-			AccountUtils.assertBalance(repository, "chloe", Asset.QORT, chloeInitialBalance+expectedLevel9And10Reward);
-			AccountUtils.assertBalance(repository, "dilbert", Asset.QORT, dilbertInitialBalance+expectedLevel9And10Reward);
+			AccountUtils.assertBalance(repository, "alice", Asset.UNCIA, aliceInitialBalance+expectedFounderReward);
+			AccountUtils.assertBalance(repository, "bob", Asset.UNCIA, bobInitialBalance+expectedLevel1And2Reward);
+			AccountUtils.assertBalance(repository, "chloe", Asset.UNCIA, chloeInitialBalance+expectedLevel9And10Reward);
+			AccountUtils.assertBalance(repository, "dilbert", Asset.UNCIA, dilbertInitialBalance+expectedLevel9And10Reward);
 
 			// Orphan and ensure balances return to their previous values
 			BlockUtils.orphanBlocks(repository, 1);
 
 			// Validate the balances
-			AccountUtils.assertBalance(repository, "alice", Asset.QORT, aliceInitialBalance);
-			AccountUtils.assertBalance(repository, "bob", Asset.QORT, bobInitialBalance);
-			AccountUtils.assertBalance(repository, "chloe", Asset.QORT, chloeInitialBalance);
-			AccountUtils.assertBalance(repository, "dilbert", Asset.QORT, dilbertInitialBalance);
+			AccountUtils.assertBalance(repository, "alice", Asset.UNCIA, aliceInitialBalance);
+			AccountUtils.assertBalance(repository, "bob", Asset.UNCIA, bobInitialBalance);
+			AccountUtils.assertBalance(repository, "chloe", Asset.UNCIA, chloeInitialBalance);
+			AccountUtils.assertBalance(repository, "dilbert", Asset.UNCIA, dilbertInitialBalance);
 
 		}
 	}
@@ -848,11 +848,11 @@ public class RewardTests extends Common {
 			assertEquals(8, (int) Common.getTestAccount(repository, "dilbert").getLevel());
 
 			// Now that everyone is at level 7 or 8 (except Bob who has only just started minting, so is at level 1), we can capture initial balances
-			Map<String, Map<Long, Long>> initialBalances = AccountUtils.getBalances(repository, Asset.QORT, Asset.LEGACY_QORA, Asset.QORT_FROM_QORA);
-			final long aliceInitialBalance = initialBalances.get("alice").get(Asset.QORT);
-			final long bobInitialBalance = initialBalances.get("bob").get(Asset.QORT);
-			final long chloeInitialBalance = initialBalances.get("chloe").get(Asset.QORT);
-			final long dilbertInitialBalance = initialBalances.get("dilbert").get(Asset.QORT);
+			Map<String, Map<Long, Long>> initialBalances = AccountUtils.getBalances(repository, Asset.UNCIA, Asset.LEGACY_QORA, Asset.UNCIA_FROM_QORA);
+			final long aliceInitialBalance = initialBalances.get("alice").get(Asset.UNCIA);
+			final long bobInitialBalance = initialBalances.get("bob").get(Asset.UNCIA);
+			final long chloeInitialBalance = initialBalances.get("chloe").get(Asset.UNCIA);
+			final long dilbertInitialBalance = initialBalances.get("dilbert").get(Asset.UNCIA);
 
 			// Mint a block
 			final long blockReward = BlockUtils.getNextBlockReward(repository);
@@ -879,19 +879,19 @@ public class RewardTests extends Common {
 			final long expectedFounderReward = blockReward - level5To8ShareAmount; // Alice should receive the remainder
 
 			// Validate the balances
-			AccountUtils.assertBalance(repository, "alice", Asset.QORT, aliceInitialBalance+expectedFounderReward);
-			AccountUtils.assertBalance(repository, "bob", Asset.QORT, bobInitialBalance); // Bob not online so his balance remains the same
-			AccountUtils.assertBalance(repository, "chloe", Asset.QORT, chloeInitialBalance+expectedLevel5To8Reward);
-			AccountUtils.assertBalance(repository, "dilbert", Asset.QORT, dilbertInitialBalance+expectedLevel5To8Reward);
+			AccountUtils.assertBalance(repository, "alice", Asset.UNCIA, aliceInitialBalance+expectedFounderReward);
+			AccountUtils.assertBalance(repository, "bob", Asset.UNCIA, bobInitialBalance); // Bob not online so his balance remains the same
+			AccountUtils.assertBalance(repository, "chloe", Asset.UNCIA, chloeInitialBalance+expectedLevel5To8Reward);
+			AccountUtils.assertBalance(repository, "dilbert", Asset.UNCIA, dilbertInitialBalance+expectedLevel5To8Reward);
 
 			// Orphan and ensure balances return to their previous values
 			BlockUtils.orphanBlocks(repository, 1);
 
 			// Validate the balances
-			AccountUtils.assertBalance(repository, "alice", Asset.QORT, aliceInitialBalance);
-			AccountUtils.assertBalance(repository, "bob", Asset.QORT, bobInitialBalance);
-			AccountUtils.assertBalance(repository, "chloe", Asset.QORT, chloeInitialBalance);
-			AccountUtils.assertBalance(repository, "dilbert", Asset.QORT, dilbertInitialBalance);
+			AccountUtils.assertBalance(repository, "alice", Asset.UNCIA, aliceInitialBalance);
+			AccountUtils.assertBalance(repository, "bob", Asset.UNCIA, bobInitialBalance);
+			AccountUtils.assertBalance(repository, "chloe", Asset.UNCIA, chloeInitialBalance);
+			AccountUtils.assertBalance(repository, "dilbert", Asset.UNCIA, dilbertInitialBalance);
 
 		}
 	}
@@ -943,11 +943,11 @@ public class RewardTests extends Common {
 			assertEquals(10, (int) Common.getTestAccount(repository, "dilbert").getLevel());
 
 			// Now that everyone is at level 7 or 8 (except Bob who has only just started minting, so is at level 1), we can capture initial balances
-			Map<String, Map<Long, Long>> initialBalances = AccountUtils.getBalances(repository, Asset.QORT, Asset.LEGACY_QORA, Asset.QORT_FROM_QORA);
-			final long aliceInitialBalance = initialBalances.get("alice").get(Asset.QORT);
-			final long bobInitialBalance = initialBalances.get("bob").get(Asset.QORT);
-			final long chloeInitialBalance = initialBalances.get("chloe").get(Asset.QORT);
-			final long dilbertInitialBalance = initialBalances.get("dilbert").get(Asset.QORT);
+			Map<String, Map<Long, Long>> initialBalances = AccountUtils.getBalances(repository, Asset.UNCIA, Asset.LEGACY_QORA, Asset.UNCIA_FROM_QORA);
+			final long aliceInitialBalance = initialBalances.get("alice").get(Asset.UNCIA);
+			final long bobInitialBalance = initialBalances.get("bob").get(Asset.UNCIA);
+			final long chloeInitialBalance = initialBalances.get("chloe").get(Asset.UNCIA);
+			final long dilbertInitialBalance = initialBalances.get("dilbert").get(Asset.UNCIA);
 
 			// Mint a block
 			final long blockReward = BlockUtils.getNextBlockReward(repository);
@@ -977,19 +977,19 @@ public class RewardTests extends Common {
 			final long expectedFounderReward = blockReward - level1And2ShareAmount - level5To10ShareAmount; // Alice should receive the remainder
 
 			// Validate the balances
-			AccountUtils.assertBalance(repository, "alice", Asset.QORT, aliceInitialBalance+expectedFounderReward);
-			AccountUtils.assertBalance(repository, "bob", Asset.QORT, bobInitialBalance+expectedLevel1And2Reward);
-			AccountUtils.assertBalance(repository, "chloe", Asset.QORT, chloeInitialBalance+expectedLevel5To10Reward);
-			AccountUtils.assertBalance(repository, "dilbert", Asset.QORT, dilbertInitialBalance+expectedLevel5To10Reward);
+			AccountUtils.assertBalance(repository, "alice", Asset.UNCIA, aliceInitialBalance+expectedFounderReward);
+			AccountUtils.assertBalance(repository, "bob", Asset.UNCIA, bobInitialBalance+expectedLevel1And2Reward);
+			AccountUtils.assertBalance(repository, "chloe", Asset.UNCIA, chloeInitialBalance+expectedLevel5To10Reward);
+			AccountUtils.assertBalance(repository, "dilbert", Asset.UNCIA, dilbertInitialBalance+expectedLevel5To10Reward);
 
 			// Orphan and ensure balances return to their previous values
 			BlockUtils.orphanBlocks(repository, 1);
 
 			// Validate the balances
-			AccountUtils.assertBalance(repository, "alice", Asset.QORT, aliceInitialBalance);
-			AccountUtils.assertBalance(repository, "bob", Asset.QORT, bobInitialBalance);
-			AccountUtils.assertBalance(repository, "chloe", Asset.QORT, chloeInitialBalance);
-			AccountUtils.assertBalance(repository, "dilbert", Asset.QORT, dilbertInitialBalance);
+			AccountUtils.assertBalance(repository, "alice", Asset.UNCIA, aliceInitialBalance);
+			AccountUtils.assertBalance(repository, "bob", Asset.UNCIA, bobInitialBalance);
+			AccountUtils.assertBalance(repository, "chloe", Asset.UNCIA, chloeInitialBalance);
+			AccountUtils.assertBalance(repository, "dilbert", Asset.UNCIA, dilbertInitialBalance);
 
 		}
 	}
@@ -1035,11 +1035,11 @@ public class RewardTests extends Common {
 			assertEquals(7, (int) Common.getTestAccount(repository, "dilbert").getLevel());
 
 			// Now that dilbert has reached level 7, we can capture initial balances
-			Map<String, Map<Long, Long>> initialBalances = AccountUtils.getBalances(repository, Asset.QORT, Asset.LEGACY_QORA, Asset.QORT_FROM_QORA);
-			final long aliceInitialBalance = initialBalances.get("alice").get(Asset.QORT);
-			final long bobInitialBalance = initialBalances.get("bob").get(Asset.QORT);
-			final long chloeInitialBalance = initialBalances.get("chloe").get(Asset.QORT);
-			final long dilbertInitialBalance = initialBalances.get("dilbert").get(Asset.QORT);
+			Map<String, Map<Long, Long>> initialBalances = AccountUtils.getBalances(repository, Asset.UNCIA, Asset.LEGACY_QORA, Asset.UNCIA_FROM_QORA);
+			final long aliceInitialBalance = initialBalances.get("alice").get(Asset.UNCIA);
+			final long bobInitialBalance = initialBalances.get("bob").get(Asset.UNCIA);
+			final long chloeInitialBalance = initialBalances.get("chloe").get(Asset.UNCIA);
+			final long dilbertInitialBalance = initialBalances.get("dilbert").get(Asset.UNCIA);
 
 			// Mint a block
 			long blockReward = BlockUtils.getNextBlockReward(repository);
@@ -1066,10 +1066,10 @@ public class RewardTests extends Common {
 			final long expectedFounderReward = blockReward - level5To8ShareAmount; // Alice should receive the remainder
 
 			// Validate the balances
-			AccountUtils.assertBalance(repository, "alice", Asset.QORT, aliceInitialBalance+expectedFounderReward);
-			AccountUtils.assertBalance(repository, "bob", Asset.QORT, bobInitialBalance); // Bob not online so his balance remains the same
-			AccountUtils.assertBalance(repository, "chloe", Asset.QORT, chloeInitialBalance+expectedLevel5To8Reward);
-			AccountUtils.assertBalance(repository, "dilbert", Asset.QORT, dilbertInitialBalance+expectedLevel5To8Reward);
+			AccountUtils.assertBalance(repository, "alice", Asset.UNCIA, aliceInitialBalance+expectedFounderReward);
+			AccountUtils.assertBalance(repository, "bob", Asset.UNCIA, bobInitialBalance); // Bob not online so his balance remains the same
+			AccountUtils.assertBalance(repository, "chloe", Asset.UNCIA, chloeInitialBalance+expectedLevel5To8Reward);
+			AccountUtils.assertBalance(repository, "dilbert", Asset.UNCIA, dilbertInitialBalance+expectedLevel5To8Reward);
 
 			// Ensure that the levels are as we expect
 			assertEquals(7, (int) Common.getTestAccount(repository, "alice").getLevel());
@@ -1078,11 +1078,11 @@ public class RewardTests extends Common {
 			assertEquals(7, (int) Common.getTestAccount(repository, "dilbert").getLevel());
 
 			// Capture pre-activation balances
-			Map<String, Map<Long, Long>> preActivationBalances = AccountUtils.getBalances(repository, Asset.QORT, Asset.LEGACY_QORA, Asset.QORT_FROM_QORA);
-			final long alicePreActivationBalance = preActivationBalances.get("alice").get(Asset.QORT);
-			final long bobPreActivationBalance = preActivationBalances.get("bob").get(Asset.QORT);
-			final long chloePreActivationBalance = preActivationBalances.get("chloe").get(Asset.QORT);
-			final long dilbertPreActivationBalance = preActivationBalances.get("dilbert").get(Asset.QORT);
+			Map<String, Map<Long, Long>> preActivationBalances = AccountUtils.getBalances(repository, Asset.UNCIA, Asset.LEGACY_QORA, Asset.UNCIA_FROM_QORA);
+			final long alicePreActivationBalance = preActivationBalances.get("alice").get(Asset.UNCIA);
+			final long bobPreActivationBalance = preActivationBalances.get("bob").get(Asset.UNCIA);
+			final long chloePreActivationBalance = preActivationBalances.get("chloe").get(Asset.UNCIA);
+			final long dilbertPreActivationBalance = preActivationBalances.get("dilbert").get(Asset.UNCIA);
 
 			// Mint another block
 			blockReward = BlockUtils.getNextBlockReward(repository);
@@ -1112,30 +1112,30 @@ public class RewardTests extends Common {
 			final long newExpectedFounderReward = blockReward - level7To8ShareAmount; // Alice should receive the remainder
 
 			// Validate the balances
-			AccountUtils.assertBalance(repository, "alice", Asset.QORT, alicePreActivationBalance+newExpectedFounderReward);
-			AccountUtils.assertBalance(repository, "bob", Asset.QORT, bobPreActivationBalance); // Bob not online so his balance remains the same
-			AccountUtils.assertBalance(repository, "chloe", Asset.QORT, chloePreActivationBalance+expectedLevel7To8Reward);
-			AccountUtils.assertBalance(repository, "dilbert", Asset.QORT, dilbertPreActivationBalance+expectedLevel7To8Reward);
+			AccountUtils.assertBalance(repository, "alice", Asset.UNCIA, alicePreActivationBalance+newExpectedFounderReward);
+			AccountUtils.assertBalance(repository, "bob", Asset.UNCIA, bobPreActivationBalance); // Bob not online so his balance remains the same
+			AccountUtils.assertBalance(repository, "chloe", Asset.UNCIA, chloePreActivationBalance+expectedLevel7To8Reward);
+			AccountUtils.assertBalance(repository, "dilbert", Asset.UNCIA, dilbertPreActivationBalance+expectedLevel7To8Reward);
 
 
 			// Orphan and ensure balances return to their pre-activation values
 			BlockUtils.orphanBlocks(repository, 1);
 
 			// Validate the balances
-			AccountUtils.assertBalance(repository, "alice", Asset.QORT, alicePreActivationBalance);
-			AccountUtils.assertBalance(repository, "bob", Asset.QORT, bobPreActivationBalance);
-			AccountUtils.assertBalance(repository, "chloe", Asset.QORT, chloePreActivationBalance);
-			AccountUtils.assertBalance(repository, "dilbert", Asset.QORT, dilbertPreActivationBalance);
+			AccountUtils.assertBalance(repository, "alice", Asset.UNCIA, alicePreActivationBalance);
+			AccountUtils.assertBalance(repository, "bob", Asset.UNCIA, bobPreActivationBalance);
+			AccountUtils.assertBalance(repository, "chloe", Asset.UNCIA, chloePreActivationBalance);
+			AccountUtils.assertBalance(repository, "dilbert", Asset.UNCIA, dilbertPreActivationBalance);
 
 
 			// Orphan again and ensure balances return to their initial values
 			BlockUtils.orphanBlocks(repository, 1);
 
 			// Validate the balances
-			AccountUtils.assertBalance(repository, "alice", Asset.QORT, aliceInitialBalance);
-			AccountUtils.assertBalance(repository, "bob", Asset.QORT, bobInitialBalance);
-			AccountUtils.assertBalance(repository, "chloe", Asset.QORT, chloeInitialBalance);
-			AccountUtils.assertBalance(repository, "dilbert", Asset.QORT, dilbertInitialBalance);
+			AccountUtils.assertBalance(repository, "alice", Asset.UNCIA, aliceInitialBalance);
+			AccountUtils.assertBalance(repository, "bob", Asset.UNCIA, bobInitialBalance);
+			AccountUtils.assertBalance(repository, "chloe", Asset.UNCIA, chloeInitialBalance);
+			AccountUtils.assertBalance(repository, "dilbert", Asset.UNCIA, dilbertInitialBalance);
 
 		}
 	}
