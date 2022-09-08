@@ -28,7 +28,7 @@ import org.aquila.crosschain.Litecoin.LitecoinNet;
 import org.aquila.crosschain.Dogecoin.DogecoinNet;
 import org.aquila.crosschain.Digibyte.DigibyteNet;
 import org.aquila.crosschain.Ravencoin.RavencoinNet;
-import org.aquila.crosschain.PirateChain.PirateChain;
+import org.aquila.crosschain.PirateChain.PirateChainNet;
 import org.aquila.utils.EnumUtils;
 
 // All properties to be converted to JSON via JAXB
