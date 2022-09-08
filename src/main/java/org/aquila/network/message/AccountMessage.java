@@ -40,6 +40,8 @@ public class AccountMessage extends Message {
 			bytes.write(Ints.toByteArray(accountData.getBlocksMinted()));
 
 			bytes.write(Ints.toByteArray(accountData.getBlocksMintedAdjustment()));
+			
+			bytes.write(Ints.toByteArray(accountData.getSponsorPublicKey()));
 
 		} catch (IOException e) {
 			throw new AssertionError("IOException shouldn't occur with ByteArrayOutputStream");
