@@ -1,11 +1,11 @@
-package org.qortal.test.api;
+package org.aquila.test.api;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.qortal.api.resource.GroupsResource;
-import org.qortal.test.common.ApiCommon;
+import org.aquila.api.resource.GroupsResource;
+import org.aquila.test.common.ApiCommon;
 
 public class GroupApiTests extends ApiCommon {
 

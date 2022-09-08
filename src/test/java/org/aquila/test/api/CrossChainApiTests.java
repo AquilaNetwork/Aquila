@@ -1,11 +1,11 @@
-package org.qortal.test.api;
+package org.aquila.test.api;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.qortal.api.ApiError;
-import org.qortal.api.resource.CrossChainResource;
-import org.qortal.crosschain.SupportedBlockchain;
-import org.qortal.test.common.ApiCommon;
+import org.aquila.api.ApiError;
+import org.aquila.api.resource.CrossChainResource;
+import org.aquila.crosschain.SupportedBlockchain;
+import org.aquila.test.common.ApiCommon;
 
 public class CrossChainApiTests extends ApiCommon {
 

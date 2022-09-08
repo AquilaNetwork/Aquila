@@ -1,13 +1,13 @@
-package org.qortal.test.api;
+package org.aquila.test.api;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.qortal.api.resource.ArbitraryResource;
-import org.qortal.api.resource.TransactionsResource.ConfirmationStatus;
-import org.qortal.arbitrary.misc.Service;
-import org.qortal.test.common.ApiCommon;
+import org.aquila.api.resource.ArbitraryResource;
+import org.aquila.api.resource.TransactionsResource.ConfirmationStatus;
+import org.aquila.arbitrary.misc.Service;
+import org.aquila.test.common.ApiCommon;
 
 public class ArbitraryApiTests extends ApiCommon {
 

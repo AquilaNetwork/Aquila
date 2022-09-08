@@ -1,4 +1,4 @@
-package org.qortal.test.api;
+package org.aquila.test.api;
 
 import static org.junit.Assert.*;
 
@@ -8,16 +8,16 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.qortal.api.ApiError;
-import org.qortal.api.ApiException;
-import org.qortal.api.resource.AssetsResource;
-import org.qortal.api.resource.TransactionsResource.ConfirmationStatus;
-import org.qortal.repository.Repository;
-import org.qortal.repository.RepositoryManager;
-import org.qortal.repository.AccountRepository.BalanceOrdering;
-import org.qortal.repository.DataException;
-import org.qortal.test.common.ApiCommon;
-import org.qortal.test.common.AssetUtils;
+import org.aquila.api.ApiError;
+import org.aquila.api.ApiException;
+import org.aquila.api.resource.AssetsResource;
+import org.aquila.api.resource.TransactionsResource.ConfirmationStatus;
+import org.aquila.repository.Repository;
+import org.aquila.repository.RepositoryManager;
+import org.aquila.repository.AccountRepository.BalanceOrdering;
+import org.aquila.repository.DataException;
+import org.aquila.test.common.ApiCommon;
+import org.aquila.test.common.AssetUtils;
 
 public class AssetsApiTests extends ApiCommon {
 
@@ -100,7 +100,7 @@ public class AssetsApiTests extends ApiCommon {
 	@Test
 	public void testGetAssetInfo() {
 		assertNotNull(this.assetsResource.getAssetInfo((int) 0L, null));
-		assertNotNull(this.assetsResource.getAssetInfo(null, "QORT"));
+		assertNotNull(this.assetsResource.getAssetInfo(null, "UNCIA"));
 	}
 
 	@Test

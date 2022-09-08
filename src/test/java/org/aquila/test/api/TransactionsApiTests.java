@@ -1,4 +1,4 @@
-package org.qortal.test.api;
+package org.aquila.test.api;
 
 import static org.junit.Assert.*;
 
@@ -7,10 +7,10 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.qortal.api.resource.TransactionsResource;
-import org.qortal.api.resource.TransactionsResource.ConfirmationStatus;
-import org.qortal.test.common.ApiCommon;
-import org.qortal.transaction.Transaction.TransactionType;
+import org.aquila.api.resource.TransactionsResource;
+import org.aquila.api.resource.TransactionsResource.ConfirmationStatus;
+import org.aquila.test.common.ApiCommon;
+import org.aquila.transaction.Transaction.TransactionType;
 
 public class TransactionsApiTests extends ApiCommon {
 

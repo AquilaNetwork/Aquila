@@ -1,4 +1,4 @@
-package org.qortal.test.api;
+package org.aquila.test.api;
 
 import static org.junit.Assert.*;
 
@@ -7,8 +7,8 @@ import java.util.Collections;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.qortal.api.resource.AddressesResource;
-import org.qortal.test.common.ApiCommon;
+import org.aquila.api.resource.AddressesResource;
+import org.aquila.test.common.ApiCommon;
 
 public class AddressesApiTests extends ApiCommon {
 

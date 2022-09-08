@@ -1,15 +1,15 @@
-package org.qortal.test.api;
+package org.aquila.test.api;
 
 import static org.junit.Assert.*;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Before;
 import org.junit.Test;
-import org.qortal.api.resource.AdminResource;
-import org.qortal.repository.DataException;
-import org.qortal.settings.Settings;
-import org.qortal.test.common.ApiCommon;
-import org.qortal.test.common.Common;
+import org.aquila.api.resource.AdminResource;
+import org.aquila.repository.DataException;
+import org.aquila.settings.Settings;
+import org.aquila.test.common.ApiCommon;
+import org.aquila.test.common.Common;
 
 public class AdminApiTests extends ApiCommon {
 

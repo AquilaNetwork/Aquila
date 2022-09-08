@@ -1,23 +1,23 @@
-package org.qortal.test.api;
+package org.aquila.test.api;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.qortal.account.PrivateKeyAccount;
-import org.qortal.api.resource.NamesResource;
-import org.qortal.data.transaction.RegisterNameTransactionData;
-import org.qortal.data.transaction.SellNameTransactionData;
-import org.qortal.data.transaction.TransactionData;
-import org.qortal.repository.DataException;
-import org.qortal.repository.Repository;
-import org.qortal.repository.RepositoryManager;
-import org.qortal.test.common.ApiCommon;
-import org.qortal.test.common.Common;
-import org.qortal.test.common.TransactionUtils;
-import org.qortal.test.common.transaction.TestTransaction;
-import org.qortal.transaction.RegisterNameTransaction;
-import org.qortal.utils.NTP;
+import org.aquila.account.PrivateKeyAccount;
+import org.aquila.api.resource.NamesResource;
+import org.aquila.data.transaction.RegisterNameTransactionData;
+import org.aquila.data.transaction.SellNameTransactionData;
+import org.aquila.data.transaction.TransactionData;
+import org.aquila.repository.DataException;
+import org.aquila.repository.Repository;
+import org.aquila.repository.RepositoryManager;
+import org.aquila.test.common.ApiCommon;
+import org.aquila.test.common.Common;
+import org.aquila.test.common.TransactionUtils;
+import org.aquila.test.common.transaction.TestTransaction;
+import org.aquila.transaction.RegisterNameTransaction;
+import org.aquila.utils.NTP;
 
 public class NamesApiTests extends ApiCommon {
 

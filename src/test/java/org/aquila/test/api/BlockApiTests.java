@@ -1,4 +1,4 @@
-package org.qortal.test.api;
+package org.aquila.test.api;
 
 import static org.junit.Assert.*;
 
@@ -9,17 +9,17 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.qortal.account.PrivateKeyAccount;
-import org.qortal.api.ApiError;
-import org.qortal.api.resource.BlocksResource;
-import org.qortal.block.GenesisBlock;
-import org.qortal.repository.DataException;
-import org.qortal.repository.Repository;
-import org.qortal.repository.RepositoryManager;
-import org.qortal.test.common.ApiCommon;
-import org.qortal.test.common.BlockUtils;
-import org.qortal.test.common.Common;
-import org.qortal.utils.Base58;
+import org.aquila.account.PrivateKeyAccount;
+import org.aquila.api.ApiError;
+import org.aquila.api.resource.BlocksResource;
+import org.aquila.block.GenesisBlock;
+import org.aquila.repository.DataException;
+import org.aquila.repository.Repository;
+import org.aquila.repository.RepositoryManager;
+import org.aquila.test.common.ApiCommon;
+import org.aquila.test.common.BlockUtils;
+import org.aquila.test.common.Common;
+import org.aquila.utils.Base58;
 
 public class BlockApiTests extends ApiCommon {
 
