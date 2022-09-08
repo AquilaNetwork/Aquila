@@ -1,11 +1,11 @@
-package org.qortal.test.arbitrary;
+package org.aquila.test.arbitrary;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.qortal.arbitrary.misc.Service;
-import org.qortal.arbitrary.misc.Service.ValidationResult;
-import org.qortal.repository.DataException;
-import org.qortal.test.common.Common;
+import org.aquila.arbitrary.misc.Service;
+import org.aquila.arbitrary.misc.Service.ValidationResult;
+import org.aquila.repository.DataException;
+import org.aquila.test.common.Common;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -102,37 +102,37 @@ public class ArbitraryServiceTests extends Common {
     }
 
     @Test
-    public void testValidQortalMetadata() throws IOException {
+    public void testValidAquilaMetadata() throws IOException {
         // Metadata is to describe an arbitrary resource (title, description, tags, etc)
         String dataString = "{\"title\":\"Test Title\", \"description\":\"Test description\", \"tags\":[\"test\"]}";
 
         // Write to temp path
-        Path path = Files.createTempFile("testValidQortalMetadata", null);
+        Path path = Files.createTempFile("testValidAquilaMetadata", null);
         path.toFile().deleteOnExit();
         Files.write(path, dataString.getBytes(), StandardOpenOption.CREATE);
 
-        Service service = Service.QORTAL_METADATA;
+        Service service = Service.AQUILA_METADATA;
         assertTrue(service.isValidationRequired());
         assertEquals(ValidationResult.OK, service.validate(path));
     }
 
     @Test
-    public void testQortalMetadataMissingKeys() throws IOException {
+    public void testAquilaMetadataMissingKeys() throws IOException {
         // Metadata is to describe an arbitrary resource (title, description, tags, etc)
         String dataString = "{\"description\":\"Test description\", \"tags\":[\"test\"]}";
 
         // Write to temp path
-        Path path = Files.createTempFile("testQortalMetadataMissingKeys", null);
+        Path path = Files.createTempFile("testAquilaMetadataMissingKeys", null);
         path.toFile().deleteOnExit();
         Files.write(path, dataString.getBytes(), StandardOpenOption.CREATE);
 
-        Service service = Service.QORTAL_METADATA;
+        Service service = Service.AQUILA_METADATA;
         assertTrue(service.isValidationRequired());
         assertEquals(ValidationResult.MISSING_KEYS, service.validate(path));
     }
 
     @Test
-    public void testQortalMetadataTooLarge() throws IOException {
+    public void testAquilaMetadataTooLarge() throws IOException {
         // Metadata is to describe an arbitrary resource (title, description, tags, etc)
         String dataString = "{\"title\":\"Test Title\", \"description\":\"Test description\", \"tags\":[\"test\"]}";
 
@@ -142,12 +142,12 @@ public class ArbitraryServiceTests extends Common {
         new Random().nextBytes(largeData);
 
         // Write to temp path
-        Path path = Files.createTempDirectory("testQortalMetadataTooLarge");
+        Path path = Files.createTempDirectory("testAquilaMetadataTooLarge");
         path.toFile().deleteOnExit();
         Files.write(Paths.get(path.toString(), "data"), dataString.getBytes(), StandardOpenOption.CREATE);
         Files.write(Paths.get(path.toString(), "large_data"), largeData, StandardOpenOption.CREATE);
 
-        Service service = Service.QORTAL_METADATA;
+        Service service = Service.AQUILA_METADATA;
         assertTrue(service.isValidationRequired());
         assertEquals(ValidationResult.EXCEEDS_SIZE_LIMIT, service.validate(path));
     }
@@ -168,7 +168,7 @@ public class ArbitraryServiceTests extends Common {
         Files.write(Paths.get(path.toString(), "data"), dataString.getBytes(), StandardOpenOption.CREATE);
         Files.write(Paths.get(path.toString(), "other_data"), otherData, StandardOpenOption.CREATE);
 
-        Service service = Service.QORTAL_METADATA;
+        Service service = Service.AQUILA_METADATA;
         assertTrue(service.isValidationRequired());
 
         // There are multiple files, so we don't know which one to parse as JSON

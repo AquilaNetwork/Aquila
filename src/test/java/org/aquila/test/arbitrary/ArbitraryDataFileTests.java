@@ -1,10 +1,10 @@
-package org.qortal.test.arbitrary;
+package org.aquila.test.arbitrary;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.qortal.repository.DataException;
-import org.qortal.arbitrary.ArbitraryDataFile;
-import org.qortal.test.common.Common;
+import org.aquila.repository.DataException;
+import org.aquila.arbitrary.ArbitraryDataFile;
+import org.aquila.test.common.Common;
 
 import java.util.Random;
 

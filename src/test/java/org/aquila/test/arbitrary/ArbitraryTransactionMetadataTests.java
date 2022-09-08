@@ -1,28 +1,28 @@
-package org.qortal.test.arbitrary;
+package org.aquila.test.arbitrary;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.Before;
 import org.junit.Test;
-import org.qortal.account.PrivateKeyAccount;
-import org.qortal.arbitrary.ArbitraryDataDigest;
-import org.qortal.arbitrary.ArbitraryDataFile;
-import org.qortal.arbitrary.ArbitraryDataFile.*;
-import org.qortal.arbitrary.ArbitraryDataReader;
-import org.qortal.arbitrary.exception.MissingDataException;
-import org.qortal.arbitrary.misc.Category;
-import org.qortal.arbitrary.misc.Service;
-import org.qortal.controller.arbitrary.ArbitraryDataManager;
-import org.qortal.data.transaction.ArbitraryTransactionData;
-import org.qortal.data.transaction.RegisterNameTransactionData;
-import org.qortal.repository.DataException;
-import org.qortal.repository.Repository;
-import org.qortal.repository.RepositoryManager;
-import org.qortal.test.common.ArbitraryUtils;
-import org.qortal.test.common.Common;
-import org.qortal.test.common.TransactionUtils;
-import org.qortal.test.common.transaction.TestTransaction;
-import org.qortal.transaction.RegisterNameTransaction;
-import org.qortal.utils.Base58;
+import org.aquila.account.PrivateKeyAccount;
+import org.aquila.arbitrary.ArbitraryDataDigest;
+import org.aquila.arbitrary.ArbitraryDataFile;
+import org.aquila.arbitrary.ArbitraryDataFile.*;
+import org.aquila.arbitrary.ArbitraryDataReader;
+import org.aquila.arbitrary.exception.MissingDataException;
+import org.aquila.arbitrary.misc.Category;
+import org.aquila.arbitrary.misc.Service;
+import org.aquila.controller.arbitrary.ArbitraryDataManager;
+import org.aquila.data.transaction.ArbitraryTransactionData;
+import org.aquila.data.transaction.RegisterNameTransactionData;
+import org.aquila.repository.DataException;
+import org.aquila.repository.Repository;
+import org.aquila.repository.RepositoryManager;
+import org.aquila.test.common.ArbitraryUtils;
+import org.aquila.test.common.Common;
+import org.aquila.test.common.TransactionUtils;
+import org.aquila.test.common.transaction.TestTransaction;
+import org.aquila.transaction.RegisterNameTransaction;
+import org.aquila.utils.Base58;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -92,7 +92,7 @@ public class ArbitraryTransactionMetadataTests extends Common {
             String title = "Test title";
             String description = "Test description";
             List<String> tags = Arrays.asList("Test", "tag", "another tag");
-            Category category = Category.QORTAL;
+            Category category = Category.AQUILA;
 
             // Register the name to Alice
             RegisterNameTransactionData transactionData = new RegisterNameTransactionData(TestTransaction.generateBase(alice), name, "");
@@ -142,7 +142,7 @@ public class ArbitraryTransactionMetadataTests extends Common {
             String title = "Test title";
             String description = "Test description";
             List<String> tags = Arrays.asList("Test", "tag", "another tag");
-            Category category = Category.QORTAL;
+            Category category = Category.AQUILA;
 
             // Register the name to Alice
             RegisterNameTransactionData transactionData = new RegisterNameTransactionData(TestTransaction.generateBase(alice), name, "");
@@ -204,7 +204,7 @@ public class ArbitraryTransactionMetadataTests extends Common {
             String title = "Test title";
             String description = "Test description";
             List<String> tags = Arrays.asList("Test", "tag", "another tag");
-            Category category = Category.QORTAL;
+            Category category = Category.AQUILA;
 
             // Register the name to Alice
             RegisterNameTransactionData transactionData = new RegisterNameTransactionData(TestTransaction.generateBase(alice), name, "");
@@ -282,7 +282,7 @@ public class ArbitraryTransactionMetadataTests extends Common {
     @Test
     public void testExistingCategories() {
         // Matching categories should be correctly located
-        assertEquals(Category.QORTAL, Category.uncategorizedValueOf("QORTAL"));
+        assertEquals(Category.AQUILA, Category.uncategorizedValueOf("AQUILA"));
         assertEquals(Category.TECHNOLOGY, Category.uncategorizedValueOf("TECHNOLOGY"));
     }
 
@@ -290,7 +290,7 @@ public class ArbitraryTransactionMetadataTests extends Common {
     public void testMissingCategory() {
         // Missing or invalid categories should fall back to UNCATEGORIZED
         assertEquals(Category.UNCATEGORIZED, Category.uncategorizedValueOf("INVALID_CATEGORY"));
-        assertEquals(Category.UNCATEGORIZED, Category.uncategorizedValueOf("Qortal")); // Case-sensitive match required
+        assertEquals(Category.UNCATEGORIZED, Category.uncategorizedValueOf("Aquila")); // Case-sensitive match required
     }
 
 }

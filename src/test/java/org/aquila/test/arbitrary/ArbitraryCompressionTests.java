@@ -1,12 +1,12 @@
-package org.qortal.test.arbitrary;
+package org.aquila.test.arbitrary;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.qortal.arbitrary.ArbitraryDataDigest;
-import org.qortal.crypto.Crypto;
-import org.qortal.repository.DataException;
-import org.qortal.test.common.Common;
-import org.qortal.utils.ZipUtils;
+import org.aquila.arbitrary.ArbitraryDataDigest;
+import org.aquila.crypto.Crypto;
+import org.aquila.repository.DataException;
+import org.aquila.test.common.Common;
+import org.aquila.utils.ZipUtils;
 
 import java.io.IOException;
 import java.nio.file.Files;

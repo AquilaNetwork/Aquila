@@ -1,14 +1,14 @@
-package org.qortal.test.arbitrary;
+package org.aquila.test.arbitrary;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.qortal.arbitrary.ArbitraryDataCombiner;
-import org.qortal.arbitrary.ArbitraryDataCreatePatch;
-import org.qortal.arbitrary.ArbitraryDataDigest;
-import org.qortal.crypto.Crypto;
-import org.qortal.repository.DataException;
-import org.qortal.test.common.ArbitraryUtils;
-import org.qortal.test.common.Common;
+import org.aquila.arbitrary.ArbitraryDataCombiner;
+import org.aquila.arbitrary.ArbitraryDataCreatePatch;
+import org.aquila.arbitrary.ArbitraryDataDigest;
+import org.aquila.crypto.Crypto;
+import org.aquila.repository.DataException;
+import org.aquila.test.common.ArbitraryUtils;
+import org.aquila.test.common.Common;
 
 import java.io.BufferedWriter;
 import java.io.File;

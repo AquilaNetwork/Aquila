@@ -1,10 +1,10 @@
-package org.qortal.test.arbitrary;
+package org.aquila.test.arbitrary;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.qortal.arbitrary.ArbitraryDataDigest;
-import org.qortal.repository.DataException;
-import org.qortal.test.common.Common;
+import org.aquila.arbitrary.ArbitraryDataDigest;
+import org.aquila.repository.DataException;
+import org.aquila.test.common.Common;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -36,10 +36,10 @@ public class ArbitraryDataDigestTests extends Common {
         digest.compute();
         assertEquals(expectedHash58, digest.getHash58());
 
-        // Write a random file to .qortal/cache to ensure it isn't being included in the digest function
-        // We exclude all .qortal files from the digest since they can be different with each build, and
+        // Write a random file to .aquila/cache to ensure it isn't being included in the digest function
+        // We exclude all .aquila files from the digest since they can be different with each build, and
         // we only care about the actual user files
-        Path cachePath = Paths.get(dataPath.toString(), ".qortal", "cache");
+        Path cachePath = Paths.get(dataPath.toString(), ".aquila", "cache");
         Files.createDirectories(cachePath.getParent());
         FileWriter fileWriter = new FileWriter(cachePath.toString());
         fileWriter.append(UUID.randomUUID().toString());
