@@ -716,13 +716,13 @@ public class Settings {
 		return this.dogecoinNet;
 	}
 
-//	public DigibyteNet getDigibyteNet() {
-//		return this.digibyteNet;
-//	}
+	public DigibyteNet getDigibyteNet() {
+		return this.digibyteNet;
+	}
 
-//  public RavencoinNet getRavencoinNet() {
-//		return this.ravencoinNet;
-//  }
+  	public RavencoinNet getRavencoinNet() {
+		return this.ravencoinNet;
+	}
 
 	public PirateChainNet getPirateChainNet() {
 		return this.pirateChainNet;
