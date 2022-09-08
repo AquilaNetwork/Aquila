@@ -1,8 +1,8 @@
-package org.qortal.test.common;
+package org.aquila.test.common;
 
-import org.qortal.account.PrivateKeyAccount;
-import org.qortal.repository.Repository;
-import org.qortal.utils.Base58;
+import org.aquila.account.PrivateKeyAccount;
+import org.aquila.repository.Repository;
+import org.aquila.utils.Base58;
 
 public class TestAccount extends PrivateKeyAccount {
 

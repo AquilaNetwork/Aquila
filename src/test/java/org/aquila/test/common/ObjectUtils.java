@@ -1,4 +1,4 @@
-package org.qortal.test.common;
+package org.aquila.test.common;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

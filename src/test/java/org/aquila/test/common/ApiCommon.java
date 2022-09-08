@@ -1,4 +1,4 @@
-package org.qortal.test.common;
+package org.aquila.test.common;
 
 import static org.junit.Assert.*;
 
@@ -6,9 +6,9 @@ import java.lang.reflect.Field;
 
 import org.eclipse.jetty.server.Request;
 import org.junit.Before;
-import org.qortal.api.ApiError;
-import org.qortal.api.ApiException;
-import org.qortal.repository.DataException;
+import org.aquila.api.ApiError;
+import org.aquila.api.ApiException;
+import org.aquila.repository.DataException;
 
 public class ApiCommon extends Common {
 

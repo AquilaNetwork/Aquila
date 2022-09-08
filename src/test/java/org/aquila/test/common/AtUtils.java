@@ -1,17 +1,17 @@
-package org.qortal.test.common;
+package org.aquila.test.common;
 
 import org.ciyam.at.CompilationException;
 import org.ciyam.at.MachineState;
 import org.ciyam.at.OpCode;
-import org.qortal.account.PrivateKeyAccount;
-import org.qortal.asset.Asset;
-import org.qortal.data.transaction.BaseTransactionData;
-import org.qortal.data.transaction.DeployAtTransactionData;
-import org.qortal.data.transaction.TransactionData;
-import org.qortal.group.Group;
-import org.qortal.repository.DataException;
-import org.qortal.repository.Repository;
-import org.qortal.transaction.DeployAtTransaction;
+import org.aquila.account.PrivateKeyAccount;
+import org.aquila.asset.Asset;
+import org.aquila.data.transaction.BaseTransactionData;
+import org.aquila.data.transaction.DeployAtTransactionData;
+import org.aquila.data.transaction.TransactionData;
+import org.aquila.group.Group;
+import org.aquila.repository.DataException;
+import org.aquila.repository.Repository;
+import org.aquila.transaction.DeployAtTransaction;
 
 import java.nio.ByteBuffer;
 
@@ -56,7 +56,7 @@ public class AtUtils {
         byte[] lastReference = deployer.getLastReference();
 
         if (lastReference == null) {
-            System.err.println(String.format("Qortal account %s has no last reference", deployer.getAddress()));
+            System.err.println(String.format("Aquila account %s has no last reference", deployer.getAddress()));
             System.exit(2);
         }
 
@@ -67,7 +67,7 @@ public class AtUtils {
         String tags = "TEST";
 
         BaseTransactionData baseTransactionData = new BaseTransactionData(txTimestamp, Group.NO_GROUP, lastReference, deployer.getPublicKey(), fee, null);
-        TransactionData deployAtTransactionData = new DeployAtTransactionData(baseTransactionData, name, description, atType, tags, creationBytes, fundingAmount, Asset.QORT);
+        TransactionData deployAtTransactionData = new DeployAtTransactionData(baseTransactionData, name, description, atType, tags, creationBytes, fundingAmount, Asset.UNCIA);
 
         DeployAtTransaction deployAtTransaction = new DeployAtTransaction(repository, deployAtTransactionData);
 

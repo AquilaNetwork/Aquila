@@ -1,20 +1,20 @@
-package org.qortal.test.common;
+package org.aquila.test.common;
 
 import static org.junit.Assert.assertEquals;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import org.qortal.account.PrivateKeyAccount;
-import org.qortal.crypto.Crypto;
-import org.qortal.data.transaction.BaseTransactionData;
-import org.qortal.data.transaction.PaymentTransactionData;
-import org.qortal.data.transaction.RewardShareTransactionData;
-import org.qortal.data.transaction.TransactionData;
-import org.qortal.group.Group;
-import org.qortal.repository.DataException;
-import org.qortal.repository.Repository;
-import org.qortal.utils.Amounts;
+import org.aquila.account.PrivateKeyAccount;
+import org.aquila.crypto.Crypto;
+import org.aquila.data.transaction.BaseTransactionData;
+import org.aquila.data.transaction.PaymentTransactionData;
+import org.aquila.data.transaction.RewardShareTransactionData;
+import org.aquila.data.transaction.TransactionData;
+import org.aquila.group.Group;
+import org.aquila.repository.DataException;
+import org.aquila.repository.Repository;
+import org.aquila.utils.Amounts;
 
 public class AccountUtils {
 

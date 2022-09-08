@@ -1,7 +1,7 @@
-package org.qortal.test.common;
+package org.aquila.test.common;
 
-import org.qortal.network.message.Message;
-import org.qortal.test.common.FakePeer;
+import org.aquila.network.message.Message;
+import org.aquila.test.common.FakePeer;
 
 public class PeerMessage {
 	public final FakePeer peer;

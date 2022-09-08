@@ -1,4 +1,4 @@
-package org.qortal.test.common;
+package org.aquila.test.common;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -6,20 +6,20 @@ import static org.junit.Assert.assertNotNull;
 import java.util.Base64;
 import java.util.Base64.Encoder;
 
-import org.qortal.account.PrivateKeyAccount;
-import org.qortal.data.asset.OrderData;
-import org.qortal.data.transaction.BaseTransactionData;
-import org.qortal.data.transaction.CancelAssetOrderTransactionData;
-import org.qortal.data.transaction.CreateAssetOrderTransactionData;
-import org.qortal.data.transaction.IssueAssetTransactionData;
-import org.qortal.data.transaction.TransactionData;
-import org.qortal.data.transaction.TransferAssetTransactionData;
-import org.qortal.group.Group;
-import org.qortal.repository.DataException;
-import org.qortal.repository.Repository;
-import org.qortal.repository.RepositoryManager;
-import org.qortal.transaction.Transaction;
-import org.qortal.utils.Amounts;
+import org.aquila.account.PrivateKeyAccount;
+import org.aquila.data.asset.OrderData;
+import org.aquila.data.transaction.BaseTransactionData;
+import org.aquila.data.transaction.CancelAssetOrderTransactionData;
+import org.aquila.data.transaction.CreateAssetOrderTransactionData;
+import org.aquila.data.transaction.IssueAssetTransactionData;
+import org.aquila.data.transaction.TransactionData;
+import org.aquila.data.transaction.TransferAssetTransactionData;
+import org.aquila.group.Group;
+import org.aquila.repository.DataException;
+import org.aquila.repository.Repository;
+import org.aquila.repository.RepositoryManager;
+import org.aquila.transaction.Transaction;
+import org.aquila.utils.Amounts;
 
 import java.util.Map;
 import java.util.Random;
@@ -29,7 +29,7 @@ public class AssetUtils {
 	public static final int txGroupId = Group.NO_GROUP;
 	public static final long fee = 1L * Amounts.MULTIPLIER;
 
-	// QORT: 0, LEGACY_QORA: 1, QORT_FROM_QORA: 2
+	// UNCIA: 0, LEGACY_QORA: 1, UNCIA_FROM_QORA: 2
 	public static final long testAssetId = 3L; // Owned by Alice
 	public static final long otherAssetId = 4L; // Owned by Bob
 	public static final long goldAssetId = 5L; // Owned by Alice
