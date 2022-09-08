@@ -1,4 +1,4 @@
-package org.qortal.test.at;
+package org.aquila.test.at;
 
 import static org.junit.Assert.*;
 
@@ -13,26 +13,26 @@ import org.ciyam.at.OpCode;
 import org.ciyam.at.Timestamp;
 import org.junit.Before;
 import org.junit.Test;
-import org.qortal.account.PrivateKeyAccount;
-import org.qortal.asset.Asset;
-import org.qortal.block.Block;
-import org.qortal.data.at.ATStateData;
-import org.qortal.data.block.BlockData;
-import org.qortal.data.transaction.BaseTransactionData;
-import org.qortal.data.transaction.DeployAtTransactionData;
-import org.qortal.data.transaction.MessageTransactionData;
-import org.qortal.data.transaction.TransactionData;
-import org.qortal.group.Group;
-import org.qortal.repository.DataException;
-import org.qortal.repository.Repository;
-import org.qortal.repository.RepositoryManager;
-import org.qortal.test.common.BlockUtils;
-import org.qortal.test.common.Common;
-import org.qortal.test.common.TransactionUtils;
-import org.qortal.transaction.DeployAtTransaction;
-import org.qortal.transaction.MessageTransaction;
-import org.qortal.transaction.Transaction;
-import org.qortal.utils.BitTwiddling;
+import org.aquila.account.PrivateKeyAccount;
+import org.aquila.asset.Asset;
+import org.aquila.block.Block;
+import org.aquila.data.at.ATStateData;
+import org.aquila.data.block.BlockData;
+import org.aquila.data.transaction.BaseTransactionData;
+import org.aquila.data.transaction.DeployAtTransactionData;
+import org.aquila.data.transaction.MessageTransactionData;
+import org.aquila.data.transaction.TransactionData;
+import org.aquila.group.Group;
+import org.aquila.repository.DataException;
+import org.aquila.repository.Repository;
+import org.aquila.repository.RepositoryManager;
+import org.aquila.test.common.BlockUtils;
+import org.aquila.test.common.Common;
+import org.aquila.test.common.TransactionUtils;
+import org.aquila.transaction.DeployAtTransaction;
+import org.aquila.transaction.MessageTransaction;
+import org.aquila.transaction.Transaction;
+import org.aquila.utils.BitTwiddling;
 
 public class GetNextTransactionTests extends Common {
 
@@ -171,7 +171,7 @@ public class GetNextTransactionTests extends Common {
 		byte[] lastReference = deployer.getLastReference();
 
 		if (lastReference == null) {
-			System.err.println(String.format("Qortal account %s has no last reference", deployer.getAddress()));
+			System.err.println(String.format("Aquila account %s has no last reference", deployer.getAddress()));
 			System.exit(2);
 		}
 
@@ -209,7 +209,7 @@ public class GetNextTransactionTests extends Common {
 		byte[] lastReference = sender.getLastReference();
 
 		if (lastReference == null) {
-			System.err.println(String.format("Qortal account %s has no last reference", sender.getAddress()));
+			System.err.println(String.format("Aquila account %s has no last reference", sender.getAddress()));
 			System.exit(2);
 		}
 

@@ -1,4 +1,4 @@
-package org.qortal.test.at;
+package org.aquila.test.at;
 
 import static org.junit.Assert.*;
 
@@ -11,25 +11,25 @@ import org.ciyam.at.MachineState;
 import org.ciyam.at.OpCode;
 import org.junit.Before;
 import org.junit.Test;
-import org.qortal.account.PrivateKeyAccount;
-import org.qortal.asset.Asset;
-import org.qortal.at.QortalFunctionCode;
-import org.qortal.data.at.ATStateData;
-import org.qortal.data.transaction.BaseTransactionData;
-import org.qortal.data.transaction.DeployAtTransactionData;
-import org.qortal.data.transaction.MessageTransactionData;
-import org.qortal.data.transaction.TransactionData;
-import org.qortal.group.Group;
-import org.qortal.repository.DataException;
-import org.qortal.repository.Repository;
-import org.qortal.repository.RepositoryManager;
-import org.qortal.test.common.AccountUtils;
-import org.qortal.test.common.BlockUtils;
-import org.qortal.test.common.Common;
-import org.qortal.test.common.TransactionUtils;
-import org.qortal.transaction.DeployAtTransaction;
-import org.qortal.transaction.MessageTransaction;
-import org.qortal.utils.BitTwiddling;
+import org.aquila.account.PrivateKeyAccount;
+import org.aquila.asset.Asset;
+import org.aquila.at.AquilaFunctionCode;
+import org.aquila.data.at.ATStateData;
+import org.aquila.data.transaction.BaseTransactionData;
+import org.aquila.data.transaction.DeployAtTransactionData;
+import org.aquila.data.transaction.MessageTransactionData;
+import org.aquila.data.transaction.TransactionData;
+import org.aquila.group.Group;
+import org.aquila.repository.DataException;
+import org.aquila.repository.Repository;
+import org.aquila.repository.RepositoryManager;
+import org.aquila.test.common.AccountUtils;
+import org.aquila.test.common.BlockUtils;
+import org.aquila.test.common.Common;
+import org.aquila.test.common.TransactionUtils;
+import org.aquila.transaction.DeployAtTransaction;
+import org.aquila.transaction.MessageTransaction;
+import org.aquila.utils.BitTwiddling;
 
 public class GetMessageLengthTests extends Common {
 
@@ -139,7 +139,7 @@ public class GetMessageLengthTests extends Common {
 				// Update our 'last found transaction's timestamp' using 'timestamp' from transaction
 				codeByteBuffer.put(OpCode.EXT_FUN_RET.compile(FunctionCode.GET_TIMESTAMP_FROM_TX_IN_A, addrLastTxTimestamp));
 				// Save message length
-				codeByteBuffer.put(OpCode.EXT_FUN_RET.compile(QortalFunctionCode.GET_MESSAGE_LENGTH_FROM_TX_IN_A.value, addrResult));
+				codeByteBuffer.put(OpCode.EXT_FUN_RET.compile(AquilaFunctionCode.GET_MESSAGE_LENGTH_FROM_TX_IN_A.value, addrResult));
 
 				// Stop and wait for next block (and hence more transactions)
 				codeByteBuffer.put(OpCode.STP_IMD.compile());
@@ -166,7 +166,7 @@ public class GetMessageLengthTests extends Common {
 		byte[] lastReference = deployer.getLastReference();
 
 		if (lastReference == null) {
-			System.err.println(String.format("Qortal account %s has no last reference", deployer.getAddress()));
+			System.err.println(String.format("Aquila account %s has no last reference", deployer.getAddress()));
 			System.exit(2);
 		}
 
@@ -194,7 +194,7 @@ public class GetMessageLengthTests extends Common {
 		byte[] lastReference = sender.getLastReference();
 
 		if (lastReference == null) {
-			System.err.println(String.format("Qortal account %s has no last reference", sender.getAddress()));
+			System.err.println(String.format("Aquila account %s has no last reference", sender.getAddress()));
 			System.exit(2);
 		}
 
