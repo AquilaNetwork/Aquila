@@ -337,9 +337,9 @@ public class MiscTests extends Common {
 			assertEquals(futureFeeIncrease.fee, BlockChain.getInstance().getNameRegistrationUnitFeeAtTimestamp(futureFeeIncrease.timestamp));
 
 			// Validate unit fees pre and post timestamp
-			assertEquals(10000000, BlockChain.getInstance().getUnitFee()); // 0.1 QORT
-			assertEquals(10000000, BlockChain.getInstance().getNameRegistrationUnitFeeAtTimestamp(futureFeeIncrease.timestamp - 1)); // 0.1 QORT
-			assertEquals(500000000, BlockChain.getInstance().getNameRegistrationUnitFeeAtTimestamp(futureFeeIncrease.timestamp)); // 5 QORT
+			assertEquals(10000000, BlockChain.getInstance().getUnitFee()); // 0.1 UNCIA
+			assertEquals(10000000, BlockChain.getInstance().getNameRegistrationUnitFeeAtTimestamp(futureFeeIncrease.timestamp - 1)); // 0.1 UNCIA
+			assertEquals(500000000, BlockChain.getInstance().getNameRegistrationUnitFeeAtTimestamp(futureFeeIncrease.timestamp)); // 5 UNCIA
 
 			// Register-name
 			PrivateKeyAccount alice = Common.getTestAccount(repository, "alice");
