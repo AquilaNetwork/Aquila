@@ -260,7 +260,7 @@ public class HSQLDBAccountRepository implements AccountRepository {
 
 	// set Sponsor added by sahkan
 	@Override
-	public void setSponsorPublicKey(AccountData sponsorPublicKey) throws  DataException {
+	public void setSponsorPublicKey(AccountData accountData) throws  DataException {
 		HSQLDBSaver saveHelper = new HSQLDBSaver("Accounts");
 
 		saveHelper.bind("account", accountData.getAddress())
