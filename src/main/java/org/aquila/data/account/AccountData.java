@@ -19,7 +19,7 @@ public class AccountData {
 	protected int blocksMinted;
 	protected int blocksMintedAdjustment;
 	// Added sponsor by sahkan
-	protected byte[] SponsorPublicKey;
+	protected byte[] sponsorPublicKey;
 
 	// Constructors
 
