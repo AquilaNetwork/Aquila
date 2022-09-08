@@ -405,11 +405,11 @@ public class ImportExportTests extends Common {
         long timestamp = NTP.getTime();
         String atAddress = "AT_ADDRESS";
         long foreignAmount = 1234;
-        long qortAmount= 5678;
+        long unciaAmount= 5678;
 
         TradeBotData tradeBotData =  new TradeBotData(tradePrivateKey, LitecoinACCTv1.NAME,
                 LitecoinACCTv1TradeBot.State.BOB_WAITING_FOR_AT_CONFIRM.name(), LitecoinACCTv1TradeBot.State.BOB_WAITING_FOR_AT_CONFIRM.value,
-                creator.getAddress(), atAddress, timestamp, qortAmount,
+                creator.getAddress(), atAddress, timestamp, unciaAmount,
                 tradeNativePublicKey, tradeNativePublicKeyHash, tradeNativeAddress,
                 null, null,
                 SupportedBlockchain.LITECOIN.name(),
