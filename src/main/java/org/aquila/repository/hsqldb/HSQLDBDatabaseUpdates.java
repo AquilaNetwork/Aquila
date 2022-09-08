@@ -222,7 +222,7 @@ public class HSQLDBDatabaseUpdates {
 					stmt.execute("CREATE TABLE Accounts (account AquilaAddress, reference Signature, public_key AquilaPublicKey, "
 							+ "default_group_id GroupID NOT NULL DEFAULT 0, flags INTEGER NOT NULL DEFAULT 0, level INT NOT NULL DEFAULT 0, "
 							+ "blocks_minted INTEGER NOT NULL DEFAULT 0, blocks_minted_adjustment INTEGER NOT NULL DEFAULT 0, "
-							+ "PRIMARY KEY (account))");
+							+ "sponsor_private_key SponsorPK, PRIMARY KEY (account))");
 					// For looking up an account by public key
 					stmt.execute("CREATE INDEX AccountPublicKeyIndex on Accounts (public_key)");
 					// Use a separate table space as this table will be very large.
