@@ -80,7 +80,7 @@ public class AccountMessage extends Message {
 
 		int blocksMintedAdjustment = byteBuffer.getInt();
 
-		AccountData accountData = new AccountData(address, reference, publicKey, defaultGroupId, flags, level, blocksMinted, blocksMintedAdjustment);
+		AccountData accountData = new AccountData(address, reference, publicKey, defaultGroupId, flags, level, blocksMinted, blocksMintedAdjustment, sponsorPublicKey);
 		return new AccountMessage(id, accountData);
 	}
 
