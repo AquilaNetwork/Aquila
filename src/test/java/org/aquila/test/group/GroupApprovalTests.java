@@ -89,8 +89,8 @@ public class GroupApprovalTests extends Common {
 			PrivateKeyAccount bobAccount = Common.getTestAccount(repository, "bob");
 			byte[] bobOriginalReference = bobAccount.getLastReference();
 
-			long aliceOriginalBalance = aliceAccount.getConfirmedBalance(Asset.QORT);
-			long bobOriginalBalance = bobAccount.getConfirmedBalance(Asset.QORT);
+			long aliceOriginalBalance = aliceAccount.getConfirmedBalance(Asset.UNCIA);
+			long bobOriginalBalance = bobAccount.getConfirmedBalance(Asset.UNCIA);
 
 			Long blockReward = BlockUtils.getNextBlockReward(repository);
 			Transaction bobAssetTransaction = buildIssueAssetTransaction(repository, "bob", groupId);
@@ -105,11 +105,11 @@ public class GroupApprovalTests extends Common {
 			assertFalse("reference should have changed", Arrays.equals(bobOriginalReference, bobPostAssetReference));
 
 			// Bob's balance should have the fee removed, even though the transaction itself hasn't been approved yet
-			long bobPostAssetBalance = bobAccount.getConfirmedBalance(Asset.QORT);
+			long bobPostAssetBalance = bobAccount.getConfirmedBalance(Asset.UNCIA);
 			assertEquals("approval-pending transaction creator's balance incorrect", bobOriginalBalance - fee, bobPostAssetBalance);
 
 			// Transaction fee should have ended up in forging account
-			long alicePostAssetBalance = aliceAccount.getConfirmedBalance(Asset.QORT);
+			long alicePostAssetBalance = aliceAccount.getConfirmedBalance(Asset.UNCIA);
 			assertEquals("block minter's balance incorrect", aliceOriginalBalance + blockReward + fee, alicePostAssetBalance);
 
 			// Have Bob do a non-approval transaction to change his last-reference
@@ -166,7 +166,7 @@ public class GroupApprovalTests extends Common {
 			assertTrue("reference should be pre-payment", Arrays.equals(bobOriginalReference, bobReference));
 
 			// Also check Bob's balance is back to original value
-			long bobBalance = bobAccount.getConfirmedBalance(Asset.QORT);
+			long bobBalance = bobAccount.getConfirmedBalance(Asset.UNCIA);
 			assertEquals("reverted balance doesn't match original", bobOriginalBalance, bobBalance);
 		}
 	}
