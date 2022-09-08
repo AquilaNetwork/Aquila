@@ -21,6 +21,6 @@ public class UnspentOutput {
 	}
 
 	public UnspentOutput(byte[] hash, int index, int height, long value) {
-		this(hash, index, height, value, null, null;
+		this(hash, index, height, value, null, null);
 	}
 }
