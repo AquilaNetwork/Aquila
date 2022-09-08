@@ -1,4 +1,4 @@
-package org.qortal.api.model.crosschain;
+package org.aquila.api.model.crosschain;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -16,11 +16,11 @@ public class RavencoinSendRequest {
 	public String receivingAddress;
 
 	@Schema(description = "Amount of RVN to send", type = "number")
-	@XmlJavaTypeAdapter(value = org.qortal.api.AmountTypeAdapter.class)
+	@XmlJavaTypeAdapter(value = org.aquila.api.AmountTypeAdapter.class)
 	public long ravencoinAmount;
 
 	@Schema(description = "Transaction fee per byte (optional). Default is 0.00000100 RVN (100 sats) per byte", example = "0.00000100", type = "number")
-	@XmlJavaTypeAdapter(value = org.qortal.api.AmountTypeAdapter.class)
+	@XmlJavaTypeAdapter(value = org.aquila.api.AmountTypeAdapter.class)
 	public Long feePerByte;
 
 	public RavencoinSendRequest() {
