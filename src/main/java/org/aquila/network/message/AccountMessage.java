@@ -81,6 +81,8 @@ public class AccountMessage extends Message {
 		int blocksMinted = byteBuffer.getInt();
 
 		int blocksMintedAdjustment = byteBuffer.getInt();
+		
+		byte[] sponsorPublicKey = new byte[PUBLIC_KEY_LENGTH];
 
 		AccountData accountData = new AccountData(address, reference, publicKey, defaultGroupId, flags, level, blocksMinted, blocksMintedAdjustment, sponsorPublicKey);
 		return new AccountMessage(id, accountData);
