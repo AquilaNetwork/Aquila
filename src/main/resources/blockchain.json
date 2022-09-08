@@ -56,7 +56,7 @@
 		{ "id": 10, "levels": [ 10 ], "share": 0.22 }
 	],
 	"qoraHoldersShare": 0,
-	"qoraPerQortReward": 0,
+	"qoraPerUnciaReward": 0,
 	"minAccountsToActivateShareBin": 10,
 	"shareBinActivationMinLevel": 2,
 	"blocksNeededByLevel": [ 10080, 40320, 80640, 120960, 161280, 201600, 241920, 282240, 322560, 362880 ],
@@ -99,11 +99,7 @@
 			{ "type": "JOIN_GROUP", "joinerPublicKey": "25jxnXz3xF3tK2WJHpUHwGx7DXR6yfjAHF1hFX5ice6H", "groupId": 1 },
 			{ "type": "ADD_GROUP_ADMIN", "ownerPublicKey": "CVancqfgb2vWLXHjqZF8LtoQyB7Y5HtZUrFKvtwrTkNW", "groupId": 1, "member": "AhPXuFFRa9s91Q2qYKpSN5LVCUTqYkgRLz" },
 
-			{ "type": "UPDATE_GROUP", "ownerPublicKey": "CVancqfgb2vWLXHjqZF8LtoQyB7Y5HtZUrFKvtwrTkNW", "groupId": 1, "newOwner": "AdSnUy6sUiEnaN87dWmE92g1uQjrvPgrWG", "newDescription": "developer group", "newIsOpen": false, "newApprovalThreshold": "PCT40", "minimumBlockDelay": 10, "maximumBlockDelay": 1440 },
-			
-			{ "type": "GENESIS", "recipient": "AWZwi5NUzHuJfg5fh9HzjWRpQc1fmMknAh", "amount": "1282.61375000", "assetId": 1 },
-			{ "type": "GENESIS", "recipient": "AfwU5G7SHXNaGNmK2YvwieGpG2UsoPibB8", "amount": "0.66600000", "assetId": 1 }
-
+			{ "type": "UPDATE_GROUP", "ownerPublicKey": "CVancqfgb2vWLXHjqZF8LtoQyB7Y5HtZUrFKvtwrTkNW", "groupId": 1, "newOwner": "AdSnUy6sUiEnaN87dWmE92g1uQjrvPgrWG", "newDescription": "developer group", "newIsOpen": false, "newApprovalThreshold": "PCT40", "minimumBlockDelay": 10, "maximumBlockDelay": 1440 }
 		]
 	}
 }
