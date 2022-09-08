@@ -1,4 +1,4 @@
-package org.qortal.test.apps;
+package org.aquila.test.apps;
 
 import java.io.File;
 import java.io.FileNotFoundException;

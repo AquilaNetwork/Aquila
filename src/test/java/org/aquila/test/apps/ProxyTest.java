@@ -1,4 +1,4 @@
-package org.qortal.test.apps;
+package org.aquila.test.apps;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,7 +21,7 @@ public class ProxyTest {
 	private static final Pattern proxyUrlPattern = Pattern.compile("(https://)([^@:/]+)@([0-9.]{7,15})(/.*)");
 
 	public static void main(String args[]) {
-		String uri = "https://raw.githubusercontent.com@151.101.16.133/QORT/qortal/master/pom.xml";
+		String uri = "https://raw.githubusercontent.com@151.101.16.133/UNCIA/aquila/master/pom.xml";
 
 		try (InputStream in = fetchStream(uri)) {
 			int byteCount = 0;

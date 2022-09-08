@@ -1,5 +1,5 @@
-package org.qortal.test.apps;
-import org.qortal.crypto.BrokenMD160;
+package org.aquila.test.apps;
+import org.aquila.crypto.BrokenMD160;
 
 import com.google.common.hash.HashCode;
 

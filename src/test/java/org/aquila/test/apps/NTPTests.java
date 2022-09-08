@@ -1,4 +1,4 @@
-package org.qortal.test.apps;
+package org.aquila.test.apps;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,7 +10,7 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.core.config.LoggerConfig;
 import org.apache.logging.log4j.core.LoggerContext;
-import org.qortal.utils.NTP;
+import org.aquila.utils.NTP;
 
 public class NTPTests {
 

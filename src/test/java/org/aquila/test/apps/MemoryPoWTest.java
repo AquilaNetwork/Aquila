@@ -1,8 +1,8 @@
-package org.qortal.test.apps;
+package org.aquila.test.apps;
 
 import java.util.Random;
 
-import org.qortal.crypto.MemoryPoW;
+import org.aquila.crypto.MemoryPoW;
 
 public class MemoryPoWTest {
 

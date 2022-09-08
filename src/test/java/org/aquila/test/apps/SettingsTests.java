@@ -1,4 +1,4 @@
-package org.qortal.test.apps;
+package org.aquila.test.apps;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,9 +11,9 @@ import javax.xml.transform.stream.StreamSource;
 
 import org.eclipse.persistence.jaxb.JAXBContextFactory;
 import org.eclipse.persistence.jaxb.UnmarshallerProperties;
-import org.qortal.block.BlockChain;
-import org.qortal.data.transaction.TransactionData;
-import org.qortal.settings.Settings;
+import org.aquila.block.BlockChain;
+import org.aquila.data.transaction.TransactionData;
+import org.aquila.settings.Settings;
 
 public class SettingsTests {
 
