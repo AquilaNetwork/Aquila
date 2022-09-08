@@ -35,7 +35,7 @@ public class DeployAT {
 		if (error != null)
 			System.err.println(error);
 
-		System.err.println(String.format("usage: DeployAT <your Aquila PRIVATE key> <QORT amount> <AT funding amount> <BTC amount> <your Bitcoin PKH/P2PKH> <HASH160-of-secret> <trade-timeout>"));
+		System.err.println(String.format("usage: DeployAT <your Aquila PRIVATE key> <UNCIA amount> <AT funding amount> <BTC amount> <your Bitcoin PKH/P2PKH> <HASH160-of-secret> <trade-timeout>"));
 		System.err.println(String.format("example: DeployAT "
 				+ "7Eztjz2TsxwbrWUYEaSdLbASKQGTfK2rR7ViFc5gaiZw \\\n"
 				+ "\t10 \\\n"
@@ -72,11 +72,11 @@ public class DeployAT {
 
 			redeemAmount = Long.parseLong(args[argIndex++]);
 			if (redeemAmount <= 0)
-				usage("QORT amount must be positive");
+				usage("UNCIA amount must be positive");
 
 			fundingAmount = Long.parseLong(args[argIndex++]);
 			if (fundingAmount <= redeemAmount)
-				usage("AT funding amount must be greater than QORT redeem amount");
+				usage("AT funding amount must be greater than UNCIA redeem amount");
 
 			expectedBitcoin = Long.parseLong(args[argIndex++]);
 			if (expectedBitcoin <= 0)
@@ -117,7 +117,7 @@ public class DeployAT {
 			PrivateKeyAccount refundAccount = new PrivateKeyAccount(repository, refundPrivateKey);
 			System.out.println(String.format("Refund Aquila address: %s", refundAccount.getAddress()));
 
-			System.out.println(String.format("QORT redeem amount: %s", Amounts.prettyAmount(redeemAmount)));
+			System.out.println(String.format("UNCIA redeem amount: %s", Amounts.prettyAmount(redeemAmount)));
 
 			System.out.println(String.format("AT funding amount: %s", Amounts.prettyAmount(fundingAmount)));
 
@@ -136,13 +136,13 @@ public class DeployAT {
 			}
 
 			Long fee = null;
-			String name = "QORT-BTC cross-chain trade";
+			String name = "UNCIA-BTC cross-chain trade";
 			String description = String.format("Aquila-Bitcoin cross-chain trade");
 			String atType = "ACCT";
-			String tags = "QORT-BTC ACCT";
+			String tags = "UNCIA-BTC ACCT";
 
 			BaseTransactionData baseTransactionData = new BaseTransactionData(txTimestamp, Group.NO_GROUP, lastReference, refundAccount.getPublicKey(), fee, null);
-			TransactionData deployAtTransactionData = new DeployAtTransactionData(baseTransactionData, name, description, atType, tags, creationBytes, fundingAmount, Asset.QORT);
+			TransactionData deployAtTransactionData = new DeployAtTransactionData(baseTransactionData, name, description, atType, tags, creationBytes, fundingAmount, Asset.UNCIA);
 
 			Transaction deployAtTransaction = new DeployAtTransaction(repository, deployAtTransactionData);
 
