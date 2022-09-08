@@ -84,13 +84,13 @@ public class SleepUntilMessageTests extends Common {
 		BlockUtils.mintBlock(repository);
 
 		// Fetch AT's balance for this height
-		long preMintBalance = atAccount.getConfirmedBalance(Asset.QORT);
+		long preMintBalance = atAccount.getConfirmedBalance(Asset.UNCIA);
 
 		// Mint block
 		BlockUtils.mintBlock(repository);
 
 		// Fetch new AT balance
-		long postMintBalance = atAccount.getConfirmedBalance(Asset.QORT);
+		long postMintBalance = atAccount.getConfirmedBalance(Asset.UNCIA);
 
 		assertEquals(preMintBalance, postMintBalance);
 	}
@@ -101,14 +101,14 @@ public class SleepUntilMessageTests extends Common {
 		BlockUtils.mintBlock(repository);
 
 		// Fetch AT's balance for this height
-		long preMintBalance = atAccount.getConfirmedBalance(Asset.QORT);
+		long preMintBalance = atAccount.getConfirmedBalance(Asset.UNCIA);
 
 		// Mint several blocks
 		for (int i = 0; i < 10; ++i)
 			BlockUtils.mintBlock(repository);
 
 		// Fetch new AT balance
-		long postMintBalance = atAccount.getConfirmedBalance(Asset.QORT);
+		long postMintBalance = atAccount.getConfirmedBalance(Asset.UNCIA);
 
 		assertEquals(preMintBalance, postMintBalance);
 	}
@@ -219,7 +219,7 @@ public class SleepUntilMessageTests extends Common {
 		String tags = "TEST";
 
 		BaseTransactionData baseTransactionData = new BaseTransactionData(txTimestamp, Group.NO_GROUP, lastReference, deployer.getPublicKey(), fee, null);
-		TransactionData deployAtTransactionData = new DeployAtTransactionData(baseTransactionData, name, description, atType, tags, creationBytes, fundingAmount, Asset.QORT);
+		TransactionData deployAtTransactionData = new DeployAtTransactionData(baseTransactionData, name, description, atType, tags, creationBytes, fundingAmount, Asset.UNCIA);
 
 		DeployAtTransaction deployAtTransaction = new DeployAtTransaction(repository, deployAtTransactionData);
 

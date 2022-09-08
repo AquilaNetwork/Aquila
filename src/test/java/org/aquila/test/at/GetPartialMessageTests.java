@@ -176,7 +176,7 @@ public class GetPartialMessageTests extends Common {
 		String tags = "TEST";
 
 		BaseTransactionData baseTransactionData = new BaseTransactionData(txTimestamp, Group.NO_GROUP, lastReference, deployer.getPublicKey(), fee, null);
-		TransactionData deployAtTransactionData = new DeployAtTransactionData(baseTransactionData, name, description, atType, tags, creationBytes, fundingAmount, Asset.QORT);
+		TransactionData deployAtTransactionData = new DeployAtTransactionData(baseTransactionData, name, description, atType, tags, creationBytes, fundingAmount, Asset.UNCIA);
 
 		DeployAtTransaction deployAtTransaction = new DeployAtTransaction(repository, deployAtTransactionData);
 
