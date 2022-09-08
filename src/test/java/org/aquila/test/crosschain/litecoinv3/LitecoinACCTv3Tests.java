@@ -76,23 +76,23 @@ public class LitecoinACCTv3Tests extends Common {
 
 			PrivateKeyAccount partner = Common.getTestAccount(repository, "dilbert");
 
-			long deployersInitialBalance = deployer.getConfirmedBalance(Asset.QORT);
-			long partnersInitialBalance = partner.getConfirmedBalance(Asset.QORT);
+			long deployersInitialBalance = deployer.getConfirmedBalance(Asset.UNCIA);
+			long partnersInitialBalance = partner.getConfirmedBalance(Asset.UNCIA);
 
 			DeployAtTransaction deployAtTransaction = doDeploy(repository, deployer, tradeAccount.getAddress());
 
 			long expectedBalance = deployersInitialBalance - fundingAmount - deployAtTransaction.getTransactionData().getFee();
-			long actualBalance = deployer.getConfirmedBalance(Asset.QORT);
+			long actualBalance = deployer.getConfirmedBalance(Asset.UNCIA);
 
 			assertEquals("Deployer's post-deployment balance incorrect", expectedBalance, actualBalance);
 
 			expectedBalance = fundingAmount;
-			actualBalance = deployAtTransaction.getATAccount().getConfirmedBalance(Asset.QORT);
+			actualBalance = deployAtTransaction.getATAccount().getConfirmedBalance(Asset.UNCIA);
 
 			assertEquals("AT's post-deployment balance incorrect", expectedBalance, actualBalance);
 
 			expectedBalance = partnersInitialBalance;
-			actualBalance = partner.getConfirmedBalance(Asset.QORT);
+			actualBalance = partner.getConfirmedBalance(Asset.UNCIA);
 
 			assertEquals("Partner's post-deployment balance incorrect", expectedBalance, actualBalance);
 
@@ -100,17 +100,17 @@ public class LitecoinACCTv3Tests extends Common {
 			BlockUtils.orphanLastBlock(repository);
 
 			expectedBalance = deployersInitialBalance;
-			actualBalance = deployer.getConfirmedBalance(Asset.QORT);
+			actualBalance = deployer.getConfirmedBalance(Asset.UNCIA);
 
 			assertEquals("Deployer's post-orphan/pre-deployment balance incorrect", expectedBalance, actualBalance);
 
 			expectedBalance = 0;
-			actualBalance = deployAtTransaction.getATAccount().getConfirmedBalance(Asset.QORT);
+			actualBalance = deployAtTransaction.getATAccount().getConfirmedBalance(Asset.UNCIA);
 
 			assertEquals("AT's post-orphan/pre-deployment balance incorrect", expectedBalance, actualBalance);
 
 			expectedBalance = partnersInitialBalance;
-			actualBalance = partner.getConfirmedBalance(Asset.QORT);
+			actualBalance = partner.getConfirmedBalance(Asset.UNCIA);
 
 			assertEquals("Partner's post-orphan/pre-deployment balance incorrect", expectedBalance, actualBalance);
 		}
@@ -125,8 +125,8 @@ public class LitecoinACCTv3Tests extends Common {
 
 			PrivateKeyAccount partner = Common.getTestAccount(repository, "dilbert");
 
-			long deployersInitialBalance = deployer.getConfirmedBalance(Asset.QORT);
-			long partnersInitialBalance = partner.getConfirmedBalance(Asset.QORT);
+			long deployersInitialBalance = deployer.getConfirmedBalance(Asset.UNCIA);
+			long partnersInitialBalance = partner.getConfirmedBalance(Asset.UNCIA);
 
 			DeployAtTransaction deployAtTransaction = doDeploy(repository, deployer, tradeAccount.getAddress());
 			Account at = deployAtTransaction.getATAccount();
@@ -157,7 +157,7 @@ public class LitecoinACCTv3Tests extends Common {
 			long expectedMinimumBalance = deployersPostDeploymentBalance;
 			long expectedMaximumBalance = deployersInitialBalance - deployAtFee - messageFee;
 
-			long actualBalance = deployer.getConfirmedBalance(Asset.QORT);
+			long actualBalance = deployer.getConfirmedBalance(Asset.UNCIA);
 
 			assertTrue(String.format("Deployer's balance %s should be above minimum %s", actualBalance, expectedMinimumBalance), actualBalance > expectedMinimumBalance);
 			assertTrue(String.format("Deployer's balance %s should be below maximum %s", actualBalance, expectedMaximumBalance), actualBalance < expectedMaximumBalance);
@@ -167,7 +167,7 @@ public class LitecoinACCTv3Tests extends Common {
 
 			// Check balances
 			long expectedBalance = deployersPostDeploymentBalance - messageFee;
-			actualBalance = deployer.getConfirmedBalance(Asset.QORT);
+			actualBalance = deployer.getConfirmedBalance(Asset.UNCIA);
 
 			assertEquals("Deployer's post-orphan/pre-refund balance incorrect", expectedBalance, actualBalance);
 		}
@@ -182,8 +182,8 @@ public class LitecoinACCTv3Tests extends Common {
 
 			PrivateKeyAccount partner = Common.getTestAccount(repository, "dilbert");
 
-			long deployersInitialBalance = deployer.getConfirmedBalance(Asset.QORT);
-			long partnersInitialBalance = partner.getConfirmedBalance(Asset.QORT);
+			long deployersInitialBalance = deployer.getConfirmedBalance(Asset.UNCIA);
+			long partnersInitialBalance = partner.getConfirmedBalance(Asset.UNCIA);
 
 			DeployAtTransaction deployAtTransaction = doDeploy(repository, deployer, tradeAccount.getAddress());
 			Account at = deployAtTransaction.getATAccount();
@@ -223,8 +223,8 @@ public class LitecoinACCTv3Tests extends Common {
 
 			PrivateKeyAccount partner = Common.getTestAccount(repository, "dilbert");
 
-			long deployersInitialBalance = deployer.getConfirmedBalance(Asset.QORT);
-			long partnersInitialBalance = partner.getConfirmedBalance(Asset.QORT);
+			long deployersInitialBalance = deployer.getConfirmedBalance(Asset.UNCIA);
+			long partnersInitialBalance = partner.getConfirmedBalance(Asset.UNCIA);
 
 			DeployAtTransaction deployAtTransaction = doDeploy(repository, deployer, tradeAccount.getAddress());
 			Account at = deployAtTransaction.getATAccount();
@@ -266,7 +266,7 @@ public class LitecoinACCTv3Tests extends Common {
 
 			// Check balances
 			long expectedBalance = deployersPostDeploymentBalance;
-			long actualBalance = deployer.getConfirmedBalance(Asset.QORT);
+			long actualBalance = deployer.getConfirmedBalance(Asset.UNCIA);
 
 			assertEquals("Deployer's post-orphan/pre-refund balance incorrect", expectedBalance, actualBalance);
 		}
@@ -284,8 +284,8 @@ public class LitecoinACCTv3Tests extends Common {
 
 			PrivateKeyAccount bystander = Common.getTestAccount(repository, "bob");
 
-			long deployersInitialBalance = deployer.getConfirmedBalance(Asset.QORT);
-			long partnersInitialBalance = partner.getConfirmedBalance(Asset.QORT);
+			long deployersInitialBalance = deployer.getConfirmedBalance(Asset.UNCIA);
+			long partnersInitialBalance = partner.getConfirmedBalance(Asset.UNCIA);
 
 			DeployAtTransaction deployAtTransaction = doDeploy(repository, deployer, tradeAccount.getAddress());
 			Account at = deployAtTransaction.getATAccount();
@@ -302,7 +302,7 @@ public class LitecoinACCTv3Tests extends Common {
 			BlockUtils.mintBlock(repository);
 
 			long expectedBalance = partnersInitialBalance;
-			long actualBalance = partner.getConfirmedBalance(Asset.QORT);
+			long actualBalance = partner.getConfirmedBalance(Asset.UNCIA);
 
 			assertEquals("Partner's post-initial-payout balance incorrect", expectedBalance, actualBalance);
 
@@ -325,8 +325,8 @@ public class LitecoinACCTv3Tests extends Common {
 
 			PrivateKeyAccount partner = Common.getTestAccount(repository, "dilbert");
 
-			long deployersInitialBalance = deployer.getConfirmedBalance(Asset.QORT);
-			long partnersInitialBalance = partner.getConfirmedBalance(Asset.QORT);
+			long deployersInitialBalance = deployer.getConfirmedBalance(Asset.UNCIA);
+			long partnersInitialBalance = partner.getConfirmedBalance(Asset.UNCIA);
 
 			DeployAtTransaction deployAtTransaction = doDeploy(repository, deployer, tradeAccount.getAddress());
 			Account at = deployAtTransaction.getATAccount();
@@ -364,7 +364,7 @@ public class LitecoinACCTv3Tests extends Common {
 
 			// Check balances
 			long expectedBalance = deployersPostDeploymentBalance;
-			long actualBalance = deployer.getConfirmedBalance(Asset.QORT);
+			long actualBalance = deployer.getConfirmedBalance(Asset.UNCIA);
 
 			assertEquals("Deployer's post-orphan/pre-refund balance incorrect", expectedBalance, actualBalance);
 		}
@@ -379,8 +379,8 @@ public class LitecoinACCTv3Tests extends Common {
 
 			PrivateKeyAccount partner = Common.getTestAccount(repository, "dilbert");
 
-			long deployersInitialBalance = deployer.getConfirmedBalance(Asset.QORT);
-			long partnersInitialBalance = partner.getConfirmedBalance(Asset.QORT);
+			long deployersInitialBalance = deployer.getConfirmedBalance(Asset.UNCIA);
+			long partnersInitialBalance = partner.getConfirmedBalance(Asset.UNCIA);
 
 			DeployAtTransaction deployAtTransaction = doDeploy(repository, deployer, tradeAccount.getAddress());
 			Account at = deployAtTransaction.getATAccount();
@@ -417,7 +417,7 @@ public class LitecoinACCTv3Tests extends Common {
 
 			// Check balances
 			long expectedBalance = partnersInitialBalance - messageTransaction.getTransactionData().getFee() + redeemAmount;
-			long actualBalance = partner.getConfirmedBalance(Asset.QORT);
+			long actualBalance = partner.getConfirmedBalance(Asset.UNCIA);
 
 			assertEquals("Partner's post-redeem balance incorrect", expectedBalance, actualBalance);
 
@@ -426,7 +426,7 @@ public class LitecoinACCTv3Tests extends Common {
 
 			// Check balances
 			expectedBalance = partnersInitialBalance - messageTransaction.getTransactionData().getFee();
-			actualBalance = partner.getConfirmedBalance(Asset.QORT);
+			actualBalance = partner.getConfirmedBalance(Asset.UNCIA);
 
 			assertEquals("Partner's post-orphan/pre-redeem balance incorrect", expectedBalance, actualBalance);
 
@@ -448,8 +448,8 @@ public class LitecoinACCTv3Tests extends Common {
 
 			PrivateKeyAccount bystander = Common.getTestAccount(repository, "bob");
 
-			long deployersInitialBalance = deployer.getConfirmedBalance(Asset.QORT);
-			long partnersInitialBalance = partner.getConfirmedBalance(Asset.QORT);
+			long deployersInitialBalance = deployer.getConfirmedBalance(Asset.UNCIA);
+			long partnersInitialBalance = partner.getConfirmedBalance(Asset.UNCIA);
 
 			DeployAtTransaction deployAtTransaction = doDeploy(repository, deployer, tradeAccount.getAddress());
 			long deployAtFee = deployAtTransaction.getTransactionData().getFee();
@@ -488,7 +488,7 @@ public class LitecoinACCTv3Tests extends Common {
 
 			// Check balances
 			long expectedBalance = partnersInitialBalance;
-			long actualBalance = partner.getConfirmedBalance(Asset.QORT);
+			long actualBalance = partner.getConfirmedBalance(Asset.UNCIA);
 
 			assertEquals("Partner's balance incorrect", expectedBalance, actualBalance);
 
@@ -506,8 +506,8 @@ public class LitecoinACCTv3Tests extends Common {
 
 			PrivateKeyAccount partner = Common.getTestAccount(repository, "dilbert");
 
-			long deployersInitialBalance = deployer.getConfirmedBalance(Asset.QORT);
-			long partnersInitialBalance = partner.getConfirmedBalance(Asset.QORT);
+			long deployersInitialBalance = deployer.getConfirmedBalance(Asset.UNCIA);
+			long partnersInitialBalance = partner.getConfirmedBalance(Asset.UNCIA);
 
 			DeployAtTransaction deployAtTransaction = doDeploy(repository, deployer, tradeAccount.getAddress());
 			long deployAtFee = deployAtTransaction.getTransactionData().getFee();
@@ -547,7 +547,7 @@ public class LitecoinACCTv3Tests extends Common {
 			assertEquals(AcctMode.TRADING, tradeData.mode);
 
 			long expectedBalance = partnersInitialBalance - messageTransaction.getTransactionData().getFee();
-			long actualBalance = partner.getConfirmedBalance(Asset.QORT);
+			long actualBalance = partner.getConfirmedBalance(Asset.UNCIA);
 
 			assertEquals("Partner's balance incorrect", expectedBalance, actualBalance);
 
@@ -565,8 +565,8 @@ public class LitecoinACCTv3Tests extends Common {
 
 			PrivateKeyAccount partner = Common.getTestAccount(repository, "dilbert");
 
-			long deployersInitialBalance = deployer.getConfirmedBalance(Asset.QORT);
-			long partnersInitialBalance = partner.getConfirmedBalance(Asset.QORT);
+			long deployersInitialBalance = deployer.getConfirmedBalance(Asset.UNCIA);
+			long partnersInitialBalance = partner.getConfirmedBalance(Asset.UNCIA);
 
 			DeployAtTransaction deployAtTransaction = doDeploy(repository, deployer, tradeAccount.getAddress());
 			Account at = deployAtTransaction.getATAccount();
@@ -612,8 +612,8 @@ public class LitecoinACCTv3Tests extends Common {
 
 			PrivateKeyAccount partner = Common.getTestAccount(repository, "dilbert");
 
-			long deployersInitialBalance = deployer.getConfirmedBalance(Asset.QORT);
-			long partnersInitialBalance = partner.getConfirmedBalance(Asset.QORT);
+			long deployersInitialBalance = deployer.getConfirmedBalance(Asset.UNCIA);
+			long partnersInitialBalance = partner.getConfirmedBalance(Asset.UNCIA);
 
 			DeployAtTransaction deployAtTransaction = doDeploy(repository, deployer, tradeAccount.getAddress());
 
@@ -655,13 +655,13 @@ public class LitecoinACCTv3Tests extends Common {
 		}
 
 		Long fee = null;
-		String name = "QORT-LTC cross-chain trade";
+		String name = "UNCIA-LTC cross-chain trade";
 		String description = String.format("Aquila-Litecoin cross-chain trade");
 		String atType = "ACCT";
-		String tags = "QORT-LTC ACCT";
+		String tags = "UNCIA-LTC ACCT";
 
 		BaseTransactionData baseTransactionData = new BaseTransactionData(txTimestamp, Group.NO_GROUP, lastReference, deployer.getPublicKey(), fee, null);
-		TransactionData deployAtTransactionData = new DeployAtTransactionData(baseTransactionData, name, description, atType, tags, creationBytes, fundingAmount, Asset.QORT);
+		TransactionData deployAtTransactionData = new DeployAtTransactionData(baseTransactionData, name, description, atType, tags, creationBytes, fundingAmount, Asset.UNCIA);
 
 		DeployAtTransaction deployAtTransaction = new DeployAtTransaction(repository, deployAtTransactionData);
 
@@ -709,11 +709,11 @@ public class LitecoinACCTv3Tests extends Common {
 		for (int blockCount = 0; blockCount <= refundTimeout; ++blockCount)
 			BlockUtils.mintBlock(repository);
 
-		// We don't bother to exactly calculate QORT spent running AT for several blocks, but we do know the expected range
+		// We don't bother to exactly calculate UNCIA spent running AT for several blocks, but we do know the expected range
 		long expectedMinimumBalance = deployersPostDeploymentBalance;
 		long expectedMaximumBalance = deployersInitialBalance - deployAtFee;
 
-		long actualBalance = deployer.getConfirmedBalance(Asset.QORT);
+		long actualBalance = deployer.getConfirmedBalance(Asset.UNCIA);
 
 		assertTrue(String.format("Deployer's balance %s should be above minimum %s", actualBalance, expectedMinimumBalance), actualBalance > expectedMinimumBalance);
 		assertTrue(String.format("Deployer's balance %s should be below maximum %s", actualBalance, expectedMaximumBalance), actualBalance < expectedMaximumBalance);
@@ -730,18 +730,18 @@ public class LitecoinACCTv3Tests extends Common {
 				+ "\tmode: %s\n"
 				+ "\tcreator: %s,\n"
 				+ "\tcreation timestamp: %s,\n"
-				+ "\tcurrent balance: %s QORT,\n"
+				+ "\tcurrent balance: %s UNCIA,\n"
 				+ "\tis finished: %b,\n"
-				+ "\tredeem payout: %s QORT,\n"
+				+ "\tredeem payout: %s UNCIA,\n"
 				+ "\texpected Litecoin: %s LTC,\n"
 				+ "\tcurrent block height: %d,\n",
 				tradeData.aquilaAtAddress,
 				tradeData.mode,
 				tradeData.aquilaCreator,
 				epochMilliFormatter.apply(tradeData.creationTimestamp),
-				Amounts.prettyAmount(tradeData.qortBalance),
+				Amounts.prettyAmount(tradeData.unciaBalance),
 				atData.getIsFinished(),
-				Amounts.prettyAmount(tradeData.qortAmount),
+				Amounts.prettyAmount(tradeData.unciaAmount),
 				Amounts.prettyAmount(tradeData.expectedForeignAmount),
 				currentBlockHeight));
 
