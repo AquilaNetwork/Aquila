@@ -1,12 +1,12 @@
-package org.qortal.test.common.transaction;
+package org.aquila.test.common.transaction;
 
 import java.util.Random;
 
-import org.qortal.account.PrivateKeyAccount;
-import org.qortal.block.BlockChain;
-import org.qortal.data.transaction.BaseTransactionData;
-import org.qortal.group.Group;
-import org.qortal.repository.DataException;
+import org.aquila.account.PrivateKeyAccount;
+import org.aquila.block.BlockChain;
+import org.aquila.data.transaction.BaseTransactionData;
+import org.aquila.group.Group;
+import org.aquila.repository.DataException;
 
 public abstract class TestTransaction {
 

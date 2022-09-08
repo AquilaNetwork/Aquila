@@ -1,14 +1,14 @@
-package org.qortal.test.common.transaction;
+package org.aquila.test.common.transaction;
 
 import java.util.Random;
 
-import org.qortal.account.PrivateKeyAccount;
-import org.qortal.asset.Asset;
-import org.qortal.data.transaction.DeployAtTransactionData;
-import org.qortal.data.transaction.TransactionData;
-import org.qortal.repository.DataException;
-import org.qortal.repository.Repository;
-import org.qortal.utils.Amounts;
+import org.aquila.account.PrivateKeyAccount;
+import org.aquila.asset.Asset;
+import org.aquila.data.transaction.DeployAtTransactionData;
+import org.aquila.data.transaction.TransactionData;
+import org.aquila.repository.DataException;
+import org.aquila.repository.Repository;
+import org.aquila.utils.Amounts;
 
 public class DeployAtTestTransaction extends TestTransaction {
 
@@ -22,7 +22,7 @@ public class DeployAtTestTransaction extends TestTransaction {
 		byte[] creationBytes = new byte[1024];
 		random.nextBytes(creationBytes);
 		long amount = 123L * Amounts.MULTIPLIER;
-		long assetId = Asset.QORT;
+		long assetId = Asset.UNCIA;
 
 		return new DeployAtTransactionData(generateBase(account), name, description, atType, tags, creationBytes, amount, assetId);
 	}

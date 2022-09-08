@@ -1,11 +1,11 @@
-package org.qortal.test.common.transaction;
+package org.aquila.test.common.transaction;
 
-import org.qortal.account.PrivateKeyAccount;
-import org.qortal.data.transaction.TransactionData;
-import org.qortal.data.transaction.UpdateAssetTransactionData;
-import org.qortal.repository.DataException;
-import org.qortal.repository.Repository;
-import org.qortal.test.common.AssetUtils;
+import org.aquila.account.PrivateKeyAccount;
+import org.aquila.data.transaction.TransactionData;
+import org.aquila.data.transaction.UpdateAssetTransactionData;
+import org.aquila.repository.DataException;
+import org.aquila.repository.Repository;
+import org.aquila.test.common.AssetUtils;
 
 public class UpdateAssetTestTransaction extends TestTransaction {
 

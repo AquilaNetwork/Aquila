@@ -1,12 +1,12 @@
-package org.qortal.test.common.transaction;
+package org.aquila.test.common.transaction;
 
-import org.qortal.account.PrivateKeyAccount;
-import org.qortal.asset.Asset;
-import org.qortal.data.transaction.MessageTransactionData;
-import org.qortal.data.transaction.TransactionData;
-import org.qortal.repository.DataException;
-import org.qortal.repository.Repository;
-import org.qortal.utils.Amounts;
+import org.aquila.account.PrivateKeyAccount;
+import org.aquila.asset.Asset;
+import org.aquila.data.transaction.MessageTransactionData;
+import org.aquila.data.transaction.TransactionData;
+import org.aquila.repository.DataException;
+import org.aquila.repository.Repository;
+import org.aquila.utils.Amounts;
 
 public class MessageTestTransaction extends TestTransaction {
 
@@ -14,7 +14,7 @@ public class MessageTestTransaction extends TestTransaction {
 		final int version = 4;
 		final int nonce = 0;
 		String recipient = account.getAddress();
-		final long assetId = Asset.QORT;
+		final long assetId = Asset.UNCIA;
 		long amount = 123L * Amounts.MULTIPLIER;
 		byte[] data = "message contents".getBytes();
 		final boolean isText = true;

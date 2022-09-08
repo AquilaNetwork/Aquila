@@ -1,18 +1,18 @@
-package org.qortal.test.common.transaction;
+package org.aquila.test.common.transaction;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.qortal.account.PrivateKeyAccount;
-import org.qortal.arbitrary.misc.Service;
-import org.qortal.asset.Asset;
-import org.qortal.data.PaymentData;
-import org.qortal.data.transaction.ArbitraryTransactionData;
-import org.qortal.data.transaction.TransactionData;
-import org.qortal.data.transaction.ArbitraryTransactionData.DataType;
-import org.qortal.repository.DataException;
-import org.qortal.repository.Repository;
-import org.qortal.utils.Amounts;
+import org.aquila.account.PrivateKeyAccount;
+import org.aquila.arbitrary.misc.Service;
+import org.aquila.asset.Asset;
+import org.aquila.data.PaymentData;
+import org.aquila.data.transaction.ArbitraryTransactionData;
+import org.aquila.data.transaction.TransactionData;
+import org.aquila.data.transaction.ArbitraryTransactionData.DataType;
+import org.aquila.repository.DataException;
+import org.aquila.repository.Repository;
+import org.aquila.utils.Amounts;
 
 public class ArbitraryTestTransaction extends TestTransaction {
 
@@ -22,7 +22,7 @@ public class ArbitraryTestTransaction extends TestTransaction {
 		final int nonce = 0;
 		final int size = 4 * 1024 * 1024;
 		final String name = "TEST";
-		final String identifier = "qortal_avatar";
+		final String identifier = "aquila_avatar";
 		final ArbitraryTransactionData.Method method = ArbitraryTransactionData.Method.PUT;
 
 		final byte[] secret = new byte[32];
@@ -39,7 +39,7 @@ public class ArbitraryTestTransaction extends TestTransaction {
 		DataType dataType = DataType.RAW_DATA;
 
 		String recipient = account.getAddress();
-		final long assetId = Asset.QORT;
+		final long assetId = Asset.UNCIA;
 		long amount = 123L * Amounts.MULTIPLIER;
 
 		List<PaymentData> payments = new ArrayList<>();

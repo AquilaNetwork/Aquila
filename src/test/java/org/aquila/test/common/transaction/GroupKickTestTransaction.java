@@ -1,10 +1,10 @@
-package org.qortal.test.common.transaction;
+package org.aquila.test.common.transaction;
 
-import org.qortal.account.PrivateKeyAccount;
-import org.qortal.data.transaction.GroupKickTransactionData;
-import org.qortal.data.transaction.TransactionData;
-import org.qortal.repository.DataException;
-import org.qortal.repository.Repository;
+import org.aquila.account.PrivateKeyAccount;
+import org.aquila.data.transaction.GroupKickTransactionData;
+import org.aquila.data.transaction.TransactionData;
+import org.aquila.repository.DataException;
+import org.aquila.repository.Repository;
 
 public class GroupKickTestTransaction extends TestTransaction {
 

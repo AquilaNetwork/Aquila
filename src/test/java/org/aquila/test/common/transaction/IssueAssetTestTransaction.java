@@ -1,13 +1,13 @@
-package org.qortal.test.common.transaction;
+package org.aquila.test.common.transaction;
 
 import java.util.Random;
 
-import org.qortal.account.PrivateKeyAccount;
-import org.qortal.data.transaction.IssueAssetTransactionData;
-import org.qortal.data.transaction.TransactionData;
-import org.qortal.repository.DataException;
-import org.qortal.repository.Repository;
-import org.qortal.test.common.AssetUtils;
+import org.aquila.account.PrivateKeyAccount;
+import org.aquila.data.transaction.IssueAssetTransactionData;
+import org.aquila.data.transaction.TransactionData;
+import org.aquila.repository.DataException;
+import org.aquila.repository.Repository;
+import org.aquila.test.common.AssetUtils;
 
 public class IssueAssetTestTransaction extends TestTransaction {
 

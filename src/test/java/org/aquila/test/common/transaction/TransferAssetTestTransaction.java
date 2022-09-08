@@ -1,18 +1,18 @@
-package org.qortal.test.common.transaction;
+package org.aquila.test.common.transaction;
 
-import org.qortal.account.PrivateKeyAccount;
-import org.qortal.asset.Asset;
-import org.qortal.data.transaction.TransactionData;
-import org.qortal.data.transaction.TransferAssetTransactionData;
-import org.qortal.repository.DataException;
-import org.qortal.repository.Repository;
-import org.qortal.utils.Amounts;
+import org.aquila.account.PrivateKeyAccount;
+import org.aquila.asset.Asset;
+import org.aquila.data.transaction.TransactionData;
+import org.aquila.data.transaction.TransferAssetTransactionData;
+import org.aquila.repository.DataException;
+import org.aquila.repository.Repository;
+import org.aquila.utils.Amounts;
 
 public class TransferAssetTestTransaction extends TestTransaction {
 
 	public static TransactionData randomTransaction(Repository repository, PrivateKeyAccount account, boolean wantValid) throws DataException {
 		String recipient = account.getAddress();
-		final long assetId = Asset.QORT;
+		final long assetId = Asset.UNCIA;
 		long amount = 123L * Amounts.MULTIPLIER;
 
 		return new TransferAssetTransactionData(generateBase(account), recipient, amount, assetId);

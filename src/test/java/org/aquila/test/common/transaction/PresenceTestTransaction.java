@@ -1,13 +1,13 @@
-package org.qortal.test.common.transaction;
+package org.aquila.test.common.transaction;
 
 import com.google.common.primitives.Longs;
-import org.qortal.account.PrivateKeyAccount;
-import org.qortal.data.transaction.PresenceTransactionData;
-import org.qortal.data.transaction.TransactionData;
-import org.qortal.repository.DataException;
-import org.qortal.repository.Repository;
-import org.qortal.transaction.PresenceTransaction.PresenceType;
-import org.qortal.utils.NTP;
+import org.aquila.account.PrivateKeyAccount;
+import org.aquila.data.transaction.PresenceTransactionData;
+import org.aquila.data.transaction.TransactionData;
+import org.aquila.repository.DataException;
+import org.aquila.repository.Repository;
+import org.aquila.transaction.PresenceTransaction.PresenceType;
+import org.aquila.utils.NTP;
 
 public class PresenceTestTransaction extends TestTransaction {
 
