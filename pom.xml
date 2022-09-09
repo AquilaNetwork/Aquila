@@ -446,7 +446,7 @@
 		</dependency>
 		<!-- For Litecoin, etc. support, requires bitcoinj -->
 		<dependency>
-			<groupId>com.github.qortal</groupId>
+			<groupId>com.github.AquilaNetwork</groupId>
 			<artifactId>altcoinj</artifactId>
 			<version>${altcoinj.version}</version>
 		</dependency>
