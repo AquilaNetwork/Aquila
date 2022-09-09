@@ -58,7 +58,7 @@ public class Account {
 		this.repository.getAccountRepository().ensureAccount(this.buildAccountData());
 	}
 
-	// Balance manipulations - assetId is 0 for QORT
+	// Balance manipulations - assetId is 0 for UNCIA
 
 	public long getConfirmedBalance(long assetId) throws DataException {
 		AccountBalanceData accountBalanceData;
