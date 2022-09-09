@@ -94,7 +94,7 @@ public interface AccountRepository {
 	 * <p>
 	 * Note: ignores other fields like last reference, default groupID.
 	 */
-	public void setSponsorPublicKey(byte[] sponsorPublicKey) throws DataException;
+	public void setSponsorPublicKey(AccountData accountData) throws DataException;
 
 	/**
 	 * Modifies account's minted block count only.
