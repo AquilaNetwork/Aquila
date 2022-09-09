@@ -1,4 +1,4 @@
-package org.qortal.test.assets;
+package org.aquila.test.assets;
 
 import static org.junit.Assert.*;
 
@@ -7,15 +7,15 @@ import java.util.Map;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.qortal.repository.DataException;
-import org.qortal.repository.Repository;
-import org.qortal.repository.RepositoryManager;
-import org.qortal.test.common.AccountUtils;
-import org.qortal.test.common.AssetUtils;
-import org.qortal.test.common.Common;
-import org.qortal.transaction.Transaction;
-import org.qortal.transaction.Transaction.ValidationResult;
-import org.qortal.utils.Amounts;
+import org.aquila.repository.DataException;
+import org.aquila.repository.Repository;
+import org.aquila.repository.RepositoryManager;
+import org.aquila.test.common.AccountUtils;
+import org.aquila.test.common.AssetUtils;
+import org.aquila.test.common.Common;
+import org.aquila.transaction.Transaction;
+import org.aquila.transaction.Transaction.ValidationResult;
+import org.aquila.utils.Amounts;
 
 public class CancellingTests extends Common {
 

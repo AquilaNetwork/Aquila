@@ -1,22 +1,22 @@
-package org.qortal.test.assets;
+package org.aquila.test.assets;
 
 import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.qortal.data.transaction.IssueAssetTransactionData;
-import org.qortal.data.transaction.TransactionData;
-import org.qortal.repository.DataException;
-import org.qortal.repository.Repository;
-import org.qortal.repository.RepositoryManager;
-import org.qortal.test.common.Common;
-import org.qortal.test.common.TestAccount;
-import org.qortal.test.common.TransactionUtils;
-import org.qortal.test.common.transaction.TestTransaction;
-import org.qortal.transaction.Transaction;
-import org.qortal.transaction.Transaction.ValidationResult;
-import org.qortal.utils.Amounts;
+import org.aquila.data.transaction.IssueAssetTransactionData;
+import org.aquila.data.transaction.TransactionData;
+import org.aquila.repository.DataException;
+import org.aquila.repository.Repository;
+import org.aquila.repository.RepositoryManager;
+import org.aquila.test.common.Common;
+import org.aquila.test.common.TestAccount;
+import org.aquila.test.common.TransactionUtils;
+import org.aquila.test.common.transaction.TestTransaction;
+import org.aquila.transaction.Transaction;
+import org.aquila.transaction.Transaction.ValidationResult;
+import org.aquila.utils.Amounts;
 
 public class MiscTests extends Common {
 

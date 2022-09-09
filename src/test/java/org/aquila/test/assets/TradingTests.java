@@ -1,16 +1,16 @@
-package org.qortal.test.assets;
+package org.aquila.test.assets;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.qortal.data.asset.OrderData;
-import org.qortal.repository.DataException;
-import org.qortal.repository.Repository;
-import org.qortal.repository.RepositoryManager;
-import org.qortal.test.common.AccountUtils;
-import org.qortal.test.common.AssetUtils;
-import org.qortal.test.common.Common;
-import org.qortal.utils.Amounts;
+import org.aquila.data.asset.OrderData;
+import org.aquila.repository.DataException;
+import org.aquila.repository.Repository;
+import org.aquila.repository.RepositoryManager;
+import org.aquila.test.common.AccountUtils;
+import org.aquila.test.common.AssetUtils;
+import org.aquila.test.common.Common;
+import org.aquila.utils.Amounts;
 
 import static org.junit.Assert.assertEquals;
 

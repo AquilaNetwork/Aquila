@@ -1,4 +1,4 @@
-package org.qortal.test.assets;
+package org.aquila.test.assets;
 
 import static org.junit.Assert.assertEquals;
 
@@ -7,10 +7,10 @@ import java.math.BigDecimal;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.qortal.asset.Order;
-import org.qortal.repository.DataException;
-import org.qortal.test.common.Common;
-import org.qortal.utils.Amounts;
+import org.aquila.asset.Order;
+import org.aquila.repository.DataException;
+import org.aquila.test.common.Common;
+import org.aquila.utils.Amounts;
 
 /** Check granularity adjustment values. */
 public class GranularityTests extends Common {
