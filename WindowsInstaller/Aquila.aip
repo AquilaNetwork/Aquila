@@ -4,22 +4,22 @@
     <ROW Property="AI_BITMAP_DISPLAY_MODE" Value="0"/>
     <ROW Property="AI_CURRENT_YEAR" Value="2022" ValueLocId="-"/>
     <ROW Property="AI_FINDEXE_TITLE" Value="Select the installation package for [|ProductName]" ValueLocId="AI.Property.FindExeTitle"/>
-    <ROW Property="AI_PRODUCTNAME_ARP" Value="Qortal"/>
+    <ROW Property="AI_PRODUCTNAME_ARP" Value="Aquila"/>
     <ROW Property="AI_RUN_AS_ADMIN" Value="0"/>
     <ROW Property="AI_UNINSTALLER" Value="msiexec.exe"/>
     <ROW Property="ALLUSERS" Value="1"/>
     <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install [|ProductName]." ValueLocId="*"/>
     <ROW Property="ARPNOREPAIR" MultiBuildValue="DefaultBuild:1"/>
-    <ROW Property="ARPPRODUCTICON" Value="qortal.exe" Type="8"/>
+    <ROW Property="ARPPRODUCTICON" Value="aquila.exe" Type="8"/>
     <ROW Property="ARPSYSTEMCOMPONENT" Value="1"/>
     <ROW Property="CUSTOM_DB_BOOL" Value="false" Type="4"/>
     <ROW Property="DATA_PATH" Value="will-be-overwritten"/>
-    <ROW Property="Manufacturer" Value="Qortal"/>
+    <ROW Property="Manufacturer" Value="Aquila"/>
     <ROW Property="MsiLogging" MultiBuildValue="DefaultBuild:vp"/>
     <ROW Property="NTP_GOOD" Value="false"/>
     <ROW Property="ProductCode" Value="1033:{E5597539-098E-4BA6-99DF-4D22018BC0D3} 1049:{2B5E55A2-142A-4BED-B3B9-5657162282B7} 2052:{6F19171F-4743-4127-B191-AAFA3FA885D2} 2057:{A1B3108D-EC5D-47A1-AEE4-DBD956E682FB} " Type="16"/>
     <ROW Property="ProductLanguage" Value="2057"/>
-    <ROW Property="ProductName" Value="Qortal"/>
+    <ROW Property="ProductName" Value="Aquila"/>
     <ROW Property="ProductVersion" Value="3.4.3" Type="32"/>
     <ROW Property="RECONFIG_NTP" Value="true"/>
     <ROW Property="REMOVE_BLOCKCHAIN" Value="YES" Type="4"/>
@@ -41,16 +41,16 @@
     <ROW Directory="APPDIR" Directory_Parent="TARGETDIR" DefaultDir="APPDIR:." IsPseudoRoot="1" DirectoryOptions="15"/>
     <ROW Directory="DATA_PATH" Directory_Parent="TARGETDIR" DefaultDir="DATA_P~1|DATA_PATH" IsPseudoRoot="1"/>
     <ROW Directory="DesktopFolder" Directory_Parent="TARGETDIR" DefaultDir="DESKTO~1|DesktopFolder" IsPseudoRoot="1"/>
-    <ROW Directory="Qortal_Dir" Directory_Parent="DATA_PATH" DefaultDir="Qortal"/>
+    <ROW Directory="Aquila_Dir" Directory_Parent="DATA_PATH" DefaultDir="Aquila"/>
     <ROW Directory="SHORTCUTDIR" Directory_Parent="TARGETDIR" DefaultDir="SHORTC~1|SHORTCUTDIR" IsPseudoRoot="1"/>
     <ROW Directory="TARGETDIR" DefaultDir="SourceDir"/>
-    <ROW Directory="arbitrary_Dir" Directory_Parent="Qortal_Dir" DefaultDir="ARBITR~1|arbitrary"/>
+    <ROW Directory="arbitrary_Dir" Directory_Parent="Aquila_Dir" DefaultDir="ARBITR~1|arbitrary"/>
     <ROW Directory="bin_Dir" Directory_Parent="jre64_Dir" DefaultDir="bin" DirectoryOptions="15"/>
     <ROW Directory="bridge_Dir" Directory_Parent="win32_Dir" DefaultDir="bridge" DirectoryOptions="15"/>
     <ROW Directory="client_1_Dir" Directory_Parent="lib_Dir" DefaultDir="client" DirectoryOptions="15"/>
     <ROW Directory="client_Dir" Directory_Parent="bin_Dir" DefaultDir="client" DirectoryOptions="15"/>
     <ROW Directory="conf_Dir" Directory_Parent="jre64_Dir" DefaultDir="conf" DirectoryOptions="15"/>
-    <ROW Directory="db_Dir" Directory_Parent="Qortal_Dir" DefaultDir="db"/>
+    <ROW Directory="db_Dir" Directory_Parent="Aquila_Dir" DefaultDir="db"/>
     <ROW Directory="include_Dir" Directory_Parent="jre64_Dir" DefaultDir="include" DirectoryOptions="15"/>
     <ROW Directory="java.base_Dir" Directory_Parent="legal_Dir" DefaultDir="JAVA~1.BAS|java.base" DirectoryOptions="15"/>
     <ROW Directory="java.compiler_Dir" Directory_Parent="legal_Dir" DefaultDir="JAVA~1.COM|java.compiler" DirectoryOptions="15"/>
@@ -219,8 +219,8 @@
     <ROW Component="DATA_PATH" ComponentId="{EE0B6107-E244-4CDB-B195-E9038D2F1E0E}" Directory_="DATA_PATH" Attributes="0"/>
     <ROW Component="DATA_PATH_1" ComponentId="{9CA3EA54-8164-4AA0-8C39-BF04A3979C52}" Directory_="APPDIR" Attributes="260" KeyPath="DATA_PATH" Options="1"/>
     <ROW Component="ProductInformation" ComponentId="{784437F2-CBA1-4491-B02C-0DB981030053}" Directory_="APPDIR" Attributes="260" KeyPath="Version" Options="1"/>
-    <ROW Component="Qortal" ComponentId="{05322893-9AFA-458A-9D8D-E003285DA56F}" Directory_="Qortal_Dir" Attributes="0"/>
-    <ROW Component="Qortal.exe" ComponentId="{FF83D033-3271-4CF8-83A1-392E93DB9E1F}" Directory_="APPDIR" Attributes="0" KeyPath="Qortal.exe"/>
+    <ROW Component="Aquila" ComponentId="{05322893-9AFA-458A-9D8D-E003285DA56F}" Directory_="Aquila_Dir" Attributes="0"/>
+    <ROW Component="Aquila.exe" ComponentId="{FF83D033-3271-4CF8-83A1-392E93DB9E1F}" Directory_="APPDIR" Attributes="0" KeyPath="Aquila.exe"/>
     <ROW Component="README.txt" ComponentId="{326AAD89-EA20-469D-9478-CF35F96C2EB9}" Directory_="policy_Dir" Attributes="0" KeyPath="README.txt" Type="0"/>
     <ROW Component="SHORTCUTDIR" ComponentId="{7C4D1107-8B96-47ED-A690-BB70D94EBDB3}" Directory_="SHORTCUTDIR" Attributes="0"/>
     <ROW Component="Xusage.txt" ComponentId="{DBA45BD9-CD31-4D04-93BC-FA8580888F34}" Directory_="client_1_Dir" Attributes="0" KeyPath="Xusage.txt" Type="0"/>
@@ -353,7 +353,7 @@
     <ROW Component="rmiregistry.exe" ComponentId="{FB23B6E5-AA83-4959-98A3-54E895D191F9}" Directory_="bin_Dir" Attributes="256" KeyPath="rmiregistry.exe"/>
     <ROW Component="saproc.dll" ComponentId="{FAB7FAC2-B5C1-4957-9A8F-4CB364A7D8FC}" Directory_="bin_Dir" Attributes="256" KeyPath="saproc.dll"/>
     <ROW Component="serialver.exe" ComponentId="{EC04975F-185A-4D43-859F-E1EE48819511}" Directory_="bin_Dir" Attributes="256" KeyPath="serialver.exe"/>
-    <ROW Component="settings.json" ComponentId="{D281C10B-9C10-420E-A8CC-63E34A9B34B2}" Directory_="Qortal_Dir" Attributes="0" KeyPath="settings.json_2" Type="0"/>
+    <ROW Component="settings.json" ComponentId="{D281C10B-9C10-420E-A8CC-63E34A9B34B2}" Directory_="Aquila_Dir" Attributes="0" KeyPath="settings.json_2" Type="0"/>
     <ROW Component="splashscreen.dll" ComponentId="{30E7AEA5-EEBA-4820-8851-0A738CBAE83F}" Directory_="bin_Dir" Attributes="256" KeyPath="splashscreen.dll"/>
     <ROW Component="sspi_bridge.dll" ComponentId="{90796A8F-2249-4AC0-AC39-691B02D95FC9}" Directory_="bin_Dir" Attributes="256" KeyPath="sspi_bridge.dll"/>
     <ROW Component="sunec.dll" ComponentId="{894779BC-CB71-4F1D-8573-278C7AE57F2F}" Directory_="bin_Dir" Attributes="256" KeyPath="sunec.dll"/>
@@ -374,11 +374,11 @@
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
     <ROW File="log4j2.properties" Component_="log4j2.properties" FileName="LOG4J2~1.PRO|log4j2.properties" Version="65535.65535.65535.65535" Attributes="0" SourcePath="Install Files\log4j2.properties" SelfReg="false"/>
-    <ROW File="Qortal.exe" Component_="Qortal.exe" FileName="Qortal.exe" Version="65535.65535.65535.65535" Attributes="0" SourcePath="&lt;AI_STUBS_64&gt;aijclw.exe" SelfReg="false" DigSign="true"/>
+    <ROW File="Aquila.exe" Component_="Aquila.exe" FileName="Aquila.exe" Version="65535.65535.65535.65535" Attributes="0" SourcePath="&lt;AI_STUBS_64&gt;aijclw.exe" SelfReg="false" DigSign="true"/>
     <ROW File="java.exe" Component_="java.exe" FileName="java.exe" Version="65535.65535.65535.65535" Attributes="0" SourcePath="C:\Program Files\AdoptOpenJDK\jdk-11.0.11.9-hotspot\bin\java.exe" SelfReg="false" DigSign="true"/>
     <ROW File="javaw.exe" Component_="javaw.exe" FileName="javaw.exe" Version="65535.65535.65535.65535" Attributes="0" SourcePath="C:\Program Files\AdoptOpenJDK\jdk-11.0.11.9-hotspot\bin\javaw.exe" SelfReg="false" DigSign="true"/>
     <ROW File="ntpcfg.bat" Component_="log4j2.properties" FileName="ntpcfg.bat" Version="65535.65535.65535.65535" Attributes="0" SourcePath="Install Files\ntpcfg.bat" SelfReg="false"/>
-    <ROW File="qortal.jar" Component_="log4j2.properties" FileName="qortal.jar" Version="65535.65535.65535.65535" Attributes="0" SourcePath="Install Files\qortal.jar" SelfReg="false"/>
+    <ROW File="aquila.jar" Component_="log4j2.properties" FileName="aquila.jar" Version="65535.65535.65535.65535" Attributes="0" SourcePath="Install Files\aquila.jar" SelfReg="false"/>
     <ROW File="settings.json_2" Component_="settings.json" FileName="SETTIN~1.JSO|settings.json" Attributes="0" SourcePath="Install Files\AppData\settings.json" SelfReg="false"/>
     <ROW File="apimswincoreconsolel110.dll" Component_="apimswincoreconsolel110.dll" FileName="API-MS~1.DLL|api-ms-win-core-console-l1-1-0.dll" Version="65535.65535.65535.65535" Attributes="0" SourcePath="C:\Program Files\AdoptOpenJDK\jdk-11.0.11.9-hotspot\bin\api-ms-win-core-console-l1-1-0.dll" SelfReg="false"/>
     <ROW File="apimswincoredatetimel110.dll" Component_="apimswincoredatetimel110.dll" FileName="API-MS~2.DLL|api-ms-win-core-datetime-l1-1-0.dll" Version="65535.65535.65535.65535" Attributes="0" SourcePath="C:\Program Files\AdoptOpenJDK\jdk-11.0.11.9-hotspot\bin\api-ms-win-core-datetime-l1-1-0.dll" SelfReg="false"/>
@@ -889,7 +889,7 @@
     <ROW BootstrOptKey="GlobalOptions" DownloadFolder="[AppDataFolder][|Manufacturer]\[|ProductName]\prerequisites" Options="2"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BuildComponent">
-    <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="0" Languages="en_GB;zh;en;ru" LangOpt="1" InstallationType="2" CabsLocation="1" UseLzma="true" LzmaMethod="2" LzmaCompressionLevel="4" PackageType="1" FilesInsideExe="true" ExeIconPath="qortal.ico" ExtractionFolder="[AppDataFolder][|Manufacturer]-extract\[|ProductName] [|ProductVersion]\install" LangsDialog="true" UseLargeSchema="true" Unicode="true" ExeName="[|ProductName]-[|ProductVersion]" MsiPackageType="x64" JRE64Dir="jre64_Dir"/>
+    <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="0" Languages="en_GB;zh;en;ru" LangOpt="1" InstallationType="2" CabsLocation="1" UseLzma="true" LzmaMethod="2" LzmaCompressionLevel="4" PackageType="1" FilesInsideExe="true" ExeIconPath="aquila.ico" ExtractionFolder="[AppDataFolder][|Manufacturer]-extract\[|ProductName] [|ProductVersion]\install" LangsDialog="true" UseLargeSchema="true" Unicode="true" ExeName="[|ProductName]-[|ProductVersion]" MsiPackageType="x64" JRE64Dir="jre64_Dir"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.DictionaryComponent">
     <ROW Path="&lt;AI_DICTS&gt;ui.ail"/>
@@ -900,7 +900,7 @@
     <ROW Path="&lt;AI_DICTS&gt;ui_ru.ail"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.FirewallExceptionComponent">
-    <ROW FirewallException="EXE" Direction="1" DisplayName="[ProductName]" Enabled="1" Scope="*" Condition="((?Qortal.exe=2) AND ($Qortal.exe=3))" Profiles="0" AppPath="[#Qortal.exe]" Port="*" Protocol="ANY"/>
+    <ROW FirewallException="EXE" Direction="1" DisplayName="[ProductName]" Enabled="1" Scope="*" Condition="((?Aquila.exe=2) AND ($Aquila.exe=3))" Profiles="0" AppPath="[#Aquila.exe]" Port="*" Protocol="ANY"/>
     <ROW FirewallException="Java" Direction="1" DisplayName="[ProductName] Java" Enabled="1" Scope="*" Condition="((?java.exe=2) AND ($java.exe=3))" Profiles="0" AppPath="[#java.exe]" Port="*" Protocol="ANY"/>
     <ROW FirewallException="Javaw" Direction="1" DisplayName="[ProductName] Javaw" Enabled="1" Scope="*" Condition="((?javaw.exe=2) AND ($javaw.exe=3))" Profiles="0" AppPath="[#javaw.exe]" Port="*" Protocol="ANY"/>
   </COMPONENT>
@@ -1121,7 +1121,7 @@
     <ROW Directory_="APPDIR" Component_="APPDIR" ManualDelete="true"/>
     <ROW Directory_="SHORTCUTDIR" Component_="SHORTCUTDIR" ManualDelete="false"/>
     <ROW Directory_="DATA_PATH" Component_="DATA_PATH" ManualDelete="true"/>
-    <ROW Directory_="Qortal_Dir" Component_="Qortal" ManualDelete="true"/>
+    <ROW Directory_="Aquila_Dir" Component_="Aquila" ManualDelete="true"/>
     <ROW Directory_="db_Dir" Component_="db" ManualDelete="true"/>
     <ROW Directory_="arbitrary_Dir" Component_="arbitrary" ManualDelete="true"/>
   </COMPONENT>
@@ -1192,7 +1192,7 @@
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatCompsComponent">
     <ROW Feature_="MainFeature" Component_="AI_ExePath"/>
     <ROW Feature_="MainFeature" Component_="APPDIR"/>
-    <ROW Feature_="MainFeature" Component_="Qortal.exe"/>
+    <ROW Feature_="MainFeature" Component_="Aquila.exe"/>
     <ROW Feature_="MainFeature" Component_="ProductInformation"/>
     <ROW Feature_="MainFeature" Component_="SHORTCUTDIR"/>
     <ROW Feature_="MainFeature" Component_="log4j2.properties"/>
@@ -1311,7 +1311,7 @@
     <ROW Feature_="bitJREBundle" Component_="saproc.dll"/>
     <ROW Feature_="bitJREBundle" Component_="serialver.exe"/>
     <ROW Feature_="MainFeature" Component_="DATA_PATH"/>
-    <ROW Feature_="MainFeature" Component_="Qortal"/>
+    <ROW Feature_="MainFeature" Component_="Aquila"/>
     <ROW Feature_="MainFeature" Component_="settings.json"/>
     <ROW Feature_="MainFeature" Component_="DATA_PATH_1"/>
     <ROW Feature_="MainFeature" Component_="db"/>
@@ -1421,20 +1421,20 @@
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiIconsComponent">
     <ROW Name="SystemFoldermsiexec.exe" SourcePath="&lt;AI_RES&gt;uninstall.ico" Index="0"/>
-    <ROW Name="qortal.exe" SourcePath="qortal.ico" Index="0"/>
+    <ROW Name="aquila.exe" SourcePath="aquila.ico" Index="0"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiIniFileComponent">
-    <ROW IniFile="ApplicationType" FileName="Qortal.ini" DirProperty="APPDIR" Section="Application" Key="Application Type" Value="gui" Action="0" Component_="Qortal.exe"/>
-    <ROW IniFile="ClassPath" FileName="Qortal.ini" DirProperty="APPDIR" Section="Class Path" Key="Class Path" Value="[#qortal.jar];" Action="0" Component_="Qortal.exe"/>
-    <ROW IniFile="FailureCheck" FileName="Qortal.ini" DirProperty="APPDIR" Section="Application" Key="Failure Check" Value="yes" Action="0" Component_="Qortal.exe"/>
-    <ROW IniFile="JVMSource" FileName="Qortal.ini" DirProperty="APPDIR" Section="Java Runtime Environment" Key="JVM Source" Value="favor_JDK" Action="0" Component_="Qortal.exe"/>
-    <ROW IniFile="JVMType" FileName="Qortal.ini" DirProperty="APPDIR" Section="Java Runtime Environment" Key="JVM Type" Value="favor_server" Action="0" Component_="Qortal.exe"/>
-    <ROW IniFile="MainClass" FileName="Qortal.ini" DirProperty="APPDIR" Section="Java Runtime Environment" Key="Main Class" Value="org.qortal.controller.Controller" Action="0" Component_="Qortal.exe"/>
-    <ROW IniFile="MaximumVersion" FileName="Qortal.ini" DirProperty="APPDIR" Section="Java Runtime Environment" Key="Maximum Version" Value="any" Action="0" Component_="Qortal.exe"/>
-    <ROW IniFile="MinimumVersion" FileName="Qortal.ini" DirProperty="APPDIR" Section="Java Runtime Environment" Key="Minimum Version" Value="11" Action="0" Component_="Qortal.exe"/>
-    <ROW IniFile="OverrideWorkingDir" FileName="Qortal.ini" DirProperty="APPDIR" Section="Application" Key="Override WorkingDir" Value="yes" Action="0" Component_="Qortal.exe"/>
-    <ROW IniFile="SingleInstance" FileName="Qortal.ini" DirProperty="APPDIR" Section="Application" Key="Single Instance" Value="yes" Action="0" Component_="Qortal.exe"/>
-    <ROW IniFile="VMProvider" FileName="Qortal.ini" DirProperty="APPDIR" Section="Java Runtime Environment" Key="VM Provider" Value="any" Action="0" Component_="Qortal.exe"/>
+    <ROW IniFile="ApplicationType" FileName="Aquila.ini" DirProperty="APPDIR" Section="Application" Key="Application Type" Value="gui" Action="0" Component_="Aquila.exe"/>
+    <ROW IniFile="ClassPath" FileName="Aquila.ini" DirProperty="APPDIR" Section="Class Path" Key="Class Path" Value="[#aquila.jar];" Action="0" Component_="Aquila.exe"/>
+    <ROW IniFile="FailureCheck" FileName="Aquila.ini" DirProperty="APPDIR" Section="Application" Key="Failure Check" Value="yes" Action="0" Component_="Aquila.exe"/>
+    <ROW IniFile="JVMSource" FileName="Aquila.ini" DirProperty="APPDIR" Section="Java Runtime Environment" Key="JVM Source" Value="favor_JDK" Action="0" Component_="Aquila.exe"/>
+    <ROW IniFile="JVMType" FileName="Aquila.ini" DirProperty="APPDIR" Section="Java Runtime Environment" Key="JVM Type" Value="favor_server" Action="0" Component_="Aquila.exe"/>
+    <ROW IniFile="MainClass" FileName="Aquila.ini" DirProperty="APPDIR" Section="Java Runtime Environment" Key="Main Class" Value="org.aquila.controller.Controller" Action="0" Component_="Aquila.exe"/>
+    <ROW IniFile="MaximumVersion" FileName="Aquila.ini" DirProperty="APPDIR" Section="Java Runtime Environment" Key="Maximum Version" Value="any" Action="0" Component_="Aquila.exe"/>
+    <ROW IniFile="MinimumVersion" FileName="Aquila.ini" DirProperty="APPDIR" Section="Java Runtime Environment" Key="Minimum Version" Value="11" Action="0" Component_="Aquila.exe"/>
+    <ROW IniFile="OverrideWorkingDir" FileName="Aquila.ini" DirProperty="APPDIR" Section="Application" Key="Override WorkingDir" Value="yes" Action="0" Component_="Aquila.exe"/>
+    <ROW IniFile="SingleInstance" FileName="Aquila.ini" DirProperty="APPDIR" Section="Application" Key="Single Instance" Value="yes" Action="0" Component_="Aquila.exe"/>
+    <ROW IniFile="VMProvider" FileName="Aquila.ini" DirProperty="APPDIR" Section="Java Runtime Environment" Key="VM Provider" Value="any" Action="0" Component_="Aquila.exe"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiInstExSeqComponent">
     <ROW Action="AI_DOWNGRADE" Condition="AI_NEWERPRODUCTFOUND AND (UILevel &lt;&gt; 5)" Sequence="210"/>
@@ -1490,7 +1490,7 @@
     <ROW Action="Set_DATA_PATH_property" Condition="( NOT Installed )" Sequence="77"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiJavaComponent">
-    <ROW Name="Qortal.exe" Launcher="Qortal.exe" MainClass="MainClass" ClassPath="ClassPath" JREMin="MinimumVersion" JREMax="MaximumVersion" IconPath="qortal.ico" AppType="ApplicationType" JVMType="JVMType" SingleInstance="SingleInstance" PlusList="APPDIR;" MinusList="#Qortal.exe;" MacDescription="[|CurrentJavaProductName] [|ProductVersion] © [|Manufacturer], Inc, 2019" MacBundleId="com.[|Manufacturer].[|ProductName].[|CurrentJavaProductName]" JVMSourcePreference="JVMSource" FailureCheck="FailureCheck" OverrideWkDir="OverrideWorkingDir" UACExecutionLevel="0" VMProviderOptions="VMProvider" Platform64="true"/>
+    <ROW Name="Aquila.exe" Launcher="Aquila.exe" MainClass="MainClass" ClassPath="ClassPath" JREMin="MinimumVersion" JREMax="MaximumVersion" IconPath="aquila.ico" AppType="ApplicationType" JVMType="JVMType" SingleInstance="SingleInstance" PlusList="APPDIR;" MinusList="#Aquila.exe;" MacDescription="[|CurrentJavaProductName] [|ProductVersion] © [|Manufacturer], Inc, 2019" MacBundleId="com.[|Manufacturer].[|ProductName].[|CurrentJavaProductName]" JVMSourcePreference="JVMSource" FailureCheck="FailureCheck" OverrideWkDir="OverrideWorkingDir" UACExecutionLevel="0" VMProviderOptions="VMProvider" Platform64="true"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiLaunchConditionsComponent">
     <ROW Condition="( Version9X OR VersionNT64 )" Description="[ProductName] can not be installed on [WindowsTypeNTDisplay]." DescriptionLocId="AI.LaunchCondition.NoNT" IsPredefined="true" Builds="DefaultBuild"/>
@@ -1546,14 +1546,14 @@
     <ROW FileKey="__1" Component_="AI_ExePath" DirProperty="APPDIR" InstallMode="2"/>
     <ROW FileKey="__2" Component_="java.exe" DirProperty="arbitrary_Dir" InstallMode="3"/>
     <ROW FileKey="__3" Component_="java.exe" DirProperty="DATA_PATH" InstallMode="2"/>
-    <ROW FileKey="__4" Component_="java.exe" DirProperty="Qortal_Dir" InstallMode="2"/>
-    <ROW FileKey="log.txt." Component_="java.exe" FileName="log.txt.*" DirProperty="Qortal_Dir" InstallMode="2"/>
-    <ROW FileKey="settings.json.orig" Component_="java.exe" FileName="settings-orig.json" DirProperty="Qortal_Dir" InstallMode="2"/>
+    <ROW FileKey="__4" Component_="java.exe" DirProperty="Aquila_Dir" InstallMode="2"/>
+    <ROW FileKey="log.txt." Component_="java.exe" FileName="log.txt.*" DirProperty="Aquila_Dir" InstallMode="2"/>
+    <ROW FileKey="settings.json.orig" Component_="java.exe" FileName="settings-orig.json" DirProperty="Aquila_Dir" InstallMode="2"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiShortsComponent">
-    <ROW Shortcut="Qortal" Directory_="DesktopFolder" Name="Qortal" Component_="Qortal.exe" Target="[#Qortal.exe]" Description="Qortal.exe" Hotkey="0" Icon_="qortal.exe" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
-    <ROW Shortcut="Qortal_1" Directory_="SHORTCUTDIR" Name="Qortal" Component_="Qortal.exe" Target="[#Qortal.exe]" Description="Qortal" Hotkey="0" Icon_="qortal.exe" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
-    <ROW Shortcut="Uninstall" Directory_="SHORTCUTDIR" Name="UNINST~2|Uninstall Qortal" Component_="AI_ExePath" Target="[AI_UNINSTALLER]" Arguments="/i [ProductCode]" Description="Uninstall Qortal" Hotkey="0" Icon_="SystemFoldermsiexec.exe" IconIndex="0" ShowCmd="1"/>
+    <ROW Shortcut="Aquila" Directory_="DesktopFolder" Name="Aquila" Component_="Aquila.exe" Target="[#Aquila.exe]" Description="Aquila.exe" Hotkey="0" Icon_="aquila.exe" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
+    <ROW Shortcut="Aquila_1" Directory_="SHORTCUTDIR" Name="Aquila" Component_="Aquila.exe" Target="[#Aquila.exe]" Description="Aquila" Hotkey="0" Icon_="aquila.exe" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
+    <ROW Shortcut="Uninstall" Directory_="SHORTCUTDIR" Name="UNINST~2|Uninstall Aquila" Component_="AI_ExePath" Target="[AI_UNINSTALLER]" Arguments="/i [ProductCode]" Description="Uninstall Aquila" Hotkey="0" Icon_="SystemFoldermsiexec.exe" IconIndex="0" ShowCmd="1"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiThemeComponent">
     <ATTRIBUTE name="UsedTheme" value="classic"/>
@@ -1564,6 +1564,6 @@
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.SynchronizedFolderComponent">
     <ROW Directory_="APPDIR" SourcePath="Install Files" Feature="MainFeature" ExcludePattern="*~|#*#|%*%|._|CVS|.cvsignore|SCCS|vssver.scc|mssccprj.scc|vssver2.scc|.svn|.DS_Store|/*.json|\AppData" ExcludeFlags="6" FileAddOptions="4"/>
-    <ROW Directory_="Qortal_Dir" SourcePath="Install Files\AppData" Feature="MainFeature" ExcludePattern="*~|#*#|%*%|._|CVS|.cvsignore|SCCS|vssver.scc|mssccprj.scc|vssver2.scc|.svn|.DS_Store" ExcludeFlags="6" FileAddOptions="4"/>
+    <ROW Directory_="Aquila_Dir" SourcePath="Install Files\AppData" Feature="MainFeature" ExcludePattern="*~|#*#|%*%|._|CVS|.cvsignore|SCCS|vssver.scc|mssccprj.scc|vssver2.scc|.svn|.DS_Store" ExcludeFlags="6" FileAddOptions="4"/>
   </COMPONENT>
 </DOCUMENT>
