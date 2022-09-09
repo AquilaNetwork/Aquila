@@ -24,7 +24,7 @@ public class SplashFrame {
 	public static class SplashPanel extends JPanel {
 		private BufferedImage image;
 
-		private String defaultSplash = "Qlogo_512.png";
+		private String defaultSplash = "Alogo_512.png";
 
 		private JLabel statusLabel;
 
@@ -82,7 +82,7 @@ public class SplashFrame {
 		icons.add(Gui.loadImage("icons/aquila_ui_tray_minting.png"));
 		icons.add(Gui.loadImage("icons/aquila_ui_tray_syncing.png"));
 		icons.add(Gui.loadImage("icons/icon64.png"));
-		icons.add(Gui.loadImage("icons/Qlogo_128.png"));
+		icons.add(Gui.loadImage("icons/Alogo_128.png"));
 		this.splashDialog.setIconImages(icons);
 
 		this.splashPanel = new SplashPanel();
