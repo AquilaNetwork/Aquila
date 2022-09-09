@@ -144,7 +144,7 @@ public class TradeBot implements Listener {
 
 	/**
 	 * Creates a new trade-bot entry from the "Bob" viewpoint,
-	 * i.e. OFFERing QORT in exchange for foreign blockchain currency.
+	 * i.e. OFFERing UNCIA in exchange for foreign blockchain currency.
 	 * <p>
 	 * Generates:
 	 * <ul>
@@ -162,7 +162,7 @@ public class TradeBot implements Listener {
 	 * 	<li>'native' (Aquila) 'trade' address - used to MESSAGE AT</li>
 	 * 	<li>'foreign' public key hash - used by Alice's to allow redeem of currency on foreign blockchain</li>
 	 * 	<li>hash(es) of secret(s) - used by AT (optional) and foreign blockchain as needed</li>
-	 * 	<li>QORT amount on offer by Bob</li>
+	 * 	<li>UNCIA amount on offer by Bob</li>
 	 * 	<li>foreign currency amount expected in return by Bob (from Alice)</li>
 	 * 	<li>trading timeout, in case things go wrong and everyone needs to refund</li>
 	 * </ul>
