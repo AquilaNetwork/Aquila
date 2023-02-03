@@ -401,7 +401,7 @@ public class Block {
 				.collect(Collectors.toList());
 
 		// Aggregated, single signature
-		byte[] onlineAccountsSignatures = Qortal25519Extras.aggregateSignatures(signaturesToAggregate);
+		byte[] onlineAccountsSignatures = Aquila25519Extras.aggregateSignatures(signaturesToAggregate);
 
 		// Add nonces to the end of the online accounts signatures if mempow is active
 		if (timestamp >= BlockChain.getInstance().getOnlineAccountsMemoryPoWTimestamp()) {
@@ -1089,7 +1089,7 @@ public class Block {
 				.map(RewardShareData::getRewardSharePublicKey)
 				.collect(Collectors.toList());
 
-			byte[] aggregatePublicKey = Qortal25519Extras.aggregatePublicKeys(publicKeys);
+			byte[] aggregatePublicKey = Aquila25519Extras.aggregatePublicKeys(publicKeys);
 
 			byte[] aggregateSignature = onlineAccountsSignatures.get(0);
 
@@ -2000,7 +2000,7 @@ public class Block {
 		// Fetch list of legacy QORA holders who haven't reached their cap of UNCIA reward.
 		List<EligibleQoraHolderData> qoraHolders = this.repository.getAccountRepository().getEligibleLegacyQoraHolders(isProcessingNotOrphaning ? null : this.blockData.getHeight());
 		final boolean haveQoraHolders = !qoraHolders.isEmpty();
-		final long qoraHoldersShare = BlockChain.getInstance().getQoraHoldersShare();
+		final long qoraHoldersShare = BlockChain.getInstance().getQoraHoldersShareAtHeight(this.blockData.getHeight());
 
 		// Perform account-level-based reward scaling if appropriate
 		if (!haveFounders) {
