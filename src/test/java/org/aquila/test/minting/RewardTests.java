@@ -13,6 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.aquila.account.PrivateKeyAccount;
 import org.aquila.asset.Asset;
+import org.aquila.block.Block;
 import org.aquila.block.BlockChain;
 import org.aquila.block.BlockChain.RewardByHeight;
 import org.aquila.controller.BlockMinter;
@@ -108,7 +109,7 @@ public class RewardTests extends Common {
 	public void testLegacyQoraReward() throws DataException {
 		Common.useSettings("test-settings-v2-qora-holder-extremes.json");
 
-		long qoraHoldersShare = BlockChain.getInstance().getQoraHoldersShare();
+		long qoraHoldersShare = BlockChain.getInstance().getQoraHoldersShareAtHeight(1);
 		BigInteger qoraHoldersShareBI = BigInteger.valueOf(qoraHoldersShare);
 
 		long qoraPerUncia = BlockChain.getInstance().getQoraPerUnciaReward();
@@ -189,6 +190,47 @@ public class RewardTests extends Common {
 		}
 	}
 
+	@Test
+	public void testLegacyQoraRewardReduction() throws DataException {
+		Common.useSettings("test-settings-v2-qora-holder-extremes.json");
+
+		// Make sure that the QORA share reduces between blocks 4 and 5
+		assertTrue(BlockChain.getInstance().getQoraHoldersShareAtHeight(5) < BlockChain.getInstance().getQoraHoldersShareAtHeight(4));
+
+		// Keep track of balance deltas at each height
+		Map<Integer, Long> chloeUnciaBalanceDeltaAtEachHeight = new HashMap<>();
+
+		try (final Repository repository = RepositoryManager.getRepository()) {
+			Map<String, Map<Long, Long>> initialBalances = AccountUtils.getBalances(repository, Asset.UNCIA, Asset.LEGACY_QORA, Asset.UNCIA_FROM_QORA);
+			long chloeLastUnciaBalance = initialBalances.get("chloe").get(Asset.uncia);
+
+			for (int i=2; i<=10; i++) {
+
+				Block block = BlockUtils.mintBlock(repository);
+
+				// Add to map of balance deltas at each height
+				long chloeNewUnciaBalance = AccountUtils.getBalance(repository, "chloe", Asset.UNCIA);
+				chloeUnciaBalanceDeltaAtEachHeight.put(block.getBlockData().getHeight(), chloeNewUnciaBalance - chloeLastUnciaBalance);
+				chloeLastUnciaBalance = chloeNewUnciaBalance;
+			}
+
+			// Ensure blocks 2-4 paid out the same rewards to Chloe
+			assertEquals(chloeUnciaBalanceDeltaAtEachHeight.get(2), chloeUnciaBalanceDeltaAtEachHeight.get(4));
+
+			// Ensure block 5 paid a lower reward
+			assertTrue(chloeUnciaBalanceDeltaAtEachHeight.get(5) < chloeUnciaBalanceDeltaAtEachHeight.get(4));
+
+			// Check that the reward was 20x lower
+			assertTrue(chloeUnciaBalanceDeltaAtEachHeight.get(5) == chloeUnciaBalanceDeltaAtEachHeight.get(4) / 20);
+
+			// Orphan to block 4 and ensure that Chloe's balance hasn't been incorrectly affected by the reward reduction
+			BlockUtils.orphanToBlock(repository, 4);
+			long expectedChloeUnciaBalance = initialBalances.get("chloe").get(Asset.UNCIA) + chloeUnciaBalanceDeltaAtEachHeight.get(2) +
+					chloeUnciaBalanceDeltaAtEachHeight.get(3) + chloeUnciaBalanceDeltaAtEachHeight.get(4);
+			assertEquals(expectedChloeUnciaBalance, AccountUtils.getBalance(repository, "chloe", Asset.UNCIA));
+		}
+	}
+	
 	/** Use Alice-Chloe reward-share to bump Chloe from level 0 to level 1, then check orphaning works as expected. */
 	@Test
 	public void testLevel1() throws DataException {
@@ -294,7 +336,7 @@ public class RewardTests extends Common {
 			 * So Dilbert should receive 100% - legacy QORA holder's share.
 			 */
 
-			final long qoraHoldersShare = BlockChain.getInstance().getQoraHoldersShare();
+			final long qoraHoldersShare = BlockChain.getInstance().getQoraHoldersShareAtHeight(1);
 			final long remainingShare = 1_00000000 - qoraHoldersShare;
 
 			long dilbertExpectedBalance = initialBalances.get("dilbert").get(Asset.UNCIA);
