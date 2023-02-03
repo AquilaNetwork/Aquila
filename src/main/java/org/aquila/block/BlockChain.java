@@ -72,8 +72,7 @@ public class BlockChain {
 		calcChainWeightTimestamp,
 		transactionV5Timestamp,
 		transactionV6Timestamp,
-		disableReferenceTimestamp,
-		aggregateSignatureTimestamp;
+		disableReferenceTimestamp;
 	}
 
 	// Custom transaction fees
@@ -188,6 +187,10 @@ public class BlockChain {
 	/** Feature trigger timestamp for ONLINE_ACCOUNTS_MODULUS time interval increase. Can't use
 	 * featureTriggers because unit tests need to set this value via Reflection. */
 	private long onlineAccountsModulusV2Timestamp;
+
+	/** Feature trigger timestamp for online accounts mempow verification. Can't use featureTriggers
+	 * because unit tests need to set this value via Reflection. */
+	private long onlineAccountsMemoryPoWTimestamp;
 
 	/** Max reward shares by block height */
 	public static class MaxRewardSharesByTimestamp {
@@ -349,6 +352,10 @@ public class BlockChain {
 		return this.onlineAccountsModulusV2Timestamp;
 	}
 
+	public long getOnlineAccountsMemoryPoWTimestamp() {
+		return this.onlineAccountsMemoryPoWTimestamp;
+	}
+
 	/** Returns true if approval-needing transaction types require a txGroupId other than NO_GROUP. */
 	public boolean getRequireGroupForApproval() {
 		return this.requireGroupForApproval;
@@ -462,10 +469,6 @@ public class BlockChain {
 
 	public long getDisableReferenceTimestamp() {
 		return this.featureTriggers.get(FeatureTrigger.disableReferenceTimestamp.name()).longValue();
-	}
-
-	public long getAggregateSignatureTimestamp() {
-		return this.featureTriggers.get(FeatureTrigger.aggregateSignatureTimestamp.name()).longValue();
 	}
 
 	// More complex getters for aspects that change by height or timestamp

@@ -263,8 +263,7 @@ public class HSQLDBAccountRepository implements AccountRepository {
 	public void setSponsorPublicKey(AccountData accountData) throws  DataException {
 		HSQLDBSaver saveHelper = new HSQLDBSaver("Accounts");
 
-		saveHelper.bind("account", accountData.getAddress())
-			.bind("sponsor_public_key", accountData.getSponsorPublicKey());
+		saveHelper.bind("account", accountData.getAddress()).bind("sponsor_public_key", accountData.getSponsorPublicKey());
 
 		byte[] publicKey = accountData.getPublicKey();
 		if (publicKey != null)
@@ -274,7 +273,7 @@ public class HSQLDBAccountRepository implements AccountRepository {
 			saveHelper.execute(this.repository);
 		} catch (SQLException e) {
 			throw new DataException("Unable to save account's sponsor's public key into repository", e);
-			}		
+		}		
 	}
 
 

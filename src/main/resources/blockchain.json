@@ -24,6 +24,7 @@
 	"onlineAccountSignaturesMinLifetime": 43200000,
 	"onlineAccountSignaturesMaxLifetime": 86400000,
 	"onlineAccountsModulusV2Timestamp": 1659801600000,
+	"onlineAccountsMemoryPoWTimestamp": 9999999999999,
 	"rewardsByHeight": [
 		{ "height": 1, "reward": 100.00 },
 		{ "height": 259201, "reward": 200.00 },
@@ -82,7 +83,7 @@
 	},
 	"genesisInfo": {
 		"version": 1,
-		"timestamp": "0",
+		"timestamp": "1593450000000",
 		"transactions": [
 			{ "type": "ISSUE_ASSET", "assetName": "UPP", "description": "Uncia Power Point", "quantity": 0, "isDivisible": true, "data": "{}" },
 			

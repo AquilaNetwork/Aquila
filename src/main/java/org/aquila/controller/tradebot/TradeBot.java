@@ -188,7 +188,7 @@ public class TradeBot implements Listener {
 
 	/**
 	 * Creates a trade-bot entry from the 'Alice' viewpoint,
-	 * i.e. matching foreign blockchain currency to an existing QORT offer.
+	 * i.e. matching foreign blockchain currency to an existing UNCIA offer.
 	 * <p>
 	 * Requires a chosen trade offer from Bob, passed by <tt>crossChainTradeData</tt>
 	 * and access to a foreign blockchain wallet via <tt>foreignKey</tt>.

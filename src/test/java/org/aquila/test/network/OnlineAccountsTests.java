@@ -1,26 +1,29 @@
 package org.aquila.test.network;
 
+import com.google.common.primitives.Ints;
+import io.druid.extendedset.intset.ConciseSet;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.jsse.provider.BouncyCastleJsseProvider;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
-import org.aquila.account.PrivateKeyAccount;
 import org.aquila.block.Block;
 import org.aquila.block.BlockChain;
 import org.aquila.controller.BlockMinter;
-import org.aquila.controller.OnlineAccountsManager;
 import org.aquila.data.network.OnlineAccountData;
 import org.aquila.network.message.*;
 import org.aquila.repository.DataException;
 import org.aquila.repository.Repository;
 import org.aquila.repository.RepositoryManager;
 import org.aquila.settings.Settings;
+import org.aquila.test.common.AccountUtils;
 import org.aquila.test.common.Common;
 import org.aquila.transform.Transformer;
 import org.aquila.utils.Base58;
 import org.aquila.utils.NTP;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.security.Security;
@@ -202,4 +205,30 @@ public class OnlineAccountsTests extends Common {
             assertTrue(onlineAccountSignatures.size() >= 1 && onlineAccountSignatures.size() <= 3);
         }
     }
+ @Test
+    @Ignore(value = "For informational use")
+    public void testOnlineAccountNonceCompression() throws IOException {
+        List<OnlineAccountData> onlineAccounts = AccountUtils.generateOnlineAccounts(5000);
+
+        // Build array of nonce values
+        List<Integer> accountNonces = new ArrayList<>();
+        for (OnlineAccountData onlineAccountData : onlineAccounts) {
+            accountNonces.add(onlineAccountData.getNonce());
+        }
+
+        // Write nonces into ConciseSet
+        ConciseSet nonceSet = new ConciseSet();
+        nonceSet = nonceSet.convert(accountNonces);
+        byte[] conciseEncodedNonces = nonceSet.toByteBuffer().array();
+
+        // Also write to regular byte array of ints, for comparison
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        for (Integer nonce : accountNonces) {
+            bytes.write(Ints.toByteArray(nonce));
+        }
+        byte[] standardEncodedNonces = bytes.toByteArray();
+
+        System.out.println(String.format("Standard: %d", standardEncodedNonces.length));
+        System.out.println(String.format("Concise: %d", conciseEncodedNonces.length));
+    }   
 }
