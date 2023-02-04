@@ -304,8 +304,8 @@ public class OnlineAccountsManager {
             return false;
         }
         // Validate mempow if feature trigger is active
-        if (now >= BlockChain.getInstance().getOnlineAccountsMemoryPoWTimestamp()) {
-            if (!getInstance().verifyMemoryPoW(onlineAccountData, now)) {
+         if (onlineAccountTimestamp >= BlockChain.getInstance().getOnlineAccountsMemoryPoWTimestamp()) {
+            if (!getInstance().verifyMemoryPoW(onlineAccountData)) {
                 LOGGER.trace(() -> String.format("Rejecting online reward-share for account %s due to invalid PoW nonce", mintingAccount.getAddress()));
                 return false;
             }
@@ -510,6 +510,20 @@ public class OnlineAccountsManager {
             byte[] privateKey = mintingAccountData.getPrivateKey();
             byte[] publicKey = Crypto.toPublicKey(privateKey);
 
+        // We don't want to compute the online account nonce and signature again if it already exists
+            Set<OnlineAccountData> onlineAccounts = this.currentOnlineAccounts.computeIfAbsent(onlineAccountsTimestamp, k -> ConcurrentHashMap.newKeySet());
+            boolean alreadyExists = onlineAccounts.stream().anyMatch(a -> Arrays.equals(a.getPublicKey(), publicKey));
+            if (alreadyExists) {
+                if (remaining > 0) {
+                    // Move on to next account
+                    continue;
+                }
+                else {
+                    // Everything exists, so return true
+                    return true;
+                }
+            }
+
             // Generate bytes for mempow
             byte[] mempowBytes;
             try {
@@ -522,7 +536,7 @@ public class OnlineAccountsManager {
 
             // Compute nonce
             Integer nonce;
-            if (isMemoryPoWActive(NTP.getTime())) {
+            if (isMemoryPoWActive(onlineAccountsTimestamp)) {
                 try {
                     nonce = this.computeMemoryPoW(mempowBytes, publicKey, onlineAccountsTimestamp);
                     if (nonce == null) {
@@ -544,7 +558,7 @@ public class OnlineAccountsManager {
             OnlineAccountData ourOnlineAccountData = new OnlineAccountData(onlineAccountsTimestamp, signature, publicKey, nonce);
 
             // Make sure to verify before adding
-            if (verifyMemoryPoW(ourOnlineAccountData, NTP.getTime())) {
+             if (verifyMemoryPoW(ourOnlineAccountData)) {
                 ourOnlineAccounts.add(ourOnlineAccountData);
             }
         }
@@ -592,7 +606,7 @@ public class OnlineAccountsManager {
     }
 
     private Integer computeMemoryPoW(byte[] bytes, byte[] publicKey, long onlineAccountsTimestamp) throws TimeoutException {
-        if (!isMemoryPoWActive(NTP.getTime())) {
+        if (!isMemoryPoWActive(onlineAccountsTimestamp)) {
             LOGGER.info("Mempow start timestamp not yet reached, and onlineAccountsMemPoWEnabled not enabled in settings");
             return null;
         }
@@ -618,8 +632,8 @@ public class OnlineAccountsManager {
         return nonce;
     }
 
-    public boolean verifyMemoryPoW(OnlineAccountData onlineAccountData, Long timestamp) {
-        if (!isMemoryPoWActive(timestamp)) {
+     public boolean verifyMemoryPoW(OnlineAccountData onlineAccountData) {
+        if (!isMemoryPoWActive(onlineAccountData.getTimestamp())) {
             // Not active yet, so treat it as valid
             return true;
         }

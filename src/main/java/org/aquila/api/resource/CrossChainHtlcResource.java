@@ -7,8 +7,11 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.locks.ReentrantLock;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
@@ -21,6 +24,7 @@ import org.bitcoinj.core.*;
 import org.bitcoinj.script.Script;
 import org.aquila.api.*;
 import org.aquila.api.model.CrossChainBitcoinyHTLCStatus;
+import org.aquila.controller.Controller;
 import org.aquila.crosschain.*;
 import org.aquila.crypto.Crypto;
 import org.aquila.data.at.ATData;
@@ -283,6 +287,11 @@ public class CrossChainHtlcResource {
 				if (acct == null) {
 					continue;
 				}
+				Bitcoiny bitcoiny = (Bitcoiny) acct.getBlockchain();
+				if (Objects.equals(bitcoiny.getCurrencyCode(), "ARRR")) {
+					LOGGER.info("Skipping AT {} because ARRR is currently unsupported", atAddress);
+					continue;
+				}
 
 				CrossChainTradeData crossChainTradeData = acct.populateTradeData(repository, atData);
 				if (crossChainTradeData == null) {
@@ -532,6 +541,11 @@ public class CrossChainHtlcResource {
 				try {
 					// Determine foreign blockchain receive address for refund
 					Bitcoiny bitcoiny = (Bitcoiny) acct.getBlockchain();
+					if (Objects.equals(bitcoiny.getCurrencyCode(), "ARRR")) {
+						LOGGER.info("Skipping AT {} because ARRR is currently unsupported", atAddress);
+						continue;
+					}
+
 					String receivingAddress = bitcoiny.getUnusedReceiveAddress(tradeBotData.getForeignKey());
 
 					LOGGER.info("Attempting to refund P2SH balance associated with AT {}...", atAddress);
@@ -648,6 +662,48 @@ public class CrossChainHtlcResource {
 		}
 
 		return false;
+	}
+
+	@POST
+	@Path("/importarchivedtrades")
+	@Operation(
+			summary = "Imports archived trades from TradeBotStatesArchive.json",
+			description = "This can be used to recover trades that exist in the archive only, which may be needed if a<br />" +
+					"problem occurred during the proof-of-work computation stage of a buy request.",
+			responses = {
+					@ApiResponse(
+							content = @Content(mediaType = MediaType.TEXT_PLAIN, schema = @Schema(type = "boolean"))
+					)
+			}
+	)
+	@ApiErrors({ApiError.REPOSITORY_ISSUE})
+	@SecurityRequirement(name = "apiKey")
+	public boolean importArchivedTrades(@HeaderParam(Security.API_KEY_HEADER) String apiKey) {
+		Security.checkApiCallAllowed(request);
+
+		try (final Repository repository = RepositoryManager.getRepository()) {
+			ReentrantLock blockchainLock = Controller.getInstance().getBlockchainLock();
+
+			blockchainLock.lockInterruptibly();
+
+			try {
+				repository.importDataFromFile("aquila-backup/TradeBotStatesArchive.json");
+				repository.saveChanges();
+
+				return true;
+
+			} catch (IOException e) {
+				throw ApiExceptionFactory.INSTANCE.createException(request, ApiError.INVALID_CRITERIA, e);
+
+			} finally {
+				blockchainLock.unlock();
+			}
+		} catch (InterruptedException e) {
+			// We couldn't lock blockchain to perform import
+			return false;
+		} catch (DataException e) {
+			throw ApiExceptionFactory.INSTANCE.createException(request, ApiError.REPOSITORY_ISSUE, e);
+		}
 	}
 
 	private long calcFeeTimestamp(int lockTimeA, int tradeTimeout) {
