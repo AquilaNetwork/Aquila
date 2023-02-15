@@ -44,6 +44,7 @@ import org.aquila.data.arbitrary.*;
 import org.aquila.data.naming.NameData;
 import org.aquila.data.transaction.ArbitraryTransactionData;
 import org.aquila.data.transaction.TransactionData;
+import org.aquila.list.ResourceListManager;
 import org.aquila.repository.DataException;
 import org.aquila.repository.Repository;
 import org.aquila.repository.RepositoryManager;
@@ -91,6 +92,7 @@ public class ArbitraryResource {
 			@Parameter(ref = "limit") @QueryParam("limit") Integer limit,
 			@Parameter(ref = "offset") @QueryParam("offset") Integer offset,
 			@Parameter(ref = "reverse") @QueryParam("reverse") Boolean reverse,
+			@Parameter(description = "Filter names by list") @QueryParam("namefilter") String nameFilter,
 			@Parameter(description = "Include status") @QueryParam("includestatus") Boolean includeStatus,
 			@Parameter(description = "Include metadata") @QueryParam("includemetadata") Boolean includeMetadata) {
 
@@ -107,8 +109,18 @@ public class ArbitraryResource {
 				throw ApiExceptionFactory.INSTANCE.createCustomException(request, ApiError.INVALID_CRITERIA, "identifier cannot be specified when requesting a default resource");
 			}
 
+			// Load filter from list if needed
+			List<String> names = null;
+			if (nameFilter != null) {
+				names = ResourceListManager.getInstance().getStringsInList(nameFilter);
+				if (names.isEmpty()) {
+					// List doesn't exist or is empty - so there will be no matches
+					return new ArrayList<>();
+				}
+			}
+
 			List<ArbitraryResourceInfo> resources = repository.getArbitraryRepository()
-					.getArbitraryResources(service, identifier, null, defaultRes, limit, offset, reverse);
+					.getArbitraryResources(service, identifier, names, defaultRes, limit, offset, reverse);
 
 			if (resources == null) {
 				return new ArrayList<>();
@@ -216,7 +228,7 @@ public class ArbitraryResource {
 				String name = creatorName.name;
 				if (name != null) {
 					List<ArbitraryResourceInfo> resources = repository.getArbitraryRepository()
-							.getArbitraryResources(service, identifier, name, defaultRes, null, null, reverse);
+							.getArbitraryResources(service, identifier, Arrays.asList(name), defaultRes, null, null, reverse);
 
 					if (includeStatus != null && includeStatus) {
 						resources = this.addStatusToResources(resources);
