@@ -28,7 +28,7 @@ public class AccountData {
 	protected AccountData() {
 	}
 
-	public AccountData(String address, byte[] reference, byte[] publicKey, int defaultGroupId, int flags, int level, int blocksMinted, int blocksMintedAdjustment, int blocksMintedPenalty) {
+	public AccountData(String address, byte[] reference, byte[] publicKey, int defaultGroupId, int flags, int level, int blocksMinted, int blocksMintedAdjustment, int blocksMintedPenalty, byte[] sponsorPublicKey) {
 		this.address = address;
 		this.reference = reference;
 		this.publicKey = publicKey;
@@ -38,10 +38,13 @@ public class AccountData {
 		this.blocksMinted = blocksMinted;
 		this.blocksMintedAdjustment = blocksMintedAdjustment;
 		this.blocksMintedPenalty = blocksMintedPenalty;
+		//added by sahkan
+		this.sponsorPublicKey = sponsorPublicKey;
+
 	}
 
 	public AccountData(String address) {
-		this(address, null, null, Group.NO_GROUP, 0, 0, 0, 0, 0);
+		this(address, null, null, Group.NO_GROUP, 0, 0, 0, 0, 0, null);
 	}
 
 	// Getters/Setters
@@ -102,16 +105,6 @@ public class AccountData {
 		return this.blocksMintedAdjustment;
 	}
 
-	// added by sahkan
-	public byte[] getSponsorPublicKey() {
-		return this.sponsorPublicKey;
-	}
-
-	// added by sahkan
-	public void setSponsorPublicKey(byte[] sponsorPublicKey) {
-		this.sponsorPublicKey = sponsorPublicKey;
-	}
-
 	public void setBlocksMintedAdjustment(int blocksMintedAdjustment) {
 		this.blocksMintedAdjustment = blocksMintedAdjustment;
 	}
@@ -122,6 +115,16 @@ public class AccountData {
 
 	public void setBlocksMintedPenalty(int blocksMintedPenalty) {
 		this.blocksMintedPenalty = blocksMintedPenalty;
+	}
+
+	// added by sahkan
+	public byte[] getSponsorPublicKey() {
+		return this.sponsorPublicKey;
+	}
+
+	// added by sahkan
+	public void setSponsorPublicKey(byte[] sponsorPublicKey) {
+		this.sponsorPublicKey = sponsorPublicKey;
 	}
 
 	// Comparison
