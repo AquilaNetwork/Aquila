@@ -26,7 +26,7 @@ public class HSQLDBAccountRepository implements AccountRepository {
 
 	@Override
 	public AccountData getAccount(String address) throws DataException {
-		String sql = "SELECT reference, public_key, default_group_id, flags, level, blocks_minted, blocks_minted_adjustment, blocks_minted_penalty FROM Accounts WHERE account = ?";
+		String sql = "SELECT reference, public_key, default_group_id, flags, level, blocks_minted, blocks_minted_adjustment, blocks_minted_penalty, sponsor_public_key FROM Accounts WHERE account = ?";
 
 		try (ResultSet resultSet = this.repository.checkedExecute(sql, address)) {
 			if (resultSet == null)
@@ -50,7 +50,7 @@ public class HSQLDBAccountRepository implements AccountRepository {
 
 	@Override
 	public List<AccountData> getFlaggedAccounts(int mask) throws DataException {
-		String sql = "SELECT reference, public_key, default_group_id, flags, level, blocks_minted, blocks_minted_adjustment, blocks_minted_penalty, account FROM Accounts WHERE BITAND(flags, ?) != 0";
+		String sql = "SELECT reference, public_key, default_group_id, flags, level, blocks_minted, blocks_minted_adjustment, blocks_minted_penalty, sponsor_public_key, account FROM Accounts WHERE BITAND(flags, ?) != 0";
 
 		List<AccountData> accounts = new ArrayList<>();
 
@@ -81,7 +81,7 @@ public class HSQLDBAccountRepository implements AccountRepository {
 
 	@Override
 	public List<AccountData> getPenaltyAccounts() throws DataException {
-		String sql = "SELECT reference, public_key, default_group_id, flags, level, blocks_minted, blocks_minted_adjustment, blocks_minted_penalty, account FROM Accounts WHERE blocks_minted_penalty != 0";
+		String sql = "SELECT reference, public_key, default_group_id, flags, level, blocks_minted, blocks_minted_adjustment, blocks_minted_penalty, sponsor_public_key, account FROM Accounts WHERE blocks_minted_penalty != 0";
 
 		List<AccountData> accounts = new ArrayList<>();
 
@@ -98,7 +98,8 @@ public class HSQLDBAccountRepository implements AccountRepository {
 				int blocksMinted = resultSet.getInt(6);
 				int blocksMintedAdjustment = resultSet.getInt(7);
 				int blocksMintedPenalty = resultSet.getInt(8);
-				String address = resultSet.getString(9);
+				byte[] sponsorPublicKey = resultSet.getBytes(9);
+				String address = resultSet.getString(10);
 
 				accounts.add(new AccountData(address, reference, publicKey, defaultGroupId, flags, level, blocksMinted, blocksMintedAdjustment, blocksMintedPenalty, sponsorPublicKey));
 			} while (resultSet.next());
