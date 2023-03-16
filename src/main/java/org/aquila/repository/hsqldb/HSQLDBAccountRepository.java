@@ -40,8 +40,9 @@ public class HSQLDBAccountRepository implements AccountRepository {
 			int blocksMinted = resultSet.getInt(6);
 			int blocksMintedAdjustment = resultSet.getInt(7);
 			int blocksMintedPenalty = resultSet.getInt(8);
+			byte[] sponsorPublicKey = resultSet.getBytes(9);
 
-			return new AccountData(address, reference, publicKey, defaultGroupId, flags, level, blocksMinted, blocksMintedAdjustment, blocksMintedPenalty);
+			return new AccountData(address, reference, publicKey, defaultGroupId, flags, level, blocksMinted, blocksMintedAdjustment, blocksMintedPenalty, sponsorPublicKey);
 		} catch (SQLException e) {
 			throw new DataException("Unable to fetch account info from repository", e);
 		}
@@ -66,9 +67,10 @@ public class HSQLDBAccountRepository implements AccountRepository {
 				int blocksMinted = resultSet.getInt(6);
 				int blocksMintedAdjustment = resultSet.getInt(7);
 				int blocksMintedPenalty = resultSet.getInt(8);
-				String address = resultSet.getString(9);
+				byte[] sponsorPublicKey = resultSet.getBytes(9);
+				String address = resultSet.getString(10);
 
-				accounts.add(new AccountData(address, reference, publicKey, defaultGroupId, flags, level, blocksMinted, blocksMintedAdjustment, blocksMintedPenalty));
+				accounts.add(new AccountData(address, reference, publicKey, defaultGroupId, flags, level, blocksMinted, blocksMintedAdjustment, blocksMintedPenalty, sponsorPublicKey));
 			} while (resultSet.next());
 
 			return accounts;

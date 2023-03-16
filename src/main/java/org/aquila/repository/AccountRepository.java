@@ -111,6 +111,16 @@ public interface AccountRepository {
 	 */
 	public void updateBlocksMintedPenalties(Set<AccountPenaltyData> accountPenalties) throws DataException;
 
+	/* Returns account's sponsor's public key by sahkan*/
+	public byte[] getSponsorPublicKey(String address) throws DataException;
+
+	/**
+	 * Saves account's sponsor's public key and public key if present, in repository.
+	 * <p>
+	 * Note: ignores other fields like last reference, default groupID.
+	 */
+	public void setSponsorPublicKey(AccountData accountData) throws DataException;
+
 	/** Delete account from repository. */
 	public void delete(String address) throws DataException;
 

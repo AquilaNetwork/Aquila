@@ -44,6 +44,8 @@ public class AccountMessage extends Message {
 
 			bytes.write(Ints.toByteArray(accountData.getBlocksMintedPenalty()));
 
+			bytes.write(accountData.getSponsorPublicKey()); //added by sahkan
+
 		} catch (IOException e) {
 			throw new AssertionError("IOException shouldn't occur with ByteArrayOutputStream");
 		}
@@ -85,7 +87,9 @@ public class AccountMessage extends Message {
 
 		int blocksMintedPenalty = byteBuffer.getInt();
 
-		AccountData accountData = new AccountData(address, reference, publicKey, defaultGroupId, flags, level, blocksMinted, blocksMintedAdjustment, blocksMintedPenalty);
+		byte[] sponsorPublicKey = new byte[PUBLIC_KEY_LENGTH]; //added by sahkan
+
+		AccountData accountData = new AccountData(address, reference, publicKey, defaultGroupId, flags, level, blocksMinted, blocksMintedAdjustment, blocksMintedPenalty, sponsorPublicKey);
 		return new AccountMessage(id, accountData);
 	}
 
