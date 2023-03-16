@@ -100,7 +100,7 @@ public class HSQLDBAccountRepository implements AccountRepository {
 				int blocksMintedPenalty = resultSet.getInt(8);
 				String address = resultSet.getString(9);
 
-				accounts.add(new AccountData(address, reference, publicKey, defaultGroupId, flags, level, blocksMinted, blocksMintedAdjustment, blocksMintedPenalty));
+				accounts.add(new AccountData(address, reference, publicKey, defaultGroupId, flags, level, blocksMinted, blocksMintedAdjustment, blocksMintedPenalty, sponsorPublicKey));
 			} while (resultSet.next());
 
 			return accounts;
