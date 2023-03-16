@@ -107,6 +107,11 @@ public class AccountData {
 		return this.sponsorPublicKey;
 	}
 
+	// added by sahkan
+	public void setSponsorPublicKey(byte[] sponsorPublicKey) {
+		this.sponsorPublicKey = sponsorPublicKey;
+	}
+
 	public void setBlocksMintedAdjustment(int blocksMintedAdjustment) {
 		this.blocksMintedAdjustment = blocksMintedAdjustment;
 	}
