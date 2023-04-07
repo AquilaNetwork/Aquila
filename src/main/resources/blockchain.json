@@ -86,20 +86,10 @@
 		"transactions": [
 			{ "type": "ISSUE_ASSET", "assetName": "UPP", "description": "Uncia Power Point", "quantity": 0, "isDivisible": true, "data": "{}" },
 			
-			{ "type": "ACCOUNT_FLAGS", "target": "AY82MasqEH6ChwXaETH4piMtE8Pk4NBWD3", "andMask": -1, "orMask": 1, "xorMask": 0 },
-			{ "type": "ACCOUNT_FLAGS", "target": "AcPro2T97Q8cAfcVM4Pn4fv71Za4T6oeFD", "andMask": -1, "orMask": 1, "xorMask": 0 },
-
-			{ "type": "REWARD_SHARE", "minterPublicKey": "HFDmuc4HAAoVs9Siea3MugjBHasbotgVz2gsRDuLAAcB", "recipient": "AY82MasqEH6ChwXaETH4piMtE8Pk4NBWD3", "rewardSharePublicKey": "F35TbQXmgzz32cALj29jxzpdYSUKQvssqThLsZSabSXx", "sharePercent": 0 },
-
-			{ "type": "ACCOUNT_FLAGS", "target": "AbmBdAbvmXqCya8bia8WaD5izumKkC9BrY", "andMask": -1, "orMask": 0, "xorMask": 0 },
-			{ "type": "ACCOUNT_FLAGS", "target": "AhPXuFFRa9s91Q2qYKpSN5LVCUTqYkgRLz", "andMask": -1, "orMask": 0, "xorMask": 0 },
+			{ "type": "ACCOUNT_FLAGS", "target": "ANN4JRbiCEDaRTAhJmWAD8iFczUSQMzRTh", "andMask": -1, "orMask": 1, "xorMask": 0 },
 			
-			{ "type": "CREATE_GROUP", "creatorPublicKey": "CVancqfgb2vWLXHjqZF8LtoQyB7Y5HtZUrFKvtwrTkNW", "owner": "AbmBdAbvmXqCya8bia8WaD5izumKkC9BrY", "groupName": "dev-group", "description": "developer group", "isOpen": true, "approvalThreshold": "ONE", "minimumBlockDelay": 10, "maximumBlockDelay": 1440 },
+			{ "type": "ACCOUNT_FLAGS", "target": "AM3PRXFJWPD4wzLX32gxFaJLWTeLzxKq6Z", "andMask": -1, "orMask": 0, "xorMask": 0 },
 
-			{ "type": "JOIN_GROUP", "joinerPublicKey": "25jxnXz3xF3tK2WJHpUHwGx7DXR6yfjAHF1hFX5ice6H", "groupId": 1 },
-			{ "type": "ADD_GROUP_ADMIN", "ownerPublicKey": "CVancqfgb2vWLXHjqZF8LtoQyB7Y5HtZUrFKvtwrTkNW", "groupId": 1, "member": "AhPXuFFRa9s91Q2qYKpSN5LVCUTqYkgRLz" },
-
-			{ "type": "UPDATE_GROUP", "ownerPublicKey": "CVancqfgb2vWLXHjqZF8LtoQyB7Y5HtZUrFKvtwrTkNW", "groupId": 1, "newOwner": "AdSnUy6sUiEnaN87dWmE92g1uQjrvPgrWG", "newDescription": "developer group", "newIsOpen": false, "newApprovalThreshold": "PCT40", "minimumBlockDelay": 10, "maximumBlockDelay": 1440 }
 		]
 	}
 }
