@@ -68,8 +68,7 @@ public class Settings {
 		"localhost", "127.0.0.1"
 	};
 	private String[] uiRemoteServers = new String[] {
-		"node1.aquila.org", "node2.aquila.org", "node3.aquila.org", "node4.aquila.org", "node5.aquila.org",
-		"node6.aquila.org", "node7.aquila.org", "node8.aquila.org", "node9.aquila.org", "node10.aquila.org"
+		"node1.aquilanetwork.org", "node2.aquilanetwork.org", "node3.aquilanetwork.org", "node4.aquilanetwork.org", "node5.aquilanetwork.org"
 	};
 
 	// API-related
@@ -217,7 +216,7 @@ public class Settings {
 	public long recoveryModeTimeout = 10 * 60 * 1000L;
 
 	/** Minimum peer version number required in order to sync with them */
-	private String minPeerVersion = "3.8.7";
+	private String minPeerVersion = "0.0.2";
 	/** Whether to allow connections with peers below minPeerVersion
 	 * If true, we won't sync with them but they can still sync with us, and will show in the peers list
 	 * If false, sync will be blocked both ways, and they will not appear in the peers list */
@@ -273,10 +272,9 @@ public class Settings {
 
 	// Bootstrap sources
 	private String[] bootstrapHosts = new String[] {
-			"http://bootstrap.aquila.org",
-			"http://bootstrap2.aquila.org",
-			"http://bootstrap3.aquila.org",
-			"http://bootstrap.aquila.online"
+			"http://bootstrap.aquilanetwork.org",
+			"http://bootstrap2.aquilanetwork.org",
+			"http://bootstrap3.aquilanetwork.org"
 	};
 
 	// Auto-update sources
