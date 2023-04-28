@@ -22,7 +22,7 @@ public abstract class Crypto {
 	public static final int SIGNATURE_LENGTH = 64;
 	public static final int SHARED_SECRET_LENGTH = 32;
 
-	public static final byte ADDRESS_VERSION = 23; // Address prefix A st by Sahkan
+	public static final byte ADDRESS_VERSION = 23; // Address prefix A set by Sahkan
 	public static final byte AT_ADDRESS_VERSION = 28; // C set by sahkan
 	public static final byte NODE_ADDRESS_VERSION = 75; // X set by sahkan
 

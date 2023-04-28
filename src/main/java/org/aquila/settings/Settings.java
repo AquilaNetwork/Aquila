@@ -192,7 +192,7 @@ public class Settings {
 	// Peer-to-peer related
 	private boolean isTestNet = false;
 	/** Single node testnet mode */
-	private boolean singleNodeTestnet = false;
+	private boolean singleNodeTestnet = true;
 	/** Port number for inbound peer-to-peer connections. */
 	private Integer listenPort;
 	/** Whether to attempt to open the listen port via UPnP */
