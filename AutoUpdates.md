@@ -46,7 +46,7 @@ The git SHA1 commit hash is used to replace `%s` in various download locations, 
 These locations are part of the org.aquila.settings.Settings class and can be overriden in settings.json like:
 ```
   "autoUpdateRepos": [
-    "http://mirror.aquila.org/auto-updates/%s",
+    "http://mirror.aquilanetwork.org/auto-updates/%s",
     "https://server.host.name@1.2.3.4/Aquila/%s"
   ]
 ```
