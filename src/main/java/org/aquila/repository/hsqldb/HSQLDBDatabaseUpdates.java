@@ -146,6 +146,7 @@ public class HSQLDBDatabaseUpdates {
 					stmt.execute("CREATE TYPE RegisteredName AS VARCHAR(128) COLLATE SQL_TEXT_NO_PAD");
 					stmt.execute("CREATE TYPE RewardSharePercent AS INT");
 					stmt.execute("CREATE TYPE Signature AS VARBINARY(64)");
+					stmt.execute("CREATE TYPE SponsorPublicKey AS VARBINARY(32)");
 					break;
 
 				case 1:
@@ -222,7 +223,7 @@ public class HSQLDBDatabaseUpdates {
 					stmt.execute("CREATE TABLE Accounts (account AquilaAddress, reference Signature, public_key AquilaPublicKey, "
 							+ "default_group_id GroupID NOT NULL DEFAULT 0, flags INTEGER NOT NULL DEFAULT 0, level INT NOT NULL DEFAULT 0, "
 							+ "blocks_minted INTEGER NOT NULL DEFAULT 0, blocks_minted_adjustment INTEGER NOT NULL DEFAULT 0, "
-							+ "PRIMARY KEY (account))");
+							+ "sponsor_public_key SponsorPublicKey," + "PRIMARY KEY (account))"); //Added Sponsor Public Key by Sahkan
 					// For looking up an account by public key
 					stmt.execute("CREATE INDEX AccountPublicKeyIndex on Accounts (public_key)");
 					// Use a separate table space as this table will be very large.
