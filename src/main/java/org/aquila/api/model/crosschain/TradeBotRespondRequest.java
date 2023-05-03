@@ -8,7 +8,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TradeBotRespondRequest {
 
-	@Schema(description = "Aquila AT address", example = "Caaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+	@Schema(description = "Aquila AT address", example = "Ccccccccccccccccccccccccc")
 	public String atAddress;
 
 	@Deprecated
